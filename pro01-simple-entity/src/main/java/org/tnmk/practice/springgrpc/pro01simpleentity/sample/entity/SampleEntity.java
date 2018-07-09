@@ -1,21 +1,23 @@
 package org.tnmk.practice.springgrpc.pro01simpleentity.sample.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "sample_entity", catalog = "sample_db")
 public class SampleEntity {
     @Id
-    private String id;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(name = "sample_entity_id")
+    private Long sampleEntityId;
 
     private String name;
 
-    public String getId() {
-        return id;
+    public Long getSampleEntityId() {
+        return sampleEntityId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSampleEntityId(Long sampleEntityId) {
+        this.sampleEntityId = sampleEntityId;
     }
 
     public String getName() {
