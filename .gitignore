@@ -1,3 +1,4 @@
+*.log
 **/.gradle
 **/gradle/
 **/gradlew
