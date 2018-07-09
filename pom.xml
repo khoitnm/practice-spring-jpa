@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pro01-application-event</module>
+        <module>pro01-simple-entity</module>
     </modules>
 
     <parent>

@@ -1,8 +1,8 @@
 # I. Introduction
-The project using Spring Event. It's the abstract development model that we can switch between Application Event (sync & async), JMS, or even Kafka.
+Of courses this practice is used for demo connecting to DB. But the main reason for this project is I want to see the generated SQL script from the entity classes.  
 
 # II. Build projects
-Run the command line, it will complie the source code, build project, and then run tests.
+Run the command line, it will compile the source code, build project, and then run tests.
 ```
 mvn clean install 
 ```
@@ -20,7 +20,7 @@ mvn spring-boot:run
 ``` 
 Or you can use:
 ```
-java -jar target/pro01-application-event-0.0.1-SNAPSHOT.jar 
+java -jar target/pro01-simple-entity-0.0.1-SNAPSHOT.jar 
 ```
 
 To stop it, press `Ctrl-C`
