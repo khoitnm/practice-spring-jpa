@@ -10,6 +10,7 @@
 
     <modules>
         <module>pro01-simple-entity</module>
+        <module>pro02-json-column</module>
     </modules>
 
     <parent>
