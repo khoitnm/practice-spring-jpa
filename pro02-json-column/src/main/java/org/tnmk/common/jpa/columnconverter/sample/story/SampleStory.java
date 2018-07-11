@@ -1,12 +1,13 @@
-package org.tnmk.practice.springgrpc.pro02jsoncolumn.sample.story;
+package org.tnmk.common.jpa.columnconverter.sample.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.springgrpc.pro02jsoncolumn.sample.entity.SampleEntity;
-import org.tnmk.practice.springgrpc.pro02jsoncolumn.sample.repository.SampleRepository;
+import org.tnmk.common.jpa.columnconverter.sample.entity.SampleEntity;
+import org.tnmk.common.jpa.columnconverter.sample.repository.SampleRepository;
 
 @Service
 public class SampleStory {
+
     @Autowired
     private SampleRepository sampleRepository;
 

@@ -1,4 +1,4 @@
-package org.tnmk.practice.springgrpc.pro02jsoncolumn;
+package org.tnmk.common.jpa.columnconverter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

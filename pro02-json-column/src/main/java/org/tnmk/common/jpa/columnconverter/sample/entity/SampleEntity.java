@@ -1,4 +1,7 @@
-package org.tnmk.practice.springgrpc.pro02jsoncolumn.sample.entity;
+package org.tnmk.common.jpa.columnconverter.sample.entity;
+
+import org.tnmk.common.jpa.columnconverter.sample.entity.columnconverter.SampleEntityConverter;
+import org.tnmk.common.jpa.columnconverter.sample.entity.columnconverter.SampleEntityListConverter;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,8 +16,12 @@ public class SampleEntity {
 
     private String name;
 
+    @Column(name = "main_child_entity", columnDefinition = "JSON")
+    @Convert(converter = SampleEntityConverter.class)
     private ChildEntity mainChildEntity;
 
+    @Column(name = "other_child_entities", columnDefinition = "JSON")
+    @Convert(converter = SampleEntityListConverter.class)
     private List<ChildEntity> otherChildEntities;
 
     public Long getSampleEntityId() {
