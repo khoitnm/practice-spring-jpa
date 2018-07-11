@@ -7,7 +7,7 @@ spring:
     username: root
     password: root
     hikari:
-      pool-name: hotel-management
+      pool-name: json-column-db
 
   # http://www.baeldung.com/sql-logging-spring-boot
   # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
