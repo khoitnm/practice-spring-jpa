@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "sample_entity", catalog = "practice_spring_jpa")
+@Table(name = "sample_entity")
 public class SampleEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
