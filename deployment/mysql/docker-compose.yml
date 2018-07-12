@@ -8,8 +8,8 @@ services:
     ports:
       - 3306:3306
     environment:
-      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST:-localhost}
+      MYSQL_ROOT_HOST: 172.*.*.*
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-      MYSQL_DATABASE: ${MYSQL_DATABASE:-practice-spring-jpa}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-practice_spring_jpa_db}
       MYSQL_USER: ${MYSQL_USER:-user}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD:-user}
