@@ -3,6 +3,7 @@ version: '3'
 services:
   mysql:
     image: mysql:5.7
+    container_name: mysql
     restart: always
     ports:
       - 3306:3306
@@ -10,5 +11,5 @@ services:
       MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST:-localhost}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-practice-spring-jpa}
-#      MYSQL_USER: ${MYSQL_USER:-root}
-#      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-root}
+      MYSQL_USER: ${MYSQL_USER:-user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-user}
