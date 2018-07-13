@@ -1,4 +1,4 @@
-package org.tnmk.practice.springgrpc.pro01simpleentity;
+package org.tnmk.practicespringjpa.pro01simpleentity;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
