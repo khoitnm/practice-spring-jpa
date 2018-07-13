@@ -6,4 +6,4 @@ spring:
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
       hibernate.dialect:
-      database-platform: org.hibernate.dialect.PostgreSQLDialect
+#      database-platform: org.hibernate.dialect.PostgreSQLDialect
