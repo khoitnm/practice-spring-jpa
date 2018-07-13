@@ -11,20 +11,9 @@ import org.tnmk.practicespringjpa.samplebusiness.story.SampleStory;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-//@AutoConfigureEmbeddedDatabase(beanName = "dataSource")
-//@AutoConfigureTestDatabase(replace = NONE)
-//@AutoConfigureEmbeddedDatabase
-//@FlywayTest
-//@DataJpaTest
 @SpringBootTest(classes = {JsonColumnApplication.class})
 @ContextConfiguration(initializers = EmbeddedDBContextInitializer.class)
 public class JsonColumnAppTest {
-//
-//    @Bean
-//    public DataSource dataSource(){
-//        return EmbeddedDBStarter.embeddedPostgres.getPostgresDatabase();
-//    }
-
     @Autowired
     private SampleStory sampleStory;
 
