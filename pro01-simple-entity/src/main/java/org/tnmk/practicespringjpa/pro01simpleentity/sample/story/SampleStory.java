@@ -1,9 +1,11 @@
-package org.tnmk.practice.springgrpc.pro01simpleentity.sample.story;
+package org.tnmk.practicespringjpa.pro01simpleentity.sample.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practice.springgrpc.pro01simpleentity.sample.entity.SampleEntity;
-import org.tnmk.practice.springgrpc.pro01simpleentity.sample.repository.SampleRepository;
+import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleRepository;
+import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleRepository;
 
 @Service
 public class SampleStory {
