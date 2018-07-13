@@ -9,14 +9,7 @@ public class EmbeddedDBStarter {
 
     private static EmbeddedPostgres construct() {
         try {
-            return EmbeddedPostgres.builder()
-//                .
-//                .setServerConfig("dbName","practice_spring_jpa_db")
-//                .setServerConfig("userName","postgres")
-//                .setConnectConfig("dbName", "practice_spring_jpa_db")
-//                .setConnectConfig("userName", "postgres")
-//                .setPort(3609)
-                .start();
+            return EmbeddedPostgres.builder().start();
         } catch (IOException e) {
             throw new RuntimeException("Cannot start EmbeddedPostgres: " + e.getMessage(), e);
         }
