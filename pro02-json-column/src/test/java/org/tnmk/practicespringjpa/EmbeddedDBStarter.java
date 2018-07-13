@@ -5,11 +5,18 @@ import com.opentable.db.postgres.embedded.EmbeddedPostgres;
 import java.io.IOException;
 
 public class EmbeddedDBStarter {
-    public static EmbeddedPostgres embeddedPostgres;
+    public static final EmbeddedPostgres EMBEDDED_POSTGRES = construct();
 
-    static {
+    private static EmbeddedPostgres construct() {
         try {
-            embeddedPostgres = EmbeddedPostgres.start();
+            return EmbeddedPostgres.builder()
+//                .
+//                .setServerConfig("dbName","practice_spring_jpa_db")
+//                .setServerConfig("userName","postgres")
+//                .setConnectConfig("dbName", "practice_spring_jpa_db")
+//                .setConnectConfig("userName", "postgres")
+//                .setPort(3609)
+                .start();
         } catch (IOException e) {
             throw new RuntimeException("Cannot start EmbeddedPostgres: " + e.getMessage(), e);
         }
