@@ -1,7 +1,11 @@
 spring:
   datasource:
-#    url: jdbc:mysql://localhost:3307/practice_spring_jpa_db?useSSL=false
     url: theurlwillbereplacedby EmbeddedDBContextInitializer
+    username: theurlwillbereplacedby EmbeddedDBContextInitializer
+    password: theurlwillbereplacedby EmbeddedDBContextInitializer
+    schema-username: theurlwillbereplacedby EmbeddedDBContextInitializer
+    schema-password: theurlwillbereplacedby EmbeddedDBContextInitializer
+
   jpa:
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true

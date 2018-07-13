@@ -1,17 +1,21 @@
 package org.tnmk.practicespringjpa;
 
-import com.opentable.db.postgres.embedded.EmbeddedPostgres;
+import com.wix.mysql.EmbeddedMysql;
+import com.wix.mysql.config.SchemaConfig;
 
 import java.io.IOException;
 
-public class EmbeddedDBStarter {
-    public static final EmbeddedPostgres EMBEDDED_POSTGRES = construct();
+import static com.wix.mysql.distribution.Version.v5_7_latest;
 
-    private static EmbeddedPostgres construct() {
-        try {
-            return EmbeddedPostgres.builder().start();
-        } catch (IOException e) {
-            throw new RuntimeException("Cannot start EmbeddedPostgres: " + e.getMessage(), e);
-        }
+/**
+ * https://github.com/wix/wix-embedded-mysql
+ */
+public class EmbeddedDBStarter {
+    public static final EmbeddedMysql EMBEDDED_MYSQL = construct();
+    private static EmbeddedMysql construct() {
+        EmbeddedMysql embeddedMysql = EmbeddedMysql.anEmbeddedMysql(v5_7_latest)
+            .addSchema("practice_spring_jpa_db")
+            .start();
+        return embeddedMysql;
     }
 }
