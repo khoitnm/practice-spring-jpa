@@ -1,10 +1,10 @@
-package org.tnmk.common.jpa.columnconverter.sample.story;
+package org.tnmk.practicespringjpa.samplebusiness.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.common.jpa.columnconverter.sample.entity.ChildEntity;
-import org.tnmk.common.jpa.columnconverter.sample.entity.SampleEntity;
-import org.tnmk.common.jpa.columnconverter.sample.repository.SampleRepository;
+import org.tnmk.practicespringjpa.samplebusiness.entity.ChildEntity;
+import org.tnmk.practicespringjpa.samplebusiness.entity.SampleEntity;
+import org.tnmk.practicespringjpa.samplebusiness.repository.SampleRepository;
 
 import java.util.Arrays;
 

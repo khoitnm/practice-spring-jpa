@@ -4,7 +4,7 @@ spring:
   # I just put it here to show you how to configure the DB for Batch job. If you comment out the datasource block, the could should still run fine.
   datasource:
     #The DB name cannot contains hyphen character "-", you should use underscore character "_".
-    url: jdbc:mysql://localhost:3306/practice_spring_jpa_db?useSSL=false
+    url: jdbc:mysql://localhost:3307/practice_spring_jpa_db?useSSL=false
     username: user
     password: user
 
@@ -12,8 +12,8 @@ spring:
     schema-username: root
     schema-password: root
 
-    #Note sure this is necessary
-    platform: mysql
+    #The platform for DDL or DML scripts (it's all by default)
+#    platform: mysql
 
     #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
     hikari:

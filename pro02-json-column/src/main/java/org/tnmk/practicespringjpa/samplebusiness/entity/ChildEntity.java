@@ -1,4 +1,4 @@
-package org.tnmk.common.jpa.columnconverter.sample.entity;
+package org.tnmk.practicespringjpa.samplebusiness.entity;
 
 public class ChildEntity {
     private String name;

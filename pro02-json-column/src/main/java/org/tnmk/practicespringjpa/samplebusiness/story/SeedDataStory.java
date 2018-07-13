@@ -1,4 +1,4 @@
-package org.tnmk.common.jpa.columnconverter.sample.story;
+package org.tnmk.practicespringjpa.samplebusiness.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

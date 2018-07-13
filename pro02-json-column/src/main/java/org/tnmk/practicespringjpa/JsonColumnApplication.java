@@ -1,4 +1,4 @@
-package org.tnmk.common.jpa.columnconverter;
+package org.tnmk.practicespringjpa;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
