@@ -1,4 +1,4 @@
-package org.tnmk.common.jpa.columnconverter.sample.entity.columnconverter;
+package org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
