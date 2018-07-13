@@ -5,9 +5,9 @@ spring:
     password: theurlwillbereplacedby EmbeddedDBContextInitializer
     schema-username: theurlwillbereplacedby EmbeddedDBContextInitializer
     schema-password: theurlwillbereplacedby EmbeddedDBContextInitializer
-
-  jpa:
-    properties:
-      hibernate.jdbc.lob.non_contextual_creation: true
-      hibernate.dialect:
-#      database-platform: org.hibernate.dialect.PostgreSQLDialect
+#
+#  jpa:
+#    properties:
+#      hibernate.jdbc.lob.non_contextual_creation: true
+#      hibernate.dialect:
+##      database-platform: org.hibernate.dialect.PostgreSQLDialect
