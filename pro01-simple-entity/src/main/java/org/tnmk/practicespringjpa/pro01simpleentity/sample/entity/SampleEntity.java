@@ -1,4 +1,4 @@
-package org.tnmk.practice.springgrpc.pro01simpleentity.sample.entity;
+package org.tnmk.practicespringjpa.pro01simpleentity.sample.entity;
 
 import javax.persistence.*;
 

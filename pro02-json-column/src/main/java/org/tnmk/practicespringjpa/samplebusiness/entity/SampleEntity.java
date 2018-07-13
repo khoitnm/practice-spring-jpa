@@ -1,7 +1,9 @@
-package org.tnmk.common.jpa.columnconverter.sample.entity;
+package org.tnmk.practicespringjpa.samplebusiness.entity;
 
-import org.tnmk.common.jpa.columnconverter.sample.entity.columnconverter.ChildEntityConverter;
-import org.tnmk.common.jpa.columnconverter.sample.entity.columnconverter.ChildEntityListConverter;
+import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityConverter;
+import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityListConverter;
+import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityConverter;
+import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityListConverter;
 
 import javax.persistence.*;
 import java.util.List;
