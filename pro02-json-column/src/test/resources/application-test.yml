@@ -1,9 +1,13 @@
+# Check more here? https://www.javaadvent.com/2017/12/map-json-collections-using-jpa-hibernate.html
 spring:
   datasource:
-#    url: jdbc:mysql://localhost:3307/practice_spring_jpa_db?useSSL=false
-    url: theurlwillbereplacedby EmbeddedDBContextInitializer
+    url: jdbc:hsqldb:mem:myDb
+    username: sa
+    password: sa
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    schema-username: sa
+    schema-password: sa
   jpa:
     properties:
       hibernate.jdbc.lob.non_contextual_creation: true
       hibernate.dialect:
-#      database-platform: org.hibernate.dialect.PostgreSQLDialect
