@@ -12,6 +12,10 @@ public class SampleEntity {
 
     private String name;
 
+    @OneToOne
+    @JoinColumn(name = "another_entity_id")
+    private AnotherEntity anotherEntity;
+
     public Long getSampleEntityId() {
         return sampleEntityId;
     }
@@ -27,4 +31,20 @@ public class SampleEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+    public AnotherEntity getAnotherEntity() {
+        return anotherEntity;
+    }
+
+    public void setAnotherEntity(AnotherEntity anotherEntity) {
+        this.anotherEntity = anotherEntity;
+    }
+
+//    public AnotherEntity getAnotherEntity() {
+//        return anotherEntity;
+//    }
+//
+//    public void setAnotherEntity(AnotherEntity anotherEntity) {
+//        this.anotherEntity = anotherEntity;
+//    }
 }

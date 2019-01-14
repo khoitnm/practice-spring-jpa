@@ -9,7 +9,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "sample_entity")
+@Table(name = "sample_entity"
+    /**
+     * This name must match with DB name (in application.yml, docker.yml, and testing EmbeddedDBStarter)
+     */
+    , catalog = "practice_spring_jpa_db"
+)
 public class SampleEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
