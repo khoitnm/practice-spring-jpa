@@ -39,12 +39,4 @@ public class SampleEntity {
     public void setAnotherEntity(AnotherEntity anotherEntity) {
         this.anotherEntity = anotherEntity;
     }
-
-//    public AnotherEntity getAnotherEntity() {
-//        return anotherEntity;
-//    }
-//
-//    public void setAnotherEntity(AnotherEntity anotherEntity) {
-//        this.anotherEntity = anotherEntity;
-//    }
 }
