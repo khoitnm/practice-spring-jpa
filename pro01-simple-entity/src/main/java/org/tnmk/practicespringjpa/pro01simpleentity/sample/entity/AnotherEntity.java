@@ -1,6 +1,9 @@
 package org.tnmk.practicespringjpa.pro01simpleentity.sample.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
@@ -10,8 +13,6 @@ public class AnotherEntity {
     @Column(name = "another_entity_id")
     private UUID anotherEntityId;
 
-    @OneToOne(mappedBy = "anotherEntity")
-    private SampleEntity sampleEntity;
 
     public UUID getAnotherEntityId() {
         return anotherEntityId;
@@ -19,13 +20,5 @@ public class AnotherEntity {
 
     public void setAnotherEntityId(UUID anotherEntityId) {
         this.anotherEntityId = anotherEntityId;
-    }
-
-    public SampleEntity getSampleEntity() {
-        return sampleEntity;
-    }
-
-    public void setSampleEntity(SampleEntity sampleEntity) {
-        this.sampleEntity = sampleEntity;
     }
 }
