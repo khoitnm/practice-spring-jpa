@@ -7,6 +7,7 @@ import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntityWi
 import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleJdbcRepostiory;
 import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleRepository;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service

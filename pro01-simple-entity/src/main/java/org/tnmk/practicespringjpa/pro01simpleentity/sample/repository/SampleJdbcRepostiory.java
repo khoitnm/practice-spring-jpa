@@ -15,7 +15,7 @@ public class SampleJdbcRepostiory {
     private JdbcTemplate jdbcTemplate;
 
     public List<SampleEntityWithUrl> findSampleEntitiesWithUrl(){
-        List<SampleEntityWithUrl>  sampleEntityWithUrls = jdbcTemplate.query("select entity.*, concat('http://somedomain/', entity.name) as entity.url from sample_entity entity",
+        List<SampleEntityWithUrl>  sampleEntityWithUrls = jdbcTemplate.query("select entity.*, concat('http://somedomain/', entity.name) as url from sample_entity entity",
             new BeanPropertyRowMapper<>(SampleEntityWithUrl.class)
         );
         return sampleEntityWithUrls;
