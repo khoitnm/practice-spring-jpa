@@ -26,6 +26,6 @@ class SampleJdbcTemplateSpec extends BaseSpecification{
         List<SampleEntityWithUrl> sampleEntityWithUrlList = sampleStory.findSampleEntitiesWithUrl();
 
         then:
-        sampleEntityWithUrlList.size() == 1;
+        !sampleEntityWithUrlList.isEmpty()
     }
 }
