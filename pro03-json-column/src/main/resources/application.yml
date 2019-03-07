@@ -1,0 +1,33 @@
+
+spring:
+  # The DB Connection to In-Memory DB. Actually you don't need this configuration, they are all in the default configuration.
+  # I just put it here to show you how to configure the DB for Batch job. If you comment out the datasource block, the could should still run fine.
+  datasource:
+    #The DB name cannot contains hyphen character "-", you should use underscore character "_".
+    url: jdbc:mysql://localhost:3307/practice_spring_jpa_db?useSSL=false
+    username: user
+    password: user
+
+    #Account for running schema scripts
+    schema-username: root
+    schema-password: root
+
+    #The platform for DDL or DML scripts (it's all by default)
+#    platform: mysql
+
+    #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
+    hikari:
+      pool-name: practice-spring-jpa
+
+  # http://www.baeldung.com/sql-logging-spring-boot
+  # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
+  # Moreover, it doesn’t log the parameters of prepared statements.
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    # there is quite a history behind this setting https://github.com/spring-projects/spring-boot/issues/7107
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
