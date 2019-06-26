@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    driver-class-name: org.hsqldb.jdbc.JDBCDriver
+    url: jdbc:hsqldb:mem:myDb
+    username: sa
+    password: sa
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
