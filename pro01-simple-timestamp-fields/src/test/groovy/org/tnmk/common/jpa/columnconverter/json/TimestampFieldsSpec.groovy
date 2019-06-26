@@ -37,6 +37,7 @@ class TimestampFieldsSpec extends BaseSpecification {
         savedNewEntity.getCreatedDateTime() != null
         foundNewEntity.getCreatedDateTime() != null
 
+        foundNewEntity.getUpdateDateTime().equals(savedNewEntity.getUpdateDateTime())
 
         foundUpdatedEntity.getCreatedDateTime().equals(savedNewEntity.getCreatedDateTime())
         foundUpdatedEntity.getUpdateDateTime().isAfter(savedNewEntity.getUpdateDateTime())
