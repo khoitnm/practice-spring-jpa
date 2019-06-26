@@ -7,18 +7,18 @@ import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "sample_entity", catalog = "sample_db")
+@Table(name = "sample_entity", catalog = "practice_spring_jpa_db")
 public class SampleEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sample_entity_id")
     private Long id;
 
-    @Column(name = "creation_dateTime", updatable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    @Column(name = "creation_dateTime", updatable = false, columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6)")
     @CreationTimestamp
     private Instant createdDateTime;
 
-    @Column(name = "update_dateTime", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @Column(name = "update_dateTime", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)")
     @UpdateTimestamp
     private Instant updateDateTime;
 
