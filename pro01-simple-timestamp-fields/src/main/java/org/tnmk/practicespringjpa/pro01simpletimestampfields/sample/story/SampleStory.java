@@ -6,7 +6,6 @@ import org.tnmk.practicespringjpa.pro01simpletimestampfields.sample.entity.Sampl
 import org.tnmk.practicespringjpa.pro01simpletimestampfields.sample.repository.SampleRepository;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,8 +24,12 @@ public class SampleStory {
         return sampleRepository.save(sampleEntity);
     }
 
-    public Optional<SampleEntity> findById(Long id){
-        return sampleRepository.findById(id);
+    public SampleEntity update(SampleEntity sampleEntity){
+        return sampleRepository.save(sampleEntity);
+    }
+
+    public SampleEntity findById(Long id){
+        return sampleRepository.findById(id).orElse(null);
     }
 
 }
