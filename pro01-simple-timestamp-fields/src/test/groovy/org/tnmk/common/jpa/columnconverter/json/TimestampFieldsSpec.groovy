@@ -23,8 +23,8 @@ class TimestampFieldsSpec extends BaseSpecification {
         /**
          * UpdateEntity's {@link SampleEntity#createdDateTime} and {@link SampleEntity#updateDateTime} are null.
          * And they should be automatically updated correctly.
-         * However, those value will not be automatically return from the {@link SampleStory#update(SampleEntity)}.
-         * We must retrieve from DB to get those value.
+         * However, the {@link SampleEntity#createdDateTime}  will not be automatically return from the {@link SampleStory#update(SampleEntity)} (even though the {@link SampleEntity#updateDateTime} will be automatically return because DB will automatically change that value).
+         * We must retrieve {@link SampleEntity} from DB again to get {@link SampleEntity#createdDateTime}.
          */
         SampleEntity updateEntity = new SampleEntity();
         updateEntity.setId(savedNewEntity.getId());
@@ -39,7 +39,11 @@ class TimestampFieldsSpec extends BaseSpecification {
 
         foundNewEntity.getUpdateDateTime().equals(savedNewEntity.getUpdateDateTime())
 
+        savedUpdateEntity.getCreatedDateTime() == null //because we didn't set any value for it.
+        savedUpdateEntity.getUpdateDateTime().isAfter(foundNewEntity.getUpdateDateTime())
+
+        foundUpdatedEntity.getCreatedDateTime() != null
         foundUpdatedEntity.getCreatedDateTime().equals(savedNewEntity.getCreatedDateTime())
-        foundUpdatedEntity.getUpdateDateTime().isAfter(savedNewEntity.getUpdateDateTime())
+        foundUpdatedEntity.getUpdateDateTime().equals(savedUpdateEntity.getUpdateDateTime())
     }
 }
