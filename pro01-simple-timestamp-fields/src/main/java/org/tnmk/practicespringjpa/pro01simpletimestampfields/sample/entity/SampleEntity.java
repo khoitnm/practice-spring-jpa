@@ -1,5 +1,8 @@
 package org.tnmk.practicespringjpa.pro01simpletimestampfields.sample.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -12,9 +15,11 @@ public class SampleEntity {
     private Long id;
 
     @Column(name = "creation_dateTime", updatable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    @CreationTimestamp
     private Instant createdDateTime;
 
     @Column(name = "update_dateTime", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    @UpdateTimestamp
     private Instant updateDateTime;
 
     private String name;
