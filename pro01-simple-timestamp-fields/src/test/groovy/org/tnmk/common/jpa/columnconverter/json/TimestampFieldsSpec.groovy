@@ -28,6 +28,7 @@ class TimestampFieldsSpec extends BaseSpecification {
          */
         SampleEntity updateEntity = new SampleEntity();
         updateEntity.setId(savedNewEntity.getId());
+        updateEntity.setName("NewName_"+System.nanoTime())
         SampleEntity savedUpdateEntity = sampleStory.update(updateEntity);
 
         SampleEntity foundUpdatedEntity = sampleStory.findById(savedNewEntity.getId());
