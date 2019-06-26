@@ -14,6 +14,13 @@ public class SampleEntity {
     @Column(name = "sample_entity_id")
     private Long id;
 
+    /**
+     * We need to use TIMESTAMP(6) so that it can store nanoseconds.
+     * <br/>
+     * If we just use TIMESTAMP:
+     * - For HSQL, it may still store microsecond
+     * - For MysQL, it just store second, not microsecond, not nanosecond.
+     */
     @Column(name = "creation_dateTime", updatable = false, columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6)")
     @CreationTimestamp
     private Instant createdDateTime;
