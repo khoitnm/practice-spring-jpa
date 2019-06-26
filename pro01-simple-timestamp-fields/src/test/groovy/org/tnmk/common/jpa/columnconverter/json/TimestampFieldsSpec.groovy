@@ -13,7 +13,7 @@ class TimestampFieldsSpec extends BaseSpecification {
     def 'Can save and get timestamp fields'() {
         given:
         SampleEntity newEntity = new SampleEntity(
-                name: "Entity_" + System.nanoTime()
+                name: "New Name" + System.nanoTime()
         );
         SampleEntity savedNewEntity = sampleStory.create(newEntity);
 
@@ -28,7 +28,7 @@ class TimestampFieldsSpec extends BaseSpecification {
          */
         SampleEntity updateEntity = new SampleEntity();
         updateEntity.setId(savedNewEntity.getId());
-        updateEntity.setName("NewName_"+System.nanoTime())
+        updateEntity.setName("Updated Name "+System.nanoTime())
         SampleEntity savedUpdateEntity = sampleStory.update(updateEntity);
 
         SampleEntity foundUpdatedEntity = sampleStory.findById(savedNewEntity.getId());
