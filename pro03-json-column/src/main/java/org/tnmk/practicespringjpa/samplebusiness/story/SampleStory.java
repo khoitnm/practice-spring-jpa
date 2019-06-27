@@ -19,6 +19,10 @@ public class SampleStory {
         sampleEntity.setName("Sample_" + System.nanoTime());
         sampleEntity.setMainChildEntity(constructChildEntity());
         sampleEntity.setOtherChildEntities(Arrays.asList(constructChildEntity(), constructChildEntity()));
+
+        //FIXME when creating a single entity, Hibernate execute 2 queries: insert & update.
+        // The reason is JsonConverter, which makes comparision is different
+        // Fix: We should implement equals() and hashCode() for entities.
         return sampleRepository.save(sampleEntity);
     }
 
