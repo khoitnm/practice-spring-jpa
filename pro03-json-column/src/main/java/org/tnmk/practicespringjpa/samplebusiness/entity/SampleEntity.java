@@ -1,13 +1,13 @@
 package org.tnmk.practicespringjpa.samplebusiness.entity;
 
-import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityConverter;
-import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityListConverter;
+import org.hibernate.annotations.DynamicUpdate;
 import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityConverter;
 import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityListConverter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@DynamicUpdate//TODO SQL statement for update won't include unchanged fields. Split this demo to another module?
 @Entity
 @Table(name = "sample_entity"
     /**
