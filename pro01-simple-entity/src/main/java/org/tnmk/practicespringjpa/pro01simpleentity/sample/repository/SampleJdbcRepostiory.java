@@ -15,7 +15,7 @@ public class SampleJdbcRepostiory {
     private JdbcTemplate jdbcTemplate;
 
     public List<SampleEntityWithUrl> findSampleEntitiesWithUrl(){
-        //The select column alias 'url' must match with the SampleEntityWithUrl.url field name. You cannot use @Column in SampleEntityWithUrl
+        /** The select column alias 'url' must match with the {@link SampleEntityWithUrl.url} field name. You cannot use @Column in SampleEntityWithUrl*/
         List<SampleEntityWithUrl>  sampleEntityWithUrls = jdbcTemplate.query("select entity.*, concat('http://somedomain/', entity.name) as url from sample_entity entity",
             new BeanPropertyRowMapper<>(SampleEntityWithUrl.class)
         );

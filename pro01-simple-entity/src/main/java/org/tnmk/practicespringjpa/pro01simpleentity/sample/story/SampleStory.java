@@ -7,9 +7,11 @@ import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntityWi
 import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleJdbcRepostiory;
 import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleRepository;
 
-import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.util.List;
 
+
+@Transactional // Without this, the service cannot commit transaction, hence cannot create/update/delete items
 @Service
 public class SampleStory {
     @Autowired
@@ -18,13 +20,17 @@ public class SampleStory {
     @Autowired
     private SampleJdbcRepostiory sampleJdbcRepostiory;
 
-    public SampleEntity createSample(){
+    public SampleEntity createSample() {
         SampleEntity sampleEntity = new SampleEntity();
         sampleEntity.setName("AAA");
         return sampleRepository.save(sampleEntity);
     }
 
-    public List<SampleEntityWithUrl> findSampleEntitiesWithUrl(){
+    public SampleEntity create(SampleEntity sampleEntity) {
+        return sampleRepository.save(sampleEntity);
+    }
+
+    public List<SampleEntityWithUrl> findSampleEntitiesWithUrl() {
         return sampleJdbcRepostiory.findSampleEntitiesWithUrl();
     }
 }
