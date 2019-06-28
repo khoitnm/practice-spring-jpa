@@ -9,20 +9,26 @@ import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.C
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
+
 /**
  * NOTE that we can have 2 entities classes associated to the same table.
  */
-@DynamicUpdate//TODO SQL statement for update won't include unchanged fields. Split this demo to another module?
+//TODO SQL statement for update won't include unchanged fields. Split this demo to another module?
+// https://stackoverflow.com/questions/3404630/hibernate-dynamic-update-dynamic-insert-performance-effects?noredirect=1&lq=1
+// https://stackoverflow.com/questions/41633250/how-dynamic-update-true-works-internally-in-hibernate
+// Note: when updating a previously detached object. For that to work the record first needs to be fetched from the db, as a detached object isn't in the session cache. Hence dynamic update in this case requires an extra round trip to perform the initial fetch.
+@DynamicUpdate
+
 @Entity
 @Table(name = "sample_entity"
-    /**
-     * This name must match with DB name (in application.yml, docker.yml, and testing EmbeddedDBStarter)
-     */
-    , catalog = "practice_spring_jpa_db"
+        /**
+         * This name must match with DB name (in application.yml, docker.yml, and testing EmbeddedDBStarter)
+        */
+        , catalog = "practice_spring_jpa_db"
 )
 public class SampleEntity {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "sample_entity_id")
     private Long sampleEntityId;
 
