@@ -1,10 +1,13 @@
 package org.tnmk.practicespringjpa.samplebusiness.entity;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityConverter;
 import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityListConverter;
 
 import javax.persistence.*;
+import java.time.Instant;
 import java.util.List;
 
 @DynamicUpdate//TODO SQL statement for update won't include unchanged fields. Split this demo to another module?
@@ -30,6 +33,14 @@ public class SampleEntity {
     @Column(name = "other_child_entities", columnDefinition = "JSON")
     @Convert(converter = ChildEntityListConverter.class)
     private List<ChildEntity> otherChildEntities;
+
+    @Column(name = "creation_dateTime", updatable = false, columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6)")
+    @CreationTimestamp
+    private Instant createdDateTime;
+
+    @Column(name = "update_dateTime", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)")
+    @UpdateTimestamp
+    private Instant updateDateTime;
 
     public Long getSampleEntityId() {
         return sampleEntityId;
@@ -61,5 +72,21 @@ public class SampleEntity {
 
     public void setOtherChildEntities(List<ChildEntity> otherChildEntities) {
         this.otherChildEntities = otherChildEntities;
+    }
+
+    public Instant getCreatedDateTime() {
+        return createdDateTime;
+    }
+
+    public void setCreatedDateTime(Instant createdDateTime) {
+        this.createdDateTime = createdDateTime;
+    }
+
+    public Instant getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(Instant updateDateTime) {
+        this.updateDateTime = updateDateTime;
     }
 }
