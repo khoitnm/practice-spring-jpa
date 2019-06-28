@@ -1,15 +1,16 @@
-package org.tnmk.practicespringjpa;
+package org.tnmk.practicespringjpa.jsoncolumn;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.tnmk.practicespringjpa.BaseSpringTest;
 import org.tnmk.practicespringjpa.correctimplementation.datafactory.SampleEntityFactory;
 import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
 import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
 
 import java.util.Optional;
 
-public class CreateAndRetrieveJSONColumnTest extends BaseTest {
+public class CreateAndRetrieveJSONColumnTest extends BaseSpringTest {
     @Autowired
     private SampleStory sampleStory;
 

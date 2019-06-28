@@ -1,10 +1,9 @@
-package org.tnmk.common.comparision;
+package org.tnmk.practicespringjpa.comparision;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ComparisionTest {
-
 
     @Test
     public void test_reflectionEquals_will_use_our_equals_implementation_instead_of_blindly_compare_all_fields() {
