@@ -18,7 +18,7 @@ import java.util.List;
      */
     , catalog = "practice_spring_jpa_db"
 )
-public class SampleEntity {
+public class ParentEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "sample_entity_id")

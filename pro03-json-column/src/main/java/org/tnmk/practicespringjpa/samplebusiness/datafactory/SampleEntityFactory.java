@@ -1,17 +1,17 @@
 package org.tnmk.practicespringjpa.samplebusiness.datafactory;
 
 import org.tnmk.practicespringjpa.samplebusiness.entity.ChildEntity;
-import org.tnmk.practicespringjpa.samplebusiness.entity.SampleEntity;
+import org.tnmk.practicespringjpa.samplebusiness.entity.ParentEntity;
 
 import java.util.Arrays;
 
 public class SampleEntityFactory {
-    public static SampleEntity constructSampleEntity() {
-        SampleEntity sampleEntity = new SampleEntity();
-        sampleEntity.setName("Sample_" + System.nanoTime());
-        sampleEntity.setMainChildEntity(constructChildEntity());
-        sampleEntity.setOtherChildEntities(Arrays.asList(constructChildEntity(), constructChildEntity()));
-        return sampleEntity;
+    public static ParentEntity constructSampleEntity() {
+        ParentEntity parentEntity = new ParentEntity();
+        parentEntity.setName("Sample_" + System.nanoTime());
+        parentEntity.setMainChildEntity(constructChildEntity());
+        parentEntity.setOtherChildEntities(Arrays.asList(constructChildEntity(), constructChildEntity()));
+        return parentEntity;
     }
 
     public static ChildEntity constructChildEntity() {

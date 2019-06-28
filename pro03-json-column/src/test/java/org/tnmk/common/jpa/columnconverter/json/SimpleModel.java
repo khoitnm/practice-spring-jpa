@@ -1,5 +1,8 @@
 package org.tnmk.common.jpa.columnconverter.json;
 
+/**
+ * @see org.tnmk.common.jpa.columnconverter.json
+ */
 public class SimpleModel {
     private Long id;
     private String name;
