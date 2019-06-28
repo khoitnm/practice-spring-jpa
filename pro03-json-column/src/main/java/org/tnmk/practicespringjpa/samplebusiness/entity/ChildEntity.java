@@ -1,9 +1,22 @@
 package org.tnmk.practicespringjpa.samplebusiness.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 public class ChildEntity {
     private String name;
 
     private String description;
+
+    @Override
+    public boolean equals(Object o){
+        return EqualsBuilder.reflectionEquals(this, o);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
     public String getName() {
         return name;
