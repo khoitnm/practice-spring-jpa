@@ -2,8 +2,11 @@ package org.tnmk.practicespringjpa.samplebusiness.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-
+/**
+ * This entity doesn't have id because it will be stored as a JSON column inside {@link SampleEntity}.
+ */
 public class ChildEntity {
+
     private String name;
 
     private String description;
