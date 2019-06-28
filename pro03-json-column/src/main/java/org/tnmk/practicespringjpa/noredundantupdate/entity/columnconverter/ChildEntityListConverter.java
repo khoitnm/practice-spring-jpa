@@ -1,7 +1,7 @@
-package org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter;
+package org.tnmk.practicespringjpa.noredundantupdate.entity.columnconverter;
 
 import org.tnmk.common.jpa.columnconverter.json.JsonConverter;
-import org.tnmk.practicespringjpa.samplebusiness.entity.ChildEntity;
+import org.tnmk.practicespringjpa.noredundantupdate.entity.ChildEntity;
 
 import java.util.List;
 

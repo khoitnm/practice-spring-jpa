@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa;
+package org.tnmk.practicespringjpa.common.embeddeddb;
 
 import com.wix.mysql.EmbeddedMysql;
 
