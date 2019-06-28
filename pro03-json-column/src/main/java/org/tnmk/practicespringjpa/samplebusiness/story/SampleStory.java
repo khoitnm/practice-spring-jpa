@@ -14,9 +14,6 @@ public class SampleStory {
     private SampleRepository sampleRepository;
 
     public ParentEntity create(ParentEntity parentEntity) {
-        //FIXME when creating a single entity, Hibernate execute 2 queries: insert & update.
-        // The reason is JsonConverter, which makes comparision is different
-        // Fix: We should implement equals() and hashCode() for entities.
         return sampleRepository.save(parentEntity);
     }
 
