@@ -17,6 +17,7 @@ import java.util.List;
 // https://stackoverflow.com/questions/3404630/hibernate-dynamic-update-dynamic-insert-performance-effects?noredirect=1&lq=1
 // https://stackoverflow.com/questions/41633250/how-dynamic-update-true-works-internally-in-hibernate
 // Note: when updating a previously detached object. For that to work the record first needs to be fetched from the db, as a detached object isn't in the session cache. Hence dynamic update in this case requires an extra round trip to perform the initial fetch.
+// So, we shouldn't just use it by default. Please carefully consider before using it.
 @DynamicUpdate
 
 @Entity
