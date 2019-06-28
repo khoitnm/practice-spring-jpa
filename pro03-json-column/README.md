@@ -14,10 +14,10 @@ This project will demonstrate how to define a JSON column and how to test it wit
 We must implement the `equals()` and `hashCode()` for the model which will be stored as JSON.
 For example:
 ```
-SampleEntity (table sample_entity)
+ParentEntity (table sample_entity)
  |__ChildEntity (stored as JSON column in the table sample_entity)
 ```
-If we don't override `equals()` and `hashCode()` in `ChildEntity`, when Hibernate executes insert or select a `SampleEntity`, it will execute an additional update `SampleEntity` statement.
+If we don't override `equals()` and `hashCode()` in `ChildEntity`, when Hibernate executes insert or select a `ParentEntity`, it will execute an additional update `ParentEntity` statement.
 (you can see that in the log).
 We can simple fix that problem by implementing `equals()` and `hashCode()` in `ChildEntity`.
 

@@ -5,7 +5,7 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.tnmk.practicespringjpa.samplebusiness.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.samplebusiness.entity.SampleEntity;
+import org.tnmk.practicespringjpa.samplebusiness.entity.ParentEntity;
 
 @Service
 public class SeedDataStory {
@@ -15,7 +15,7 @@ public class SeedDataStory {
 
     @EventListener(ApplicationReadyEvent.class)
     public void autoStart(){
-        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
-        sampleStory.create(sampleEntity);
+        ParentEntity parentEntity = SampleEntityFactory.constructSampleEntity();
+        sampleStory.create(parentEntity);
     }
 }
