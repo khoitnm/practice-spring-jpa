@@ -1,11 +1,12 @@
-package org.tnmk.practicespringjpa.samplebusiness.story;
+package org.tnmk.practicespringjpa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.samplebusiness.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.samplebusiness.entity.ParentEntity;
+import org.tnmk.practicespringjpa.noredundantupdate.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
+import org.tnmk.practicespringjpa.noredundantupdate.story.SampleStory;
 
 @Service
 public class SeedDataStory {
@@ -15,7 +16,7 @@ public class SeedDataStory {
 
     @EventListener(ApplicationReadyEvent.class)
     public void autoStart(){
-        ParentEntity parentEntity = SampleEntityFactory.constructSampleEntity();
-        sampleStory.create(parentEntity);
+        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
+        sampleStory.create(sampleEntity);
     }
 }

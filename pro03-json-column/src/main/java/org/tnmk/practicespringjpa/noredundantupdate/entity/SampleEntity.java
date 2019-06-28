@@ -1,10 +1,10 @@
-package org.tnmk.practicespringjpa.samplebusiness.entity;
+package org.tnmk.practicespringjpa.noredundantupdate.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityConverter;
-import org.tnmk.practicespringjpa.samplebusiness.entity.columnconverter.ChildEntityListConverter;
+import org.tnmk.practicespringjpa.noredundantupdate.entity.columnconverter.ChildEntityConverter;
+import org.tnmk.practicespringjpa.noredundantupdate.entity.columnconverter.ChildEntityListConverter;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -18,7 +18,7 @@ import java.util.List;
      */
     , catalog = "practice_spring_jpa_db"
 )
-public class ParentEntity {
+public class SampleEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "sample_entity_id")

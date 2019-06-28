@@ -1,0 +1,43 @@
+package org.tnmk.practicespringjpa;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.tnmk.practicespringjpa.common.embeddeddb.EmbeddedDBContextInitializer;
+import org.tnmk.practicespringjpa.noredundantupdate.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
+import org.tnmk.practicespringjpa.noredundantupdate.story.SampleStory;
+
+import java.util.Optional;
+
+@ActiveProfiles("test")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = {JsonColumnApplication.class})
+@ContextConfiguration(initializers = EmbeddedDBContextInitializer.class)
+public class NoRedundantUpdateStatementTest {
+    @Autowired
+    private SampleStory sampleStory;
+
+    @Test
+    public void test_CanCreateAndRetrieveData_Without_ExecutingRedundantUpdateStatement() {
+        SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntity();
+        SampleEntity savedNewSampleEntity = sampleStory.create(newSampleEntity);
+
+        Assert.assertNotNull(savedNewSampleEntity.getSampleEntityId());
+        Assert.assertNotNull(savedNewSampleEntity.getCreatedDateTime());
+        Assert.assertNotNull(savedNewSampleEntity.getUpdateDateTime());
+        //The updatedDateTime doesn't change after create(), it means there's no redundant `update` statement was executed.
+        Assert.assertEquals(savedNewSampleEntity.getUpdateDateTime(), savedNewSampleEntity.getCreatedDateTime());
+
+        Optional<SampleEntity> foundSampleEntity = sampleStory.findById(savedNewSampleEntity.getSampleEntityId());
+        Assert.assertTrue(foundSampleEntity.isPresent());
+        Assert.assertEquals(savedNewSampleEntity.getCreatedDateTime(), foundSampleEntity.get().getCreatedDateTime());
+        //The updatedDateTime doesn't change after findById(), it means there's no redundant `update` statement was executed.
+        Assert.assertEquals(savedNewSampleEntity.getUpdateDateTime(), foundSampleEntity.get().getUpdateDateTime());
+    }
+}
