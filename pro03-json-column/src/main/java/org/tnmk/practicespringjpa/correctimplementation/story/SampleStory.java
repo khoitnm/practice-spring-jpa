@@ -17,6 +17,13 @@ public class SampleStory {
         return sampleRepository.save(sampleEntity);
     }
 
+    public SampleEntity update(SampleEntity sampleEntity) {
+        if (sampleEntity.getSampleEntityId() == null){
+            throw new IllegalArgumentException("you cannot update an entity with null id.");
+        }
+        return sampleRepository.save(sampleEntity);
+    }
+
     public Optional<SampleEntity> findById(long id){
         return sampleRepository.findById(id);
     }
