@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildEntityConverter;
 import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildEntityListConverter;
+import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.WrongChildEntityConverter;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -38,6 +39,10 @@ public class SampleEntity {
     @Column(name = "main_child_entity", columnDefinition = "JSON")
     @Convert(converter = ChildEntityConverter.class)
     private ChildEntity mainChildEntity;
+
+    @Column(name = "wrong_child_entity", columnDefinition = "JSON")
+    @Convert(converter = WrongChildEntityConverter.class)
+    private WrongChildEntity wrongChildEntity;
 
     @Column(name = "other_child_entities", columnDefinition = "JSON")
     @Convert(converter = ChildEntityListConverter.class)
@@ -97,5 +102,13 @@ public class SampleEntity {
 
     public void setUpdateDateTime(Instant updateDateTime) {
         this.updateDateTime = updateDateTime;
+    }
+
+    public WrongChildEntity getWrongChildEntity() {
+        return wrongChildEntity;
+    }
+
+    public void setWrongChildEntity(WrongChildEntity wrongChildEntity) {
+        this.wrongChildEntity = wrongChildEntity;
     }
 }

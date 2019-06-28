@@ -1,6 +1,8 @@
-package org.tnmk.practicespringjpa.wrongimplementation.entity;
+package org.tnmk.practicespringjpa.correctimplementation.entity;
 
-
+/**
+ * The only different with {@link org.tnmk.practicespringjpa.correctimplementation.entity.ChildEntity} is that this class doesn't override equals() and hashCode())
+ */
 public class WrongChildEntity {
 
     private String name;

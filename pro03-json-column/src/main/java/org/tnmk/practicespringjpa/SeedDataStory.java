@@ -16,7 +16,7 @@ public class SeedDataStory {
 
     @EventListener(ApplicationReadyEvent.class)
     public void autoStart(){
-        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
+        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntityWithChildren();
         sampleStory.create(sampleEntity);
     }
 }

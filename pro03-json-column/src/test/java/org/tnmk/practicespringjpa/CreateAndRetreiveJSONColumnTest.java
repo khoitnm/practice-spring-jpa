@@ -2,30 +2,20 @@ package org.tnmk.practicespringjpa;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.tnmk.practicespringjpa.common.embeddeddb.EmbeddedDBContextInitializer;
 import org.tnmk.practicespringjpa.correctimplementation.datafactory.SampleEntityFactory;
 import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
 import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
 
 import java.util.Optional;
 
-@ActiveProfiles("test")
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {JsonColumnApplication.class})
-@ContextConfiguration(initializers = EmbeddedDBContextInitializer.class)
-public class CreateAndRetreiveJSONColumnTest {
+public class CreateAndRetreiveJSONColumnTest extends BaseTest {
     @Autowired
     private SampleStory sampleStory;
 
     @Test
     public void test_canCreateAndRetrieveData() {
-        SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntity();
+        SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntityWithChildren();
         SampleEntity savedNewSampleEntity = sampleStory.create(newSampleEntity);
 
         Assert.assertNotNull(savedNewSampleEntity.getSampleEntityId());
