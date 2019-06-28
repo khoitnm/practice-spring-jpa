@@ -1,9 +1,9 @@
-package org.tnmk.practicespringjpa.noredundantupdate.story;
+package org.tnmk.practicespringjpa.correctimplementation.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
-import org.tnmk.practicespringjpa.noredundantupdate.repository.SampleRepository;
+import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
+import org.tnmk.practicespringjpa.correctimplementation.repository.SampleRepository;
 
 import java.util.Optional;
 

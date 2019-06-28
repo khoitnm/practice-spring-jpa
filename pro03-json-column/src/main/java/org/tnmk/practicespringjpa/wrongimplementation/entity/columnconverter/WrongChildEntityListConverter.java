@@ -1,7 +1,7 @@
-package org.tnmk.practicespringjpa.redundantupdate.entity.columnconverter;
+package org.tnmk.practicespringjpa.wrongimplementation.entity.columnconverter;
 
 import org.tnmk.common.jpa.columnconverter.json.JsonConverter;
-import org.tnmk.practicespringjpa.redundantupdate.entity.WrongChildEntity;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.WrongChildEntity;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package org.tnmk.practicespringjpa.redundantupdate.datafactory;
+package org.tnmk.practicespringjpa.wrongimplementation.datafactory;
 
-import org.tnmk.practicespringjpa.redundantupdate.entity.WrongChildEntity;
-import org.tnmk.practicespringjpa.redundantupdate.entity.SampleWithWrongChildEntity;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.WrongChildEntity;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.SampleWithWrongChildEntity;
 
 import java.util.Arrays;
 
