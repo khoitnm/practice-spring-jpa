@@ -3,10 +3,10 @@ package org.tnmk.practicespringjpa.comparision;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class ParentEntity {
+public class ParentWithReflectionEquals {
 
     private String name;
-    private ChildEntity childEntity;
+    private ChildIgnoreLastNameComparision childEntity;
 
     @Override
     public boolean equals(Object o) {
@@ -26,11 +26,11 @@ public class ParentEntity {
         this.name = name;
     }
 
-    public ChildEntity getChildEntity() {
+    public ChildIgnoreLastNameComparision getChildEntity() {
         return childEntity;
     }
 
-    public void setChildEntity(ChildEntity childEntity) {
+    public void setChildEntity(ChildIgnoreLastNameComparision childEntity) {
         this.childEntity = childEntity;
     }
 }

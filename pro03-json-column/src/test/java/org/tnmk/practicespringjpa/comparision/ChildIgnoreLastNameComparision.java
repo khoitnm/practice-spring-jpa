@@ -3,7 +3,7 @@ package org.tnmk.practicespringjpa.comparision;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-public class ChildEntity {
+public class ChildIgnoreLastNameComparision {
 
     private String firstName;
     private String lastName;
@@ -14,7 +14,7 @@ public class ChildEntity {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ChildEntity that = (ChildEntity) o;
+        ChildIgnoreLastNameComparision that = (ChildIgnoreLastNameComparision) o;
 
         return new EqualsBuilder()
                 .append(firstName, that.firstName)
