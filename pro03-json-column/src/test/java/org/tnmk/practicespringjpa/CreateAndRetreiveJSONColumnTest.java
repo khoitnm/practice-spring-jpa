@@ -19,25 +19,29 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {JsonColumnApplication.class})
 @ContextConfiguration(initializers = EmbeddedDBContextInitializer.class)
-public class NoRedundantUpdateStatementTest {
+public class CreateAndRetreiveJSONColumnTest {
     @Autowired
     private SampleStory sampleStory;
 
     @Test
-    public void test_CanCreateAndRetrieveData_Without_ExecutingRedundantUpdateStatement() {
+    public void test_canCreateAndRetrieveData() {
         SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntity();
         SampleEntity savedNewSampleEntity = sampleStory.create(newSampleEntity);
 
         Assert.assertNotNull(savedNewSampleEntity.getSampleEntityId());
         Assert.assertNotNull(savedNewSampleEntity.getCreatedDateTime());
         Assert.assertNotNull(savedNewSampleEntity.getUpdateDateTime());
-        //The updatedDateTime doesn't change after create(), it means there's no redundant `update` statement was executed.
-        Assert.assertEquals(savedNewSampleEntity.getUpdateDateTime(), savedNewSampleEntity.getCreatedDateTime());
 
         Optional<SampleEntity> foundSampleEntity = sampleStory.findById(savedNewSampleEntity.getSampleEntityId());
         Assert.assertTrue(foundSampleEntity.isPresent());
-        Assert.assertEquals(savedNewSampleEntity.getCreatedDateTime(), foundSampleEntity.get().getCreatedDateTime());
-        //The updatedDateTime doesn't change after findById(), it means there's no redundant `update` statement was executed.
-        Assert.assertEquals(savedNewSampleEntity.getUpdateDateTime(), foundSampleEntity.get().getUpdateDateTime());
+        Assert.assertEquals(
+                foundSampleEntity.get().getMainChildEntity().getName(),
+                newSampleEntity.getMainChildEntity().getName()
+        );
+        Assert.assertEquals(
+                savedNewSampleEntity.getCreatedDateTime(),
+                foundSampleEntity.get().getCreatedDateTime()
+        );
     }
+
 }
