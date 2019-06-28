@@ -1,8 +1,9 @@
-package org.tnmk.practicespringjpa;
+package org.tnmk.practicespringjpa.jsoncolumn;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.tnmk.practicespringjpa.BaseSpringTest;
 import org.tnmk.practicespringjpa.correctimplementation.datafactory.ChildWithoutMapComparisionEntityFactory;
 import org.tnmk.practicespringjpa.correctimplementation.datafactory.SampleEntityFactory;
 import org.tnmk.practicespringjpa.correctimplementation.datafactory.WrongChildEntityFactory;
@@ -11,7 +12,7 @@ import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
 
 import java.util.Optional;
 
-public class RedundantUpdateStatementTest extends BaseTest {
+public class RedundantUpdateStatementTest extends BaseSpringTest {
     @Autowired
     private SampleStory sampleStory;
 
