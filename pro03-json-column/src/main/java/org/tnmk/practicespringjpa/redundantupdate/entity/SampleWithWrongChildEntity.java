@@ -1,7 +1,6 @@
 package org.tnmk.practicespringjpa.redundantupdate.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.tnmk.practicespringjpa.redundantupdate.entity.columnconverter.WrongChildEntityConverter;
 import org.tnmk.practicespringjpa.redundantupdate.entity.columnconverter.WrongChildEntityListConverter;
@@ -10,15 +9,17 @@ import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
 
-@DynamicUpdate//TODO SQL statement for update won't include unchanged fields. Split this demo to another module?
+/**
+ *
+ */
 @Entity
-@Table(name = "sample_entity"
+@Table(name = "sample_with_wrong_child_entity"
     /**
      * This name must match with DB name (in application.yml, docker.yml, and testing EmbeddedDBStarter)
      */
     , catalog = "practice_spring_jpa_db"
 )
-public class WrongSampleEntity {
+public class SampleWithWrongChildEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "sample_entity_id")

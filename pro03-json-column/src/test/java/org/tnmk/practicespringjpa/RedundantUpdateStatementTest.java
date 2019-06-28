@@ -9,9 +9,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.tnmk.practicespringjpa.common.embeddeddb.EmbeddedDBContextInitializer;
-import org.tnmk.practicespringjpa.redundantupdate.datafactory.WrongSampleEntityFactory;
-import org.tnmk.practicespringjpa.redundantupdate.entity.WrongSampleEntity;
-import org.tnmk.practicespringjpa.redundantupdate.story.WrongSampleStory;
+import org.tnmk.practicespringjpa.noredundantupdate.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
+import org.tnmk.practicespringjpa.noredundantupdate.story.SampleStory;
+import org.tnmk.practicespringjpa.redundantupdate.datafactory.SampleWithWrongChildEntityFactory;
+import org.tnmk.practicespringjpa.redundantupdate.entity.SampleWithWrongChildEntity;
+import org.tnmk.practicespringjpa.redundantupdate.story.SampleWithWrongChildStory;
 
 import java.util.Optional;
 
@@ -21,24 +24,44 @@ import java.util.Optional;
 @ContextConfiguration(initializers = EmbeddedDBContextInitializer.class)
 public class RedundantUpdateStatementTest {
     @Autowired
-    private WrongSampleStory wrongSampleStory;
+    private SampleStory sampleStory;
+
+    @Autowired
+    private SampleWithWrongChildStory sampleWithWrongChildStory;
 
     @Test
-    public void test_CanCreateAndRetrieveData_But_ExecutingRedundantUpdateStatement() {
-        WrongSampleEntity newSampleEntity = WrongSampleEntityFactory.constructSampleEntity();
-        WrongSampleEntity savedNewSampleEntity = wrongSampleStory.create(newSampleEntity);
+    public void test_ChildEntity_DO_NOT_ExecutingRedundantUpdateStatement() {
+        SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntity();
 
-        Assert.assertNotNull(savedNewSampleEntity.getSampleEntityId());
-        Assert.assertNotNull(savedNewSampleEntity.getCreatedDateTime());
-        Assert.assertNotNull(savedNewSampleEntity.getUpdateDateTime());
-        //The updatedDateTime will change after create(), it means there's a redundant `update` statement was executed.
-        Assert.assertTrue(savedNewSampleEntity.getUpdateDateTime().isAfter(savedNewSampleEntity.getCreatedDateTime()));
+        SampleEntity savedNewSampleEntity = sampleStory.create(newSampleEntity);
+        /** The updatedDateTime doesn't change after create(), it means there's no redundant `update` statement was executed.*/
+        Assert.assertEquals(
+                savedNewSampleEntity.getCreatedDateTime(),
+                savedNewSampleEntity.getUpdateDateTime()
+        );
 
-        Optional<WrongSampleEntity> foundSampleEntity = wrongSampleStory.findById(savedNewSampleEntity.getSampleEntityId());
-        Assert.assertTrue(foundSampleEntity.isPresent());
-        Assert.assertEquals(savedNewSampleEntity.getCreatedDateTime(), foundSampleEntity.get().getCreatedDateTime());
-        //The updatedDateTime will change after findById(), it means there's a redundant `update` statement was executed.
-        Assert.assertTrue(foundSampleEntity.get().getUpdateDateTime().isAfter(savedNewSampleEntity.getCreatedDateTime()));
+        Optional<SampleEntity> foundSampleEntity = sampleStory.findById(savedNewSampleEntity.getSampleEntityId());
+        /** The updatedDateTime doesn't change after findById(), it means there's no redundant `update` statement was executed.*/
+        Assert.assertEquals(
+                foundSampleEntity.get().getUpdateDateTime(),
+                savedNewSampleEntity.getUpdateDateTime()
+        );
+    }
 
+
+    @Test
+    public void test_WrongChildEntity_DO_ExecutingRedundantUpdateStatement() {
+        SampleWithWrongChildEntity newSampleWithWrongChildEntity = SampleWithWrongChildEntityFactory.constructSampleEntity();
+
+        SampleWithWrongChildEntity savedNewSampleWithWrongChildEntity = sampleWithWrongChildStory.create(newSampleWithWrongChildEntity);
+        /** WRONG BEHAVIOR: The updatedDateTime will change after create(), it means there's a redundant `update` statement was executed.*/
+        Assert.assertTrue(savedNewSampleWithWrongChildEntity.getUpdateDateTime().isAfter(savedNewSampleWithWrongChildEntity.getCreatedDateTime()));
+
+        Optional<SampleWithWrongChildEntity> foundSampleEntity = sampleWithWrongChildStory.findById(savedNewSampleWithWrongChildEntity.getSampleEntityId());
+        /** NOTE: no redundant update is executed after findById()*/
+        Assert.assertEquals(
+                foundSampleEntity.get().getUpdateDateTime(),
+                savedNewSampleWithWrongChildEntity.getUpdateDateTime()
+        );
     }
 }
