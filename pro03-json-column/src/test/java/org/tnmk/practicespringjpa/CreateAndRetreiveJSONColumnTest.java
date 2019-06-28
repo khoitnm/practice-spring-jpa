@@ -9,9 +9,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.tnmk.practicespringjpa.common.embeddeddb.EmbeddedDBContextInitializer;
-import org.tnmk.practicespringjpa.noredundantupdate.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
-import org.tnmk.practicespringjpa.noredundantupdate.story.SampleStory;
+import org.tnmk.practicespringjpa.correctimplementation.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
+import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
 
 import java.util.Optional;
 

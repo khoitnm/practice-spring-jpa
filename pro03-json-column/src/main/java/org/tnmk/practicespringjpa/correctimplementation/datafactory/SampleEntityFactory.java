@@ -1,7 +1,7 @@
-package org.tnmk.practicespringjpa.noredundantupdate.datafactory;
+package org.tnmk.practicespringjpa.correctimplementation.datafactory;
 
-import org.tnmk.practicespringjpa.noredundantupdate.entity.ChildEntity;
-import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
+import org.tnmk.practicespringjpa.correctimplementation.entity.ChildEntity;
+import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
 
 import java.util.Arrays;
 

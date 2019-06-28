@@ -9,12 +9,12 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.tnmk.practicespringjpa.common.embeddeddb.EmbeddedDBContextInitializer;
-import org.tnmk.practicespringjpa.noredundantupdate.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.noredundantupdate.entity.SampleEntity;
-import org.tnmk.practicespringjpa.noredundantupdate.story.SampleStory;
-import org.tnmk.practicespringjpa.redundantupdate.datafactory.SampleWithWrongChildEntityFactory;
-import org.tnmk.practicespringjpa.redundantupdate.entity.SampleWithWrongChildEntity;
-import org.tnmk.practicespringjpa.redundantupdate.story.SampleWithWrongChildStory;
+import org.tnmk.practicespringjpa.correctimplementation.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
+import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
+import org.tnmk.practicespringjpa.wrongimplementation.datafactory.SampleWithWrongChildEntityFactory;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.SampleWithWrongChildEntity;
+import org.tnmk.practicespringjpa.wrongimplementation.story.SampleWithWrongChildStory;
 
 import java.util.Optional;
 

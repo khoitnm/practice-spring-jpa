@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.redundantupdate.entity;
+package org.tnmk.practicespringjpa.wrongimplementation.entity;
 
 
 public class WrongChildEntity {

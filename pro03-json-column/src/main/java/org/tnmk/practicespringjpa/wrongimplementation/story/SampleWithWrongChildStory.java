@@ -1,9 +1,9 @@
-package org.tnmk.practicespringjpa.redundantupdate.story;
+package org.tnmk.practicespringjpa.wrongimplementation.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.redundantupdate.entity.SampleWithWrongChildEntity;
-import org.tnmk.practicespringjpa.redundantupdate.repository.SampleWithWrongChildRepository;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.SampleWithWrongChildEntity;
+import org.tnmk.practicespringjpa.wrongimplementation.repository.SampleWithWrongChildRepository;
 
 import java.util.Optional;
 

@@ -1,15 +1,17 @@
-package org.tnmk.practicespringjpa.noredundantupdate.entity;
+package org.tnmk.practicespringjpa.correctimplementation.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.tnmk.practicespringjpa.noredundantupdate.entity.columnconverter.ChildEntityConverter;
-import org.tnmk.practicespringjpa.noredundantupdate.entity.columnconverter.ChildEntityListConverter;
+import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildEntityConverter;
+import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildEntityListConverter;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
-
+/**
+ * NOTE that we can have 2 entities classes associated to the same table.
+ */
 @DynamicUpdate//TODO SQL statement for update won't include unchanged fields. Split this demo to another module?
 @Entity
 @Table(name = "sample_entity"

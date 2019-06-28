@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.noredundantupdate.entity;
+package org.tnmk.practicespringjpa.correctimplementation.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

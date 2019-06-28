@@ -1,19 +1,19 @@
-package org.tnmk.practicespringjpa.redundantupdate.entity;
+package org.tnmk.practicespringjpa.wrongimplementation.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.tnmk.practicespringjpa.redundantupdate.entity.columnconverter.WrongChildEntityConverter;
-import org.tnmk.practicespringjpa.redundantupdate.entity.columnconverter.WrongChildEntityListConverter;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.columnconverter.WrongChildEntityConverter;
+import org.tnmk.practicespringjpa.wrongimplementation.entity.columnconverter.WrongChildEntityListConverter;
 
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.List;
 
 /**
- *
+ * NOTE that we can have 2 entities classes associated to the same table.
  */
 @Entity
-@Table(name = "sample_with_wrong_child_entity"
+@Table(name = "sample_entity"
     /**
      * This name must match with DB name (in application.yml, docker.yml, and testing EmbeddedDBStarter)
      */
