@@ -9,7 +9,7 @@ import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
 
 import java.util.Optional;
 
-public class CreateAndRetreiveJSONColumnTest extends BaseTest {
+public class CreateAndRetrieveJSONColumnTest extends BaseTest {
     @Autowired
     private SampleStory sampleStory;
 

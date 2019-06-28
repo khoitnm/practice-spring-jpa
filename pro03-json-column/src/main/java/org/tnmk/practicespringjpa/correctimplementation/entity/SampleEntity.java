@@ -5,6 +5,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildEntityConverter;
 import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildEntityListConverter;
+import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.ChildWithoutMapComparisionEntityConverter;
 import org.tnmk.practicespringjpa.correctimplementation.entity.columnconverter.WrongChildEntityConverter;
 
 import javax.persistence.*;
@@ -43,6 +44,10 @@ public class SampleEntity {
     @Column(name = "wrong_child_entity", columnDefinition = "JSON")
     @Convert(converter = WrongChildEntityConverter.class)
     private WrongChildEntity wrongChildEntity;
+
+    @Column(name = "child_without_map_comparision_entity", columnDefinition = "JSON")
+    @Convert(converter = ChildWithoutMapComparisionEntityConverter.class)
+    private ChildWithoutMapComparisionEntity childWithoutMapComparisionEntity;
 
     @Column(name = "other_child_entities", columnDefinition = "JSON")
     @Convert(converter = ChildEntityListConverter.class)
@@ -110,5 +115,13 @@ public class SampleEntity {
 
     public void setWrongChildEntity(WrongChildEntity wrongChildEntity) {
         this.wrongChildEntity = wrongChildEntity;
+    }
+
+    public ChildWithoutMapComparisionEntity getChildWithoutMapComparisionEntity() {
+        return childWithoutMapComparisionEntity;
+    }
+
+    public void setChildWithoutMapComparisionEntity(ChildWithoutMapComparisionEntity childWithoutMapComparisionEntity) {
+        this.childWithoutMapComparisionEntity = childWithoutMapComparisionEntity;
     }
 }
