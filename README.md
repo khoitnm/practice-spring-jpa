@@ -1,5 +1,6 @@
 # I. Introduction
-You can import those modules independently or you can import all of them by importing the parent project.
+You can import those modules into your IDE (such as IntelliJ, Eclipse) independently or you can import all of them by importing the parent project.
+
 Please view the README in each sub-module to understand more.
  
 # II. Build projects
