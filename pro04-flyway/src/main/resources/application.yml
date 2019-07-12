@@ -1,0 +1,43 @@
+
+spring:
+  # There are 2 options for flyway to connect to DB:
+  # 1. If we don't have schema yet, and we want Flyway script create schema for us:
+  #     Define flyway.schemas:
+  #     And then don't put schema name in the datasource.url
+  # 2. If we already have schema created beforehand, then just connect it directly in url.
+  #
+  # In this example code, we'll let flyway create schema for us.
+  flyway.schemas: practice_spring_jpa_flyway_db
+  datasource:
+    # The DB name cannot contains hyphen character "-", you should use underscore character "_".
+    # MySQL Server 8.x
+    url: jdbc:mysql://localhost:3306?serverTimezone=UTC
+    # MySQL Server 5.x
+    #url: jdbc:mysql://localhost:3306?useSSL=false
+    username: root
+    password: root
+    
+    #Account for running schema scripts
+    schema-username: root
+    schema-password: root
+    
+    #The platform for DDL or DML scripts (it's all by default)
+    #    platform: mysql
+    
+    #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
+    hikari:
+      pool-name: practice_spring_jpa_flyway_db
+  
+  # http://www.baeldung.com/sql-logging-spring-boot
+  # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
+  # Moreover, it doesn’t log the parameters of prepared statements.
+  jpa:
+    show-sql: true
+    properties:
+      hibernate.format_sql: false
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    # there is quite a history behind this setting https://github.com/spring-projects/spring-boot/issues/7107
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: validate
