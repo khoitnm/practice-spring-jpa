@@ -31,4 +31,4 @@ spring:
     # there is quite a history behind this setting https://github.com/spring-projects/spring-boot/issues/7107
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop

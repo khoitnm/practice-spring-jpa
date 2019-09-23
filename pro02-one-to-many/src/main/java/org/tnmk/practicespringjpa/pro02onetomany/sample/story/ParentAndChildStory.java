@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.entity.ChildEntity;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.entity.ParentEntity;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.repository.ChildRepository;
+import org.tnmk.practicespringjpa.pro02onetomany.sample.repository.ParentAndChildRepository;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.repository.ParentRepository;
-import sun.security.provider.PolicySpiFile;
 
 import javax.transaction.Transactional;
 import java.lang.invoke.MethodHandles;
@@ -17,11 +17,7 @@ import java.util.List;
 
 @Transactional // Without this, the service cannot commit transaction, hence cannot create/update/delete items
 @Service
-public class ParentStory {
-    public static final String NAME_OF_FAIL_PARENT_SAVE = "Parent_SaveFail";
-    public static final String NAME_OF_FAIL_CHILD_DELETION = "Child_DeleteFail";
-    public static final String NAME_OF_FAIL_CHILD_SAVE = "Child_SaveFail";
-
+public class ParentAndChildStory {
 
 
     private static final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
@@ -30,18 +26,15 @@ public class ParentStory {
     private ParentRepository parentRepository;
     @Autowired
     private ChildRepository childRepository;
+    @Autowired
+    private ParentAndChildRepository parentAndChildRepository;
 
     public ParentEntity findParentAndChildren(Long parentId){
         return parentRepository.findParentAndChildrenByParentId(parentId);
     }
 
     public ParentEntity createParentAndChildren(ParentEntity parentEntity) {
-        logger.info("Create Parent and Children -----------------------------------");
-        ParentEntity savedParentEntity = parentRepository.save(parentEntity);
-        List<ChildEntity> childEntities = parentEntity.getChildren();
-        childEntities.forEach(child -> child.setParentId(savedParentEntity.getParentId()));
-        childRepository.saveAll(childEntities);
-        return parentEntity;
+        return parentAndChildRepository.createParentAndChildren(parentEntity);
     }
 
     public ParentEntity createParentOnly(ParentEntity parentEntity) {
@@ -53,11 +46,7 @@ public class ParentStory {
     }
 
     public ParentEntity updateParentAndChildren(ParentEntity parentEntity) {
-        logger.info("Update Parent and Children -----------------------------------");
-        ParentEntity savedParentEntity = parentRepository.save(parentEntity);
-        List<ChildEntity>  savedChildren = updateChildrenOfParent(savedParentEntity.getParentId(), parentEntity.getChildren());
-        savedParentEntity.setChildren(savedChildren);
-        return savedParentEntity;
+        return parentAndChildRepository.updateParentAndChildren(parentEntity);
     }
 
 
@@ -68,16 +57,7 @@ public class ParentStory {
      * @return
      */
     public List<ChildEntity> updateChildrenOfParent(Long parentId, List<ChildEntity> children) {
-        if (children.stream().filter(child -> child.getName().equals(NAME_OF_FAIL_CHILD_DELETION)).findAny().isPresent()){
-            throw new IllegalStateException("Cannot delete children because has one wrong child");
-        }
-        childRepository.deleteByParentId(parentId);
-
-        children.forEach(child -> child.setParentId(parentId));
-        if (children.stream().filter(child -> child.getName().equals(NAME_OF_FAIL_CHILD_SAVE)).findAny().isPresent()){
-            throw new IllegalStateException("Cannot save children because has one wrong child");
-        }
-        return childRepository.saveAll(children);
+        return parentAndChildRepository.updateChildrenOfParent(parentId, children);
     }
 
     public void deleteParentAndChildren(Long parentId) {
@@ -85,6 +65,6 @@ public class ParentStory {
     }
 
     public void deleteChild(Long parentId, Long childId) {
-
+        //TODO
     }
 }
