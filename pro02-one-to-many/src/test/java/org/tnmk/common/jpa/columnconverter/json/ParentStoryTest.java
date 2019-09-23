@@ -23,6 +23,22 @@ public class ParentStoryTest extends BaseTest {
     ParentRepository parentRepository;
 
     @Test
+    public void test_FindParentsAndChildren_GroupByParents() {
+        ParentEntity parent1 = ParentFactory.constructParentAndChildren("CustomParent1", 1);
+        parentStory.createParentAndChildren(parent1);
+
+        ParentEntity parent2 = ParentFactory.constructParentAndChildren("CustomParent2", 2);
+        parentStory.createParentAndChildren(parent2);
+
+        ParentEntity parent3 = ParentFactory.constructParentAndChildren("CustomParent3", 3);
+        parentStory.createParentAndChildren(parent3);
+
+
+        List<ParentEntity> foundParents = parentRepository.findParentsAndChildrenByLikeParentName("CustomParent");
+        Assert.assertEquals(3, foundParents.size());
+    }
+
+    @Test
     public void testCreateParentOnly() {
         ParentEntity parent = ParentFactory.constructParentAndChildren(3);
 
