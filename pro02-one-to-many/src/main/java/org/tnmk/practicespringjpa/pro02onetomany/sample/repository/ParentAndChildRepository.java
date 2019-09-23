@@ -25,15 +25,15 @@ public class ParentAndChildRepository {
         logger.info("Create Parent and Children -----------------------------------");
         ParentEntity savedParentEntity = parentRepository.save(parentEntity);
         List<ChildEntity> childEntities = parentEntity.getChildren();
-        childEntities.forEach(child -> child.setParentId(savedParentEntity.getParentId()));
-        childRepository.saveAll(childEntities);
-        return parentEntity;
+        List<ChildEntity> savedChildEntities = saveChildrenOfParent(savedParentEntity.getParentId(), childEntities);
+        savedParentEntity.setChildren(savedChildEntities);
+        return savedParentEntity;
     }
 
     public ParentEntity updateParentAndChildren(ParentEntity parentEntity) {
         logger.info("Update Parent and Children -----------------------------------");
         ParentEntity savedParentEntity = parentRepository.save(parentEntity);
-        List<ChildEntity> savedChildren = updateChildrenOfParent(savedParentEntity.getParentId(), parentEntity.getChildren());
+        List<ChildEntity> savedChildren = saveChildrenOfParent(savedParentEntity.getParentId(), parentEntity.getChildren());
         savedParentEntity.setChildren(savedChildren);
         return savedParentEntity;
     }
@@ -44,7 +44,7 @@ public class ParentAndChildRepository {
      *                 The children items don't need to keep any reference to parent object/id.
      * @return
      */
-    public List<ChildEntity> updateChildrenOfParent(Long parentId, List<ChildEntity> children) {
+    public List<ChildEntity> saveChildrenOfParent(Long parentId, List<ChildEntity> children) {
         childRepository.deleteByParentId(parentId);
         children.forEach(child -> child.setParentId(parentId));
         return childRepository.saveAll(children);

@@ -57,7 +57,7 @@ public class ParentAndChildStory {
      * @return
      */
     public List<ChildEntity> updateChildrenOfParent(Long parentId, List<ChildEntity> children) {
-        return parentAndChildRepository.updateChildrenOfParent(parentId, children);
+        return parentAndChildRepository.saveChildrenOfParent(parentId, children);
     }
 
     public void deleteParentAndChildren(Long parentId) {
