@@ -11,6 +11,7 @@
     <modules>
         <module>pro01-simple-entity</module>
         <module>pro01-simple-timestamp-fields</module>
+        <module>pro02-one-to-many</module>
         <module>pro02-simple-ddl-generator</module>
         <module>pro03-json-column</module>
         <module>pro04-flyway</module>
