@@ -13,6 +13,7 @@ public class ChildEntity {
     @Column(name = "parent_id")
     private Long parentId;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
     public String getName() {

@@ -9,15 +9,15 @@ import org.tnmk.common.jpa.columnconverter.json.factory.ParentFactory;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.entity.ChildEntity;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.entity.ParentEntity;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.repository.ParentRepository;
-import org.tnmk.practicespringjpa.pro02onetomany.sample.story.ParentStory;
+import org.tnmk.practicespringjpa.pro02onetomany.sample.story.ParentAndChildStory;
 
 import java.util.List;
 
 @Disabled
-public class ParentStoryTest extends BaseTest {
+public class ParentAndChildStoryTest extends BaseTest {
 
     @Autowired
-    ParentStory parentStory;
+    ParentAndChildStory parentStory;
 
     @Autowired
     ParentRepository parentRepository;
@@ -97,19 +97,21 @@ public class ParentStoryTest extends BaseTest {
 
         ParentEntity savedNewParent = parentStory.createParentAndChildren(parent);
         ParentEntity foundNewParent = parentRepository.findParentAndChildrenByParentId(savedNewParent.getParentId());
+        List<ChildEntity> savedNewChildren = foundNewParent.getChildren();
+
 
         //UPDATE
         int numUpdateChildren = 2;
         String updateParentName = "Updated_" + System.nanoTime();
         parent.setName(updateParentName);
-        List<ChildEntity> newChildren = ChildFactory.constructChildren(numUpdateChildren);
-        newChildren.get(0).setName(ParentStory.NAME_OF_FAIL_CHILD_SAVE);
-        parent.setChildren(newChildren);
+        List<ChildEntity> updateChildren = ChildFactory.constructChildren(numUpdateChildren);
+        updateChildren.get(0).setName(null);//This will make saving children fail
+        parent.setChildren(updateChildren);
 
         try {
             parentStory.updateParentAndChildren(parent);
             Assert.assertFalse("The test case should throw exception instead of success!", true);
-        } catch (IllegalStateException ex) {
+        } catch (Exception ex) {
             ParentEntity foundUpdateParent = parentRepository.findParentAndChildrenByParentId(savedNewParent.getParentId());
 
             //ASSERT
@@ -118,9 +120,19 @@ public class ParentStoryTest extends BaseTest {
             Assert.assertEquals(foundNewParent.getName(), foundUpdateParent.getName());
 
             //The children list shouldn't be updated
-            Assert.assertEquals(numNewChildren, foundUpdateParent.getChildren().size());
+            Assert.assertTrue(!foundUpdateParent.getChildren().isEmpty());
+            Assert.assertEquals(savedNewChildren.size(), foundUpdateParent.getChildren().size());
+            for (ChildEntity updatedChild : foundUpdateParent.getChildren()) {
+                Assert.assertTrue(
+                    savedNewChildren.stream()
+                        .filter(savedNewChild ->
+                            savedNewChild.getName().equals(updatedChild.getName())
+                            && savedNewChild.getChildId().equals(updatedChild.getChildId())
+                        )
+                        .findAny().isPresent()
+                );
+            }
         }
-
 
 
     }
