@@ -4,9 +4,10 @@ spring:
   # I just put it here to show you how to configure the DB for Batch job. If you comment out the datasource block, the could should still run fine.
   datasource:
     #The DB name cannot contains hyphen character "-", you should use underscore character "_".
-    url: jdbc:mysql://localhost:3307/practice_spring_jpa_db?useSSL=false
-    username: user
-    password: user
+    # MySQL Server 8.x
+    url: jdbc:mysql://localhost:3306/practice_spring_jpa_db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
     
     #Account for running schema scripts
     schema-username: root
@@ -30,4 +31,4 @@ spring:
     # there is quite a history behind this setting https://github.com/spring-projects/spring-boot/issues/7107
     open-in-view: false
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
