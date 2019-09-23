@@ -63,7 +63,8 @@ public class ParentStory {
 
     /**
      * @param parentId
-     * @param children this list of children will replace the old children in DB.
+     * @param children this new list of children will replace the old children in DB.
+     *                 The children items don't need to keep any reference to parent object/id.
      * @return
      */
     public List<ChildEntity> updateChildrenOfParent(Long parentId, List<ChildEntity> children) {
