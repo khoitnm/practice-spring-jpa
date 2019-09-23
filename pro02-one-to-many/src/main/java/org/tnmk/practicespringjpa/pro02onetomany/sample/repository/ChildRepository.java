@@ -10,5 +10,10 @@ import java.util.List;
 
 public interface ChildRepository extends JpaRepository<ChildEntity, Long> {
 
+    /**
+     * FIXME For now, when executing this method, if there are 3 items in DB, it will execute 3 delete queries: `delete from practice_spring_jpa_db.child_entity where child_id=?`
+     *          View more in test case {@link ParentStoryTest#test_UpdateParentAndChildren_Success}.
+     * @param parentId
+     */
     void deleteByParentId(Long parentId);
 }
