@@ -9,12 +9,12 @@ import java.util.List;
 
 public interface ParentRepository extends JpaRepository<ParentEntity, Long> {
 
-    @Query(value = "SELECT parentEntity FROM ParentEntity parentEntity JOIN FETCH parentEntity.children WHERE parentEntity.parentId = :parentId")
+    @Query(value = "SELECT parentEntity FROM ParentEntity parentEntity LEFT JOIN FETCH parentEntity.children WHERE parentEntity.parentId = :parentId")
     ParentEntity findParentAndChildrenByParentId(@Param("parentId") Long parentId);
 
-    @Query(value = "SELECT parentEntity FROM ParentEntity parentEntity JOIN FETCH parentEntity.children WHERE parentEntity.name LIKE :parentName")
+    @Query(value = "SELECT parentEntity FROM ParentEntity parentEntity LEFT JOIN FETCH parentEntity.children WHERE parentEntity.name LIKE :parentName")
     List<ParentEntity> findParentsAndChildrenByName(@Param("parentName") String parentName);
 
-    @Query(value = "SELECT parentEntity FROM ParentEntity parentEntity JOIN FETCH parentEntity.children")
+    @Query(value = "SELECT parentEntity FROM ParentEntity parentEntity LEFT JOIN FETCH parentEntity.children")
     List<ParentEntity> findAllParentsAndChildren();
 }

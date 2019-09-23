@@ -15,7 +15,7 @@ public class ParentEntity {
     private String name;
 
     @OneToMany
-    @JoinColumn(name = "child_id")
+    @JoinColumn(name = "parent_id", updatable = false, insertable = false)
     private List<ChildEntity> children;
 
     public Long getParentId() {
