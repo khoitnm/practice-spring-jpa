@@ -9,6 +9,7 @@ import org.tnmk.practicespringjpa.pro02onetomany.sample.entity.ParentEntity;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.repository.ParentRepository;
 import org.tnmk.practicespringjpa.pro02onetomany.sample.story.ParentStory;
 
+@Disabled
 public class ParentStoryTest extends BaseTest {
 
     @Autowired
@@ -17,7 +18,6 @@ public class ParentStoryTest extends BaseTest {
     @Autowired
     ParentRepository parentRepository;
 
-    @Disabled
     @Test
     public void testCreateParentOnly() {
         ParentEntity parent = ParentFactory.constructParentAndChildren(3);
@@ -26,6 +26,19 @@ public class ParentStoryTest extends BaseTest {
 
         ParentEntity foundParent = parentRepository.findParentAndChildrenByParentId(savedParent.getParentId());
         Assert.assertNotNull(foundParent);
-        Assert.assertTrue(foundParent.getChildren() == null || foundParent.getChildren().isEmpty());
+        Assert.assertTrue(foundParent.getChildren().isEmpty());
+    }
+
+    @Test
+    public void testCreateParentAndChildren() {
+        int numOfChildren = 3;
+        ParentEntity parent = ParentFactory.constructParentAndChildren(numOfChildren );
+
+        ParentEntity savedParent = parentStory.createParentAndChildren(parent);
+
+        ParentEntity foundParent = parentRepository.findParentAndChildrenByParentId(savedParent.getParentId());
+
+        Assert.assertNotNull(foundParent);
+        Assert.assertEquals(numOfChildren , foundParent.getChildren().size());
     }
 }

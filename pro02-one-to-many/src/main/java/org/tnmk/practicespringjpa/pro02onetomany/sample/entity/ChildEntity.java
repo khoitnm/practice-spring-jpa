@@ -10,6 +10,9 @@ public class ChildEntity {
     @Column(name = "child_id")
     private Long childId;
 
+    @Column(name = "parent_id")
+    private Long parentId;
+
     private String name;
 
     public String getName() {
@@ -26,5 +29,13 @@ public class ChildEntity {
 
     public void setChildId(Long childId) {
         this.childId = childId;
+    }
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
     }
 }
