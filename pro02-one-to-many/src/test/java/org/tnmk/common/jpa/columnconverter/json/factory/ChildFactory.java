@@ -5,7 +5,7 @@ import org.tnmk.practicespringjpa.pro02onetomany.sample.entity.ChildEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-class ChildFactory {
+public class ChildFactory {
     public static ChildEntity constructChild() {
         return constructChild(System.nanoTime());
     }
@@ -21,7 +21,7 @@ class ChildFactory {
 
     public static ChildEntity constructChild(long index) {
         ChildEntity childEntity = new ChildEntity();
-        childEntity.setName("Child_" + index);
+        childEntity.setName("Child[" + index + "]_" + System.nanoTime());
         return childEntity;
     }
 }
