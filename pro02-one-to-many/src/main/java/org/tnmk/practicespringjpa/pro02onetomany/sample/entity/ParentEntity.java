@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "parent_entity", catalog = "sample_db")
+@Table(name = "parent_entity", catalog = "practice_spring_jpa_db")
 public class ParentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

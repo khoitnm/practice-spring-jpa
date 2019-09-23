@@ -3,7 +3,7 @@ package org.tnmk.practicespringjpa.pro02onetomany.sample.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "child_entity", catalog = "sample_db")
+@Table(name = "child_entity", catalog = "practice_spring_jpa_db")
 public class ChildEntity {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
