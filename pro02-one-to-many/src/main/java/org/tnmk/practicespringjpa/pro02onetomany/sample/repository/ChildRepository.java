@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface ChildRepository extends JpaRepository<ChildEntity, Long> {
 
+    void deleteByParentId(Long parentId);
 }
