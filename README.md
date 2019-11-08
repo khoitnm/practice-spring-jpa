@@ -28,3 +28,8 @@ That way, the second instant cannot insert the record, therefore cannot claim th
 The waiting process will know when another process is finished by a cronjob query, but a better way is a notification.
 But notification also takes time, when sending or receiving notification, another record may already processed and inserted into DB.
  
+Lock entire table: 
+- Cannot lock entire table with JPA: https://stackoverflow.com/questions/32336481/table-exclusive-lock-with-jpa
+- But we can do it with MySQL: https://dev.mysql.com/doc/refman/8.0/en/lock-tables.html (so that other microservices instants won't be able to update/insert data while migrating).
+However, even if we do it this way, after finishing migrating. Other old microservice instants still be able to add new data, and those new data won't be migrating.
+-> When applying rolling deployment, we'll do rolling migrating.
