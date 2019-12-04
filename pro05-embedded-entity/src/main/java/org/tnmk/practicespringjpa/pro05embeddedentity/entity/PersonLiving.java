@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.correctimplementation.entity;
+package org.tnmk.practicespringjpa.pro05embeddedentity.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
