@@ -58,19 +58,19 @@ public abstract class JsonConverter<T> implements AttributeConverter<T, String> 
         try {
             object = OBJECT_MAPPER.readValue(string, targetJavaType);
         } catch (IOException e) {
-            throw new JsonConversionException("Cannot convert to type", e);
+            throw new JsonConversionException("Cannot convert " + string + " to type " + targetJavaType, e);
         }
         return object;
     }
 
-    private JavaType constructJavaType(ObjectMapper objectMapper, ParameterizedType parameterizedType){
+    private JavaType constructJavaType(ObjectMapper objectMapper, ParameterizedType parameterizedType) {
         Class rawType = (Class) parameterizedType.getRawType();
         Type[] argumentTypes = parameterizedType.getActualTypeArguments();
         Class[] argumentJavaTypes = toClasses(argumentTypes);
         return objectMapper.getTypeFactory().constructParametricType(rawType, argumentJavaTypes);
     }
 
-    private Class[] toClasses(Type[] types){
+    private Class[] toClasses(Type[] types) {
         Class[] classes = new Class[types.length];
         for (int i = 0; i < types.length; i++) {
             classes[i] = (Class) types[i];
