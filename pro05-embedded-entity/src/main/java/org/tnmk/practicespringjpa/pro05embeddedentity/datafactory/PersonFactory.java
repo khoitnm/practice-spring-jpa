@@ -9,7 +9,7 @@ public class PersonFactory {
     public static Person constructPersonWithEvents(int numOfEvents) {
         Person person = new Person();
         person.setFullName("Sample_" + System.nanoTime());
-        Set<PersonLiving> personEvents = PersonLivingFactory.constructEvents(numOfEvents);
+        Set<PersonLiving> personEvents = PersonLivingFactory.constructPersonLivingList(numOfEvents);
         person.setPersonLivings(personEvents);
         return person;
     }

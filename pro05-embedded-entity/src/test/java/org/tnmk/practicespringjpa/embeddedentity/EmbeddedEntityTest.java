@@ -31,7 +31,7 @@ public class EmbeddedEntityTest extends BaseSpringTest {
 
         List<Person> allPersons = personService.findAll();
         String allPersonsToString = allPersons.stream().map(person -> person.toString()).collect(Collectors.joining("\n"));
-        logger.info("All persons: \n"+ allPersonsToString);
+        logger.info("All persons: \n" + allPersonsToString);
 
         Person foundNewPerson = personService.findById(savedNewPerson.getPersonId()).get();
         assertPersonLivingsHasFullData(foundNewPerson.getPersonLivings());
@@ -42,7 +42,10 @@ public class EmbeddedEntityTest extends BaseSpringTest {
             personEvent -> {
                 Assert.assertNotNull(personEvent.getCityId());
                 Assert.assertNotNull(personEvent.getDescription());
-                Assert.assertNotNull(personEvent.getStartDateTime());
+                Assert.assertNotNull(personEvent.getLivingEvent());
+                Assert.assertNotNull(personEvent.getLivingEvent().getDescription());
+//                Assert.assertNotNull(personEvent.getLivingEvent().getStartDateTime());
+//                Assert.assertNotNull(personEvent.getLivingEvent().getEndDateTime());
             }
         );
     }
