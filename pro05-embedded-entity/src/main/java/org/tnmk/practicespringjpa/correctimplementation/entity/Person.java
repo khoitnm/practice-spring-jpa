@@ -17,9 +17,18 @@ public class Person {
     private String fullName;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "person_event", joinColumns = @JoinColumn(name="person_id"))
-    @Column(name = "person_event_id", nullable = false)
-    private Set<PersonEvent> personEvents = new HashSet<>();
+    @CollectionTable(name = "person_living", joinColumns = @JoinColumn(name="person_id"))
+    @Column(name = "city_id", nullable = false)
+    private Set<PersonLiving> personLivings = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "Person{" +
+            "id=" + id +
+            ", fullName='" + fullName + '\'' +
+            ", personLivings=" + personLivings +
+            '}';
+    }
 
     public UUID getId() {
         return id;
@@ -29,12 +38,12 @@ public class Person {
         this.id = id;
     }
 
-    public Set<PersonEvent> getPersonEvents() {
-        return personEvents;
+    public Set<PersonLiving> getPersonLivings() {
+        return personLivings;
     }
 
-    public void setPersonEvents(Set<PersonEvent> personEvents) {
-        this.personEvents = personEvents;
+    public void setPersonLivings(Set<PersonLiving> personEvents) {
+        this.personLivings = personEvents;
     }
 
     public String getFullName() {

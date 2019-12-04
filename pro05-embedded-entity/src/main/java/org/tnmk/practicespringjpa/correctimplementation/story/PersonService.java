@@ -5,14 +5,20 @@ import org.springframework.stereotype.Service;
 import org.tnmk.practicespringjpa.correctimplementation.entity.Person;
 import org.tnmk.practicespringjpa.correctimplementation.repository.PersonRepository;
 
+import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
+@Transactional
 public class PersonService {
+    private final PersonRepository personRepository;
 
     @Autowired
-    private PersonRepository personRepository;
+    public PersonService(PersonRepository personRepository) {
+        this.personRepository = personRepository;
+    }
 
     public Person create(Person person) {
         person.setId(UUID.randomUUID());
@@ -28,5 +34,9 @@ public class PersonService {
 
     public Optional<Person> findById(UUID id){
         return personRepository.findById(id);
+    }
+
+    public List<Person> findAll() {
+        return personRepository.findAll();
     }
 }
