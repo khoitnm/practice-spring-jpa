@@ -17,7 +17,7 @@ public class Person {
     private String fullName;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "person_living", joinColumns = @JoinColumn(name="person_id"))
+    @CollectionTable(name = "person_event", joinColumns = @JoinColumn(name="person_id"))
     @Column(name = "person_event_id", nullable = false)
     private Set<PersonEvent> personEvents = new HashSet<>();
 
