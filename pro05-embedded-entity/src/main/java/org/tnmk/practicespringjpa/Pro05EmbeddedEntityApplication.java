@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class EmbeddedEntityApplication {
+public class Pro05EmbeddedEntityApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(EmbeddedEntityApplication.class, args);
+    SpringApplication.run(Pro05EmbeddedEntityApplication.class, args);
   }
 }
