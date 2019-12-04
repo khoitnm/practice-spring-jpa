@@ -54,6 +54,9 @@ public abstract class JsonConverter<T> implements AttributeConverter<T, String> 
 
     @Override
     public T convertToEntityAttribute(String string) {
+        if (string == null) {
+            return null;
+        }
         T object;
         try {
             object = OBJECT_MAPPER.readValue(string, targetJavaType);
