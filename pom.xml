@@ -10,6 +10,7 @@
 
     <modules>
         <module>pro01-simple-entity</module>
+        <module>pro01-simple-entity-uuid-field</module>
         <module>pro01-simple-timestamp-fields</module>
         <module>pro02-one-to-many</module>
         <module>pro02-simple-ddl-generator</module>
