@@ -1,10 +1,11 @@
+
 spring:
   datasource:
-    url: theurlwillbereplacedby EmbeddedDBContextInitializer
-    username: theurlwillbereplacedby EmbeddedDBContextInitializer
-    password: theurlwillbereplacedby EmbeddedDBContextInitializer
-    schema-username: theurlwillbereplacedby EmbeddedDBContextInitializer
-    schema-password: theurlwillbereplacedby EmbeddedDBContextInitializer
+    url: jdbc:mysql://localhost:3306/practice_spring_jpa_db?useSSL=false
+    username: root
+    password: root
+    schema-username: root
+    schema-password: root
 #
 #  jpa:
 #    properties:
