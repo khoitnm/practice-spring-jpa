@@ -1,7 +1,7 @@
-package org.tnmk.practicespringjpa.correctimplementation.datafactory;
+package org.tnmk.practicespringjpa.pro05embeddedentity.datafactory;
 
-import org.tnmk.practicespringjpa.correctimplementation.entity.Person;
-import org.tnmk.practicespringjpa.correctimplementation.entity.PersonLiving;
+import org.tnmk.practicespringjpa.pro05embeddedentity.entity.Person;
+import org.tnmk.practicespringjpa.pro05embeddedentity.entity.PersonLiving;
 
 import java.util.Set;
 
