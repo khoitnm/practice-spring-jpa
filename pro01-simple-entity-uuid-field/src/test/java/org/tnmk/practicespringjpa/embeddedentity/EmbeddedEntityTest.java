@@ -6,10 +6,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.BaseSpringTest;
-import org.tnmk.practicespringjpa.correctimplementation.datafactory.PersonFactory;
-import org.tnmk.practicespringjpa.correctimplementation.entity.Person;
-import org.tnmk.practicespringjpa.correctimplementation.entity.PersonLiving;
-import org.tnmk.practicespringjpa.correctimplementation.story.PersonService;
+import org.tnmk.practicespringjpa.pro01simpleentityuuidfield.datafactory.PersonFactory;
+import org.tnmk.practicespringjpa.pro01simpleentityuuidfield.entity.Person;
+import org.tnmk.practicespringjpa.pro01simpleentityuuidfield.entity.PersonLiving;
+import org.tnmk.practicespringjpa.pro01simpleentityuuidfield.story.PersonService;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;

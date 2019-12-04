@@ -1,7 +1,7 @@
-package org.tnmk.practicespringjpa.correctimplementation.repository;
+package org.tnmk.practicespringjpa.pro01simpleentityuuidfield.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.tnmk.practicespringjpa.correctimplementation.entity.Person;
+import org.tnmk.practicespringjpa.pro01simpleentityuuidfield.entity.Person;
 
 import java.util.Optional;
 import java.util.UUID;

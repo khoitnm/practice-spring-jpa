@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class EmbeddedEntityApplication {
+public class Pro01SimpleEntityUuidFieldApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(EmbeddedEntityApplication.class, args);
+    SpringApplication.run(Pro01SimpleEntityUuidFieldApplication.class, args);
   }
 }
