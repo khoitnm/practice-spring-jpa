@@ -21,19 +21,19 @@ public class PersonService {
     }
 
     public Person create(Person person) {
-        person.setPersonId(UUID.randomUUID());
+        person.setId(UUID.randomUUID());
         return personRepository.save(person);
     }
 
     public Person update(Person person) {
-        if (person.getPersonId() == null){
+        if (person.getId() == null){
             throw new IllegalArgumentException("you cannot update an entity with null id.");
         }
         return personRepository.save(person);
     }
 
     public Optional<Person> findById(UUID personId){
-        return personRepository.findByPersonId(personId);
+        return personRepository.findById(personId);
     }
 
     public List<Person> findAll() {

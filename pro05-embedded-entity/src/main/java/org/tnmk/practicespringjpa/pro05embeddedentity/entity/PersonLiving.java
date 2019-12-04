@@ -18,7 +18,7 @@ public class PersonLiving {
 //    private UUID id;
 //    Note: there's no id in this table, the PK is the compound {personId, cityId}
 
-    @Column(name = "city_id", nullable = false)
+    @Column(name = "city_id", nullable = false, columnDefinition =  "BINARY(16)")
     private UUID cityId;
 
     @Column(name = "description", nullable = false)
