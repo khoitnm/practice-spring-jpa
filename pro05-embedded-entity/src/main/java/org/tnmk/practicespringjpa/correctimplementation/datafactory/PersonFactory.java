@@ -1,19 +1,16 @@
 package org.tnmk.practicespringjpa.correctimplementation.datafactory;
 
 import org.tnmk.practicespringjpa.correctimplementation.entity.Person;
-import org.tnmk.practicespringjpa.correctimplementation.entity.Person;
-import org.tnmk.practicespringjpa.correctimplementation.entity.PersonEvent;
+import org.tnmk.practicespringjpa.correctimplementation.entity.PersonLiving;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 
 public class PersonFactory {
     public static Person constructPersonWithEvents(int numOfEvents) {
         Person person = new Person();
         person.setFullName("Sample_" + System.nanoTime());
-        Set<PersonEvent> personEvents = PersonEventFactory.constructEvents(numOfEvents);
-        person.setPersonEvents(personEvents);
+        Set<PersonLiving> personEvents = PersonLivingFactory.constructEvents(numOfEvents);
+        person.setPersonLivings(personEvents);
         return person;
     }
 
