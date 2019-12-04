@@ -1,6 +1,6 @@
-package org.tnmk.practicespringjpa.correctimplementation.datafactory;
+package org.tnmk.practicespringjpa.pro05embeddedentity.datafactory;
 
-import org.tnmk.practicespringjpa.correctimplementation.entity.PersonLiving;
+import org.tnmk.practicespringjpa.pro05embeddedentity.entity.PersonLiving;
 
 import java.time.Instant;
 import java.util.HashSet;
