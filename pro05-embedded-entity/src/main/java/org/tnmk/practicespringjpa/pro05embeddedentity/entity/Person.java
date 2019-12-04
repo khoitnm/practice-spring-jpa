@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Person {
 
     @Id
-    @Column(name = "person_id", nullable = false, unique = true)
+    @Column(name = "person_id", nullable = false, unique = true, columnDefinition = "BINARY(16)")
     private UUID personId;
 
     @Column(name = "full_name", nullable = false)
