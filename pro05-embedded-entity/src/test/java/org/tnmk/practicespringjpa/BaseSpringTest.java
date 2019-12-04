@@ -10,7 +10,7 @@ import org.tnmk.practicespringjpa.common.embeddeddb.EmbeddedDBContextInitializer
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {JsonColumnApplication.class})
+@SpringBootTest(classes = {EmbeddedEntityApplication.class})
 @ContextConfiguration(initializers = EmbeddedDBContextInitializer.class)
 @Ignore
 public abstract class BaseSpringTest {
