@@ -13,7 +13,6 @@ import org.tnmk.practicespringjpa.pro05embeddedentity.story.PersonService;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -28,21 +27,17 @@ public class EmbeddedEntityTest extends BaseSpringTest {
         Person constructedPerson = PersonFactory.constructPersonWithEvents(2);
         Person savedNewPerson = personService.create(constructedPerson);
         Assert.assertNotNull(savedNewPerson.getPersonId());
-        assertPersonEventsHasFullData(savedNewPerson.getPersonLivings());
+        assertPersonLivingsHasFullData(savedNewPerson.getPersonLivings());
 
         List<Person> allPersons = personService.findAll();
         String allPersonsToString = allPersons.stream().map(person -> person.toString()).collect(Collectors.joining("\n"));
         logger.info("All persons: \n"+ allPersonsToString);
 
-        logger.info("Finding person "+savedNewPerson.getPersonId());
-        Optional<Person> foundNewPersonOptional = personService.findById(savedNewPerson.getPersonId());
-        Assert.assertTrue(foundNewPersonOptional.isPresent());
-
-        Person foundNewPerson = foundNewPersonOptional.get();
-        assertPersonEventsHasFullData(foundNewPerson.getPersonLivings());
+        Person foundNewPerson = personService.findById(savedNewPerson.getPersonId()).get();
+        assertPersonLivingsHasFullData(foundNewPerson.getPersonLivings());
     }
 
-    private void assertPersonEventsHasFullData(Set<PersonLiving> personEvents) {
+    private void assertPersonLivingsHasFullData(Set<PersonLiving> personEvents) {
         personEvents.forEach(
             personEvent -> {
                 Assert.assertNotNull(personEvent.getCityId());
