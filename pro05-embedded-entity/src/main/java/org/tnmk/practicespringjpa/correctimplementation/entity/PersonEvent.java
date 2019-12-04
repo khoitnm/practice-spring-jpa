@@ -1,12 +1,13 @@
 package org.tnmk.practicespringjpa.correctimplementation.entity;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.Instant;
 import java.util.UUID;
 
-@Entity
+@Embeddable
 public class PersonEvent {
 
     @Id
