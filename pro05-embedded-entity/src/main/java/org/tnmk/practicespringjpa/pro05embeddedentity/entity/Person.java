@@ -1,5 +1,8 @@
 package org.tnmk.practicespringjpa.pro05embeddedentity.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -28,6 +31,16 @@ public class Person {
             ", fullName='" + fullName + '\'' +
             ", personLivings=" + personLivings +
             '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return EqualsBuilder.reflectionEquals(this,o);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
     }
 
     public UUID getPersonId() {
