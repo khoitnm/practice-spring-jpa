@@ -15,7 +15,11 @@ public class PersonEntity {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "email", unique = true)
+    private String email;
 
     @OneToMany
     @JoinColumn(name = "owner_id", updatable = false, insertable = false)
@@ -69,5 +73,13 @@ public class PersonEntity {
 
     public void setUpdateDateTime(Instant updateDateTime) {
         this.updateDateTime = updateDateTime;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String sin) {
+        this.email = sin;
     }
 }
