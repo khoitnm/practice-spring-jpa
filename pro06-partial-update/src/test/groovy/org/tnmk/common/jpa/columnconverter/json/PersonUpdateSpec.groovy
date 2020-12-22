@@ -46,13 +46,8 @@ class PersonUpdateSpec extends BaseSpecification {
                 email: originalPerson00.email);//Use the same email as originalPerson00
         int updatedCount = sampleStory.updateProfile(personProfileUpdate);
 
-        List<PersonEntity> foundUpdatedPersons = sampleStory.findPersons();
-        PersonEntity foundUpdatedPerson = foundUpdatedPersons.get(0);
-
         then:
-        updatedCount == 1
-        foundUpdatedPerson.fullName == personProfileUpdate.fullName
-        foundUpdatedPerson.fullName != originalPerson.fullName
-        foundUpdatedPerson.updateDateTime != originalPerson.updateDateTime
+        Exception ex = thrown()
+        ex != null
     }
 }
