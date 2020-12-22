@@ -15,6 +15,7 @@
         <module>pro02-simple-ddl-generator</module>
         <module>pro03-json-column</module>
         <module>pro04-flyway</module>
+        <module>pro05-partial-update</module>
     </modules>
 
     <parent>
