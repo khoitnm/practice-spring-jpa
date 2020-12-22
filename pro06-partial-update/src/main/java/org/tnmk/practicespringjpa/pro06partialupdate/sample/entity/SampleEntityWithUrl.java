@@ -1,6 +1,6 @@
-package org.tnmk.practicespringjpa.pro05partialupdate.sample.entity;
+package org.tnmk.practicespringjpa.pro06partialupdate.sample.entity;
 
-import org.tnmk.practicespringjpa.pro05partialupdate.sample.repository.SampleJdbcRepostiory;
+import org.tnmk.practicespringjpa.pro06partialupdate.sample.repository.SampleJdbcRepostiory;
 
 /**
  * This class show an example that we can compose many columns into one field.

@@ -1,11 +1,11 @@
-package org.tnmk.practicespringjpa.pro05partialupdate.sample.story;
+package org.tnmk.practicespringjpa.pro06partialupdate.sample.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro05partialupdate.sample.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro05partialupdate.sample.entity.SampleEntityWithUrl;
-import org.tnmk.practicespringjpa.pro05partialupdate.sample.repository.SampleJdbcRepostiory;
-import org.tnmk.practicespringjpa.pro05partialupdate.sample.repository.SampleRepository;
+import org.tnmk.practicespringjpa.pro06partialupdate.sample.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro06partialupdate.sample.entity.SampleEntityWithUrl;
+import org.tnmk.practicespringjpa.pro06partialupdate.sample.repository.SampleJdbcRepostiory;
+import org.tnmk.practicespringjpa.pro06partialupdate.sample.repository.SampleRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;

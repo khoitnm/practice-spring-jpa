@@ -1,13 +1,13 @@
-package org.tnmk.practicespringjpa.pro05partialupdate;
+package org.tnmk.practicespringjpa.pro06partialupdate;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class Pro05PartialUpdateApplication {
+public class Pro06PartialUpdateApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Pro05PartialUpdateApplication.class, args);
+    SpringApplication.run(Pro06PartialUpdateApplication.class, args);
   }
 }

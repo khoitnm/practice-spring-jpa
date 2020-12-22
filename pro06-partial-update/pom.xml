@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.skeleton.practice-spring-jpa</groupId>
-    <artifactId>pro05-partial-update</artifactId>
+    <artifactId>pro06-partial-update</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
