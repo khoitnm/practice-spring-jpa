@@ -17,7 +17,7 @@
         <module>pro03-json-column</module>
         <module>pro04-flyway</module>
         <module>pro05-embedded-entity</module>
-        <module>pro05-partial-update</module>
+        <module>pro06-partial-update</module>
     </modules>
 
     <parent>

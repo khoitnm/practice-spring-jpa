@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro05partialupdate.sample.entity;
+package org.tnmk.practicespringjpa.pro06partialupdate.sample.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
