@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro07multitenant.testcontainer;
+package org.tnmk.practicespringjpa.pro07multitenant.testinfra.dbtestcontainer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 
 import java.lang.invoke.MethodHandles;
 
-import static org.tnmk.practicespringjpa.pro07multitenant.testcontainer.DBContainerStarter.DB_CONTAINER;
+import static org.tnmk.practicespringjpa.pro07multitenant.testinfra.dbtestcontainer.DBContainerStarter.DB_CONTAINER;
 
 
 public class DBContainerContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {

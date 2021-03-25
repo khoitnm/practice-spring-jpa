@@ -1,10 +1,9 @@
 spring:
   datasource:
-    url: theurlwillbereplacedby EmbeddedDBContextInitializer
-    username: theurlwillbereplacedby EmbeddedDBContextInitializer
-    password: theurlwillbereplacedby EmbeddedDBContextInitializer
-    schema-username: theurlwillbereplacedby EmbeddedDBContextInitializer
-    schema-password: theurlwillbereplacedby EmbeddedDBContextInitializer
+    url: jdbc:sqlserver://localhost:1433;databaseName=master
+    # This account is created in `db/init.sql`
+    username: dbUser
+    password: Passw0rd!
 #
 #  jpa:
 #    properties:
