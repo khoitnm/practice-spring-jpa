@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.story.SampleStory;
+import org.tnmk.practicespringjpa.pro07multitenant.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.pro07multitenant.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro07multitenant.story.SampleStory;
 
 @Service
 public class SeedDataStory {
@@ -16,7 +16,7 @@ public class SeedDataStory {
 
     @EventListener(ApplicationReadyEvent.class)
     public void autoStart(){
-        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntityWithChildren();
+        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
         sampleStory.create(sampleEntity);
     }
 }

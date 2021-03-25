@@ -5,9 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication
-public class JsonColumnApplication {
+public class Pro07MultiTenantApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(JsonColumnApplication.class, args);
+    SpringApplication.run(Pro07MultiTenantApplication.class, args);
   }
 }

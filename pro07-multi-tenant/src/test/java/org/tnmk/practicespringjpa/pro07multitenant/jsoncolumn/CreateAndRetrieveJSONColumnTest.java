@@ -4,9 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.BaseSpringTest;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.story.SampleStory;
+import org.tnmk.practicespringjpa.pro07multitenant.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.pro07multitenant.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro07multitenant.story.SampleStory;
 
 import java.util.Optional;
 
@@ -15,20 +15,16 @@ public class CreateAndRetrieveJSONColumnTest extends BaseSpringTest {
     private SampleStory sampleStory;
 
     @Test
-    public void test_canCreateAndRetrieveData() {
-        SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntityWithChildren();
+    public void when_findAnEntity_then_return_createdEntity() {
+        SampleEntity newSampleEntity = SampleEntityFactory.constructSampleEntity();
         SampleEntity savedNewSampleEntity = sampleStory.create(newSampleEntity);
 
-        Assert.assertNotNull(savedNewSampleEntity.getSampleEntityId());
+        Assert.assertNotNull(savedNewSampleEntity.getId());
         Assert.assertNotNull(savedNewSampleEntity.getCreatedDateTime());
         Assert.assertNotNull(savedNewSampleEntity.getUpdateDateTime());
 
-        Optional<SampleEntity> foundSampleEntity = sampleStory.findById(savedNewSampleEntity.getSampleEntityId());
+        Optional<SampleEntity> foundSampleEntity = sampleStory.findById(savedNewSampleEntity.getId());
         Assert.assertTrue(foundSampleEntity.isPresent());
-        Assert.assertEquals(
-                foundSampleEntity.get().getMainChildEntity().getName(),
-                newSampleEntity.getMainChildEntity().getName()
-        );
         Assert.assertEquals(
                 savedNewSampleEntity.getCreatedDateTime(),
                 foundSampleEntity.get().getCreatedDateTime()
