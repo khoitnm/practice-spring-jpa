@@ -1,13 +1,17 @@
 
 spring:
-  # There are 2 options for flyway to connect to DB:
-  # 1. If we don't have schema yet, and we want Flyway script create schema for us:
-  #     Define flyway.schemas:
-  #     And then don't put schema name in the datasource.url
-  # 2. If we already have schema created beforehand, then just connect it directly in url.
-  #
-  # In this example code, we'll let flyway create schema for us.
-  flyway.schemas: practice_spring_jpa_flyway_db
+
+  flyway:
+    # There are 2 options for flyway to connect to DB:
+    # 1. If we don't have schema yet, and we want Flyway script create schema for us:
+    #     Define flyway.schemas:
+    #     And then don't put schema name in the datasource.url
+    # 2. If we already have schema created beforehand, then just connect it directly in url.
+    #
+    # In this example code, we'll let flyway create schema for us.
+    schemas: practice_spring_jpa_flyway_db
+    validate-on-migrate: true
+    encoding: UTF-8
   datasource:
     # The DB name cannot contains hyphen character "-", you should use underscore character "_".
     # MySQL Server 8.x
