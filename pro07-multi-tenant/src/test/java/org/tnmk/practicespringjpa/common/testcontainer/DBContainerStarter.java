@@ -1,5 +1,6 @@
 package org.tnmk.practicespringjpa.common.testcontainer;
 
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
@@ -9,7 +10,7 @@ public class DBContainerStarter {
     public static final MySQLContainer DB_CONTAINER = startContainer();
 
     private static MySQLContainer startContainer() {
-        MySQLContainer mySQLContainer = (MySQLContainer) new MySQLContainer()
+        GenericContainer mySQLContainer = new MySQLContainer()
             .withDatabaseName("micro_mysql_account_management_db")
             .withUsername("default")
 //            .withPassword("test")//Just an embedded account's password for automation testing.
@@ -17,7 +18,7 @@ public class DBContainerStarter {
                 Wait.forLogMessage("ready for connection",1).withStartupTimeout(Duration.ofSeconds(60))
             );
         mySQLContainer.start();
-        return mySQLContainer;
+        return (MySQLContainer) mySQLContainer;
     }
 
 }

@@ -18,6 +18,7 @@
         <module>pro04-flyway</module>
         <module>pro05-embedded-entity</module>
         <module>pro06-partial-update</module>
+        <module>pro07-multi-tenant</module>
     </modules>
 
     <parent>
