@@ -17,12 +17,7 @@ import java.time.Instant;
  * NOTE that we can have 2 entities classes associated to the same table.
  */
 @Entity
-@Table(name = "sample_entity"
-        /**
-         * This name must match with DB name (in application.yml, docker.yml, and testing EmbeddedDBStarter)
-        */
-        , catalog = "practice_spring_jpa_db"
-)
+@Table(name = "sample_entity")
 @Setter
 @Getter
 public class SampleEntity {
