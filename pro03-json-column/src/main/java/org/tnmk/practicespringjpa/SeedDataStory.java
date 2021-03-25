@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.correctimplementation.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.correctimplementation.entity.SampleEntity;
-import org.tnmk.practicespringjpa.correctimplementation.story.SampleStory;
+import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.datafactory.SampleEntityFactory;
+import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.story.SampleStory;
 
 @Service
 public class SeedDataStory {

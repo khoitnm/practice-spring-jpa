@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.tnmk.practicespringjpa.common.testcontainer.DBContainerContextInitializer;
+import org.tnmk.practicespringjpa.pro07multitenant.testcontainer.DBContainerContextInitializer;
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
