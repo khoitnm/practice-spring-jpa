@@ -10,7 +10,7 @@ import org.tnmk.practicespringjpa.pro07multitenant.testcontainer.DBContainerCont
 
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {JsonColumnApplication.class})
+@SpringBootTest(classes = { Pro07MultiTenantApplication.class})
 @ContextConfiguration(initializers = DBContainerContextInitializer.class)
 @Ignore
 public abstract class BaseSpringTest {

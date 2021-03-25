@@ -1,9 +1,9 @@
-package org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.story;
+package org.tnmk.practicespringjpa.pro07multitenant.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro07multitenant.correctimplementation.repository.SampleRepository;
+import org.tnmk.practicespringjpa.pro07multitenant.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro07multitenant.repository.SampleRepository;
 
 import java.util.Optional;
 
@@ -18,7 +18,7 @@ public class SampleStory {
     }
 
     public SampleEntity update(SampleEntity sampleEntity) {
-        if (sampleEntity.getSampleEntityId() == null){
+        if (sampleEntity.getId() == null){
             throw new IllegalArgumentException("you cannot update an entity with null id.");
         }
         return sampleRepository.save(sampleEntity);
