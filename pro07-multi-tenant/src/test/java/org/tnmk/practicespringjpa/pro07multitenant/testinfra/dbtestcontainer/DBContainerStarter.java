@@ -11,6 +11,7 @@ public class DBContainerStarter {
     MSSQLServerContainer container = new MSSQLServerContainer();
     container
         .withInitScript("db/init.sql")
+        .withExposedPorts(1430)
         .withStartupTimeout(Duration.ofSeconds(90))
         .start();
     container.start();
