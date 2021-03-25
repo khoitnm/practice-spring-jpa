@@ -21,18 +21,21 @@ import java.time.Instant;
 @Setter
 @Getter
 public class SampleEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @Column(name = "id")
+  private Long id;
 
-    private String name;
+  private String name;
 
-    @Column(name = "creation_dateTime", updatable = false, columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6)")
-    @CreationTimestamp
-    private Instant createdDateTime;
+  /**
+   * The columnDefinition here is specific for MS SQL Server only. It won't work with other kinds of DBs such as My SQL, Oracle.
+   */
+  @Column(name = "creation_dateTime", updatable = false, columnDefinition = "datetime2 DEFAULT getdate()")
+  @CreationTimestamp
+  private Instant createdDateTime;
 
-    @Column(name = "update_dateTime", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)")
-    @UpdateTimestamp
-    private Instant updateDateTime;
+  @Column(name = "update_dateTime")
+  @UpdateTimestamp
+  private Instant updateDateTime;
 }
