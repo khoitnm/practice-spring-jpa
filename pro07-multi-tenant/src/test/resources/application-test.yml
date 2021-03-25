@@ -4,9 +4,12 @@ spring:
     # This account is created in `db/init.sql`
     username: dbUser
     password: Passw0rd!
-#
-#  jpa:
-#    properties:
-#      hibernate.jdbc.lob.non_contextual_creation: true
-#      hibernate.dialect:
-##      database-platform: org.hibernate.dialect.PostgreSQLDialect
+  jpa:
+    # http://www.baeldung.com/sql-logging-spring-boot
+    # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
+    # Moreover, it doesn’t log the parameters of prepared statements.
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+    hibernate:
+      ddl-auto: update
