@@ -1,0 +1,1 @@
+docker-compose -f docker-compose-local-mssqlserver.yml up -d

@@ -1,8 +1,8 @@
 -- ================================================================================
 -- Add security predicate data
 -- Please view more at row level security: https://docs.microsoft.com/en-us/sql/relational-databases/security/row-level-security?view=sql-server-ver15
--- CREATE SCHEMA security;
--- GO
+CREATE SCHEMA security;
+GO
 -- 'GO' statement: basically define each batch process.
 -- https://docs.microsoft.com/en-us/sql/t-sql/language-elements/sql-server-utilities-statements-go?view=sql-server-ver15
 

@@ -11,7 +11,7 @@ spring:
 
     # Execute all schema_*.sql when starting the application.
     # Ref: https://www.baeldung.com/spring-boot-sql-import-files
-    data: schema_*.sql
+#    data: schema_*.sql
 
     jpa:
     # Disabled it to avoid unexpected performance issue: https://www.baeldung.com/spring-open-session-in-view
