@@ -14,7 +14,8 @@ import javax.persistence.Table;
 import java.time.Instant;
 
 /**
- * NOTE that we can have 2 entities classes associated to the same table.
+ * Note: the organization_id which is used as tenant_id (for data discrimination) won't need to be defined here.
+ * You can see it inside {@link schema.sql}
  */
 @Entity
 @Table(name = "sample_entity")
