@@ -60,6 +60,14 @@
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
 
+        <!-- Multi-Tenant -->
+        <dependency>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
+            <version>2.2.3.0</version>
+        </dependency>
+
+
         <!-- For equals() and hashCode() -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -79,6 +87,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
