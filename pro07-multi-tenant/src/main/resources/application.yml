@@ -9,6 +9,10 @@ spring:
     # Ref: https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-database-initialization
     initialization-mode: always
 
+    # Execute all schema_*.sql when starting the application.
+    # Ref: https://www.baeldung.com/spring-boot-sql-import-files
+    data: schema_*.sql
+
     jpa:
     # Disabled it to avoid unexpected performance issue: https://www.baeldung.com/spring-open-session-in-view
     open-in-view: false
@@ -23,3 +27,5 @@ spring:
 #    hikari:
 #      pool-name: practice-spring-jpa
 #
+
+
