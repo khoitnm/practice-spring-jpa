@@ -17,13 +17,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.tnmk.practicespringjpa.Pro07MultiTenantApplication;
 
 import javax.sql.DataSource;
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 public class HibernateConfig {
-  private static final Logger LOGGER = LoggerFactory.getLogger(HibernateConfig.class);
-
+  private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
   @Bean
   JpaVendorAdapter jpaVendorAdapter() {
     return new HibernateJpaVendorAdapter();
@@ -37,7 +37,7 @@ public class HibernateConfig {
       JpaProperties jpaProperties,
       JpaVendorAdapter jpaVendorAdapter
   ) {
-    LOGGER.debug("Creating entityManagerFactory");
+    logger.debug("Creating entityManagerFactory");
 
     Map<String, Object> jpaPropertiesMap = new HashMap<>(jpaProperties.getProperties());
     jpaPropertiesMap.put(AvailableSettings.PHYSICAL_NAMING_STRATEGY, SpringPhysicalNamingStrategy.class.getCanonicalName());
@@ -55,7 +55,7 @@ public class HibernateConfig {
     em.setJpaVendorAdapter(jpaVendorAdapter);
     em.setJpaPropertyMap(jpaPropertiesMap);
 
-    LOGGER.debug("EntityManagerFactory created");
+    logger.debug("EntityManagerFactory created");
 
     return em;
   }
