@@ -7,6 +7,9 @@
 -- Add security predicate data
 -- Please view more at row level security: https://docs.microsoft.com/en-us/sql/relational-databases/security/row-level-security?view=sql-server-ver15
 CREATE SCHEMA security;
+
+-- Explanation about 'GO' statement:
+-- https://docs.microsoft.com/en-us/sql/t-sql/language-elements/sql-server-utilities-statements-go?view=sql-server-ver15
 GO
 
 /**
@@ -22,7 +25,9 @@ CREATE FUNCTION security.fn_security_predicate(@tenant_col AS sysname)
 
                   OR IS_ROLEMEMBER('db_ddladmin') = 1;
 
+-- ================================================================================
 -- Create sample_entity table.
+GO
 create table dbo.sample_entity
 (
     id                 bigint identity not null,
@@ -40,6 +45,7 @@ create table dbo.sample_entity
 -- ================================================================================
 -- Create Security Policy
 -- Going forward we will need to add a security policy for any tables that need to be tenant (or organization) specific.
+GO
 CREATE SECURITY POLICY SampleEntitySecPolicy
     ADD FILTER PREDICATE Security.fn_security_predicate(organization_id) ON dbo.sample_entity,
     ADD BLOCK PREDICATE Security.fn_security_predicate(organization_id) ON dbo.sample_entity
