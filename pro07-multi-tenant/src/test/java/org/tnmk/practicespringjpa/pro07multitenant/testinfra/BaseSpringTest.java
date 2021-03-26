@@ -12,7 +12,7 @@ import org.tnmk.practicespringjpa.pro07multitenant.testinfra.dbtestcontainer.DBC
 @ActiveProfiles("test")
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = { Pro07MultiTenantApplication.class})
-@ContextConfiguration(initializers = DBContainerContextInitializer.class)
+//@ContextConfiguration(initializers = DBContainerContextInitializer.class)
 @Ignore
 public abstract class BaseSpringTest {
 }

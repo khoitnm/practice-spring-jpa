@@ -17,11 +17,11 @@ import java.sql.Statement;
 public class TenantServiceImpl implements TenantService {
   private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  static final String CREATE_TENANT_LOGIN =
-      "CREATE USER [?] WITHOUT LOGIN;"
-          + "ALTER ROLE db_datareader ADD MEMBER [?];"
-          + "ALTER ROLE db_datawriter ADD MEMBER [?];"
-          + "GRANT IMPERSONATE ON USER::[?] TO [?];";
+  static final String CREATE_TENANT_LOGIN = ""
+      + "CREATE USER [?] WITHOUT LOGIN;"
+      + "ALTER ROLE db_datareader ADD MEMBER [?];"
+      + "ALTER ROLE db_datawriter ADD MEMBER [?];"
+      + "GRANT IMPERSONATE ON USER::[?] TO [?];";
 
   static final String TENANT_EXISTS = "SELECT DATABASE_PRINCIPAL_ID('?');";
 
@@ -33,27 +33,28 @@ public class TenantServiceImpl implements TenantService {
 
   @Override
   public boolean tenantExists(String tenantId) throws SQLException {
+    boolean result = false;
     try (Connection connection = dataSource.getConnection()) {
       try (Statement statement = connection.createStatement()) {
-        PreparedString tenantExistsQuery = new PreparedString(
-            TENANT_EXISTS, new MySQLCodec(MySQLCodec.Mode.ANSI));
+        PreparedString tenantExistsQuery = new PreparedString(TENANT_EXISTS, new MySQLCodec(MySQLCodec.Mode.ANSI));
         tenantExistsQuery.set(1, tenantId);
         try (ResultSet resultSet = statement.executeQuery(tenantExistsQuery.toString())) {
           if (resultSet.next()) {
-            return resultSet.getString(1) != null;
+            result = resultSet.getString(1) != null;
           }
         }
       }
+    } finally {
+      logger.trace("Check TenantId {} exist: {}", tenantId, result);
     }
-    return false;
+    return result;
   }
 
   @Override
   public void createTenant(String tenantId) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
       try (Statement statement = connection.createStatement()) {
-        PreparedString createTenantQuery = new PreparedString(
-            CREATE_TENANT_LOGIN, new MySQLCodec(MySQLCodec.Mode.ANSI));
+        PreparedString createTenantQuery = new PreparedString(CREATE_TENANT_LOGIN, new MySQLCodec(MySQLCodec.Mode.ANSI));
         createTenantQuery.set(1, tenantId);
         createTenantQuery.set(2, tenantId);
         createTenantQuery.set(3, tenantId);
@@ -62,9 +63,7 @@ public class TenantServiceImpl implements TenantService {
         statement.execute(createTenantQuery.toString());
       }
     } finally {
-      if (logger.isTraceEnabled()) {
-        logger.trace("Close connection for tenantId {}", tenantId);
-      }
+      logger.trace("Successfully create tenantId {}", tenantId);
     }
   }
 }

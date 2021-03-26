@@ -16,7 +16,7 @@ public class SampleStory {
     private SampleRepository sampleRepository;
 
     public SampleEntity create(SampleEntity sampleEntity) {
-        SecurityContext.setOrganizationId(UUID.randomUUID().toString());
+        SecurityContext.setOrganizationId("testTenantId_01");
         return sampleRepository.save(sampleEntity);
     }
 
