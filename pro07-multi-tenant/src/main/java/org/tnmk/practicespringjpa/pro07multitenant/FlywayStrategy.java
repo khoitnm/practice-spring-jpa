@@ -4,11 +4,12 @@ import org.flywaydb.core.Flyway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
+import org.springframework.stereotype.Component;
 
 /**
  * Only enable this when there a fail flyway script was executed.
  */
-//@Component
+@Component
 public class FlywayStrategy implements FlywayMigrationStrategy {
 
     private static final Logger logger = LoggerFactory.getLogger(FlywayStrategy.class);
