@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.tnmk.practicespringjpa.Pro07MultiTenantApplication;
+import org.tnmk.practicespringjpa.pro07multitenant.Pro07MultiTenantApplication;
 
 import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
