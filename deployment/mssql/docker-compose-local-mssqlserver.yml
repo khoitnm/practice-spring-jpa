@@ -1,0 +1,13 @@
+# This file is just used for local machine to start MS SQL Server
+version: '3'
+services:
+  sc-sqlserverdb:
+    image: mcr.microsoft.com/mssql/server:2017-latest
+    restart: always
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password1
+    expose:
+      - "1433"
+    ports:
+      - "1433:1433"
