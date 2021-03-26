@@ -2,10 +2,12 @@ package org.tnmk.practicespringjpa.pro07multitenant.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.tnmk.practicespringjpa.pro07multitenant.common.security.SecurityContext;
 import org.tnmk.practicespringjpa.pro07multitenant.entity.SampleEntity;
 import org.tnmk.practicespringjpa.pro07multitenant.repository.SampleRepository;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class SampleStory {
@@ -14,6 +16,7 @@ public class SampleStory {
     private SampleRepository sampleRepository;
 
     public SampleEntity create(SampleEntity sampleEntity) {
+        SecurityContext.setOrganizationId(UUID.randomUUID().toString());
         return sampleRepository.save(sampleEntity);
     }
 
