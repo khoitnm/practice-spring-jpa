@@ -4,8 +4,6 @@ import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringjpa.pro07multitenant.common.security.SecurityContext;
 
-import java.util.UUID;
-
 @Component
 public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver {
 
