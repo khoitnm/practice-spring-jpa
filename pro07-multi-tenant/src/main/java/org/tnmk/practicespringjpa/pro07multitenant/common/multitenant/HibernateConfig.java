@@ -24,6 +24,7 @@ import java.util.Map;
 @Configuration
 public class HibernateConfig {
   private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+
   @Bean
   JpaVendorAdapter jpaVendorAdapter() {
     return new HibernateJpaVendorAdapter();
@@ -43,10 +44,8 @@ public class HibernateConfig {
     jpaPropertiesMap.put(AvailableSettings.PHYSICAL_NAMING_STRATEGY, SpringPhysicalNamingStrategy.class.getCanonicalName());
     jpaPropertiesMap.put(AvailableSettings.IMPLICIT_NAMING_STRATEGY, SpringImplicitNamingStrategy.class.getCanonicalName());
     jpaPropertiesMap.put(AvailableSettings.MULTI_TENANT, MultiTenancyStrategy.SCHEMA);
-    jpaPropertiesMap.put(AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER,
-        multiTenantConnectionProvider);
-    jpaPropertiesMap.put(AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER,
-        currentTenantIdentifierResolver);
+    jpaPropertiesMap.put(AvailableSettings.MULTI_TENANT_CONNECTION_PROVIDER, multiTenantConnectionProvider);
+    jpaPropertiesMap.put(AvailableSettings.MULTI_TENANT_IDENTIFIER_RESOLVER, currentTenantIdentifierResolver);
 
     LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
     em.setDataSource(dataSource);
@@ -55,7 +54,7 @@ public class HibernateConfig {
     em.setJpaVendorAdapter(jpaVendorAdapter);
     em.setJpaPropertyMap(jpaPropertiesMap);
 
-    logger.debug("EntityManagerFactory created");
+    logger.debug("Created EntityManagerFactory successfully: \n" + jpaPropertiesMap);
 
     return em;
   }

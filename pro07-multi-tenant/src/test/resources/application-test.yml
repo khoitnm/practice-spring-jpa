@@ -2,8 +2,8 @@ spring:
   datasource:
     url: jdbc:sqlserver://localhost:1433;databaseName=master
     # This account is created in `db/init.sql`
-    username: dbUser
-    password: Passw0rd!
+    username: sa
+    password: Password1
   jpa:
     # http://www.baeldung.com/sql-logging-spring-boot
     # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
