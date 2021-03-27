@@ -53,6 +53,7 @@ public class TenantServiceImpl implements TenantService {
   @Override
   public void createTenant(String tenantId) throws SQLException {
     try (Connection connection = dataSource.getConnection()) {
+      logger.trace("Connection client info: {}", ConnectionLogHelper.toString(connection));
       try (Statement statement = connection.createStatement()) {
         PreparedString createTenantQuery = new PreparedString(CREATE_TENANT_LOGIN, new MySQLCodec(MySQLCodec.Mode.ANSI));
         createTenantQuery.set(1, tenantId);
@@ -63,7 +64,7 @@ public class TenantServiceImpl implements TenantService {
         statement.execute(createTenantQuery.toString());
       }
     } finally {
-      logger.trace("Successfully create tenantId {}", tenantId);
+      logger.trace("Finish creating tenantId (if there's no error, it means success: {}", tenantId);
     }
   }
 }
