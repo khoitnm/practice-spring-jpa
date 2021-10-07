@@ -1,7 +1,6 @@
 package org.tnmk.practicespringjpa.pro08mssqlsimple.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -12,15 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
-/**
- * Note: the organization_id which is used as tenant_id (for data discrimination) won't need to be defined here.
- * You can see it inside {@link schema.sql}
- */
 @Entity
 @Table(name = "sample_entity")
-@Setter
-@Getter
+@Data
 public class SampleEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +24,8 @@ public class SampleEntity {
 
   private String name;
 
+  @Column(name = "starting_date_time", columnDefinition = "DATETIME")
+  private ZonedDateTime startingDateTime;
   /**
    * The columnDefinition here is specific for MS SQL Server only. It won't work with other kinds of DBs such as My SQL, Oracle.
    */
@@ -38,5 +35,5 @@ public class SampleEntity {
 
   @Column(name = "update_dateTime")
   @UpdateTimestamp
-  private Instant updateDateTime;
+  private ZonedDateTime updateDateTime;
 }
