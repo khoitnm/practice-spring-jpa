@@ -18,8 +18,7 @@ spring:
     open-in-view: false
     generate-ddl: true
     hibernate:
-      # On Production, we should use Flyway instead
-      ddl-auto: none
+      ddl-auto: update
 #    #The platform for DDL or DML scripts (it's all by default)
 ##    platform: mysql
 #
