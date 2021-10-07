@@ -19,6 +19,7 @@
         <module>pro05-embedded-entity</module>
         <module>pro06-partial-update</module>
         <module>pro07-multi-tenant</module>
+        <module>pro08-mssql-simple</module>
     </modules>
 
 <!--    <parent>-->
