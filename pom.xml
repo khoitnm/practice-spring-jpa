@@ -20,6 +20,7 @@
         <module>pro06-partial-update</module>
         <module>pro07-multi-tenant</module>
         <module>pro08-mssql-simple</module>
+        <module>pro09-hiraki-connection-pool</module>
     </modules>
 
 <!--    <parent>-->
