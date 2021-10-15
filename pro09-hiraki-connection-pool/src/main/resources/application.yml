@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=master
+    username: sa
+    password: Password1
+
+    hikari:
+      # If a connection lasts longer than 3 seconds, consider it ask connection leak risk!
+      leak-detection-threshold: 3000
+      max-lifetime: 60000
+      maximum-pool-size: 6
+      pool-name: pro09-hiraki-connection-pool
+  jpa:
+    # Disabled it to avoid unexpected performance issue: https://www.baeldung.com/spring-open-session-in-view
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+#    #The platform for DDL or DML scripts (it's all by default)
+#    platform:
+#
+#    #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
+#    hikari:
+#      pool-name: practice-spring-jpa
+
+
+

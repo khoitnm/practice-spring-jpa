@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    url: jdbc:sqlserver://localhost:1433;databaseName=master
+    # This account is created in `db/init.sql`
+    username: sa
+    password: Password1
+  jpa:
+    # http://www.baeldung.com/sql-logging-spring-boot
+    # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
+    # Moreover, it doesn’t log the parameters of prepared statements.
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+#    hibernate:
+#      ddl-auto: update
