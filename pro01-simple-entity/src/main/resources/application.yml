@@ -9,7 +9,11 @@ spring:
   # http://www.baeldung.com/sql-logging-spring-boot
   # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
   # Moreover, it doesn’t log the parameters of prepared statements.
+
   jpa:
     show-sql: true
     properties:
       hibernate.format_sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
