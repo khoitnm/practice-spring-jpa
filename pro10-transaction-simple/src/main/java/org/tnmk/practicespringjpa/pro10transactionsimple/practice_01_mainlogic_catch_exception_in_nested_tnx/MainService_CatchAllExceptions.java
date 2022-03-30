@@ -44,6 +44,8 @@ public class MainService_CatchAllExceptions {
     try {
       toBeSavedInNestedService = nestedService.save(toBeSavedInNestedService);
     } catch (Exception ex) {
+      // This case actually will cause UnexpectedRollbackException:
+      // https://stackoverflow.com/questions/2007097/unexpectedrollbackexception-a-full-scenario-analysis
       toBeSavedInNestedService = null;
     }
 
