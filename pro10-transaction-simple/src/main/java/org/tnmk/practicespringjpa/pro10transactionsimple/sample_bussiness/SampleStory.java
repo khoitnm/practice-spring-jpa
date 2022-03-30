@@ -1,9 +1,7 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.story;
+package org.tnmk.practicespringjpa.pro10transactionsimple.sample_bussiness;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro10transactionsimple.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro10transactionsimple.repository.SampleRepository;
 
 import java.util.Optional;
 

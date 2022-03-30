@@ -1,6 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.datafactory;
-
-import org.tnmk.practicespringjpa.pro10transactionsimple.entity.SampleEntity;
+package org.tnmk.practicespringjpa.pro10transactionsimple.sample_bussiness;
 
 import java.time.ZonedDateTime;
 

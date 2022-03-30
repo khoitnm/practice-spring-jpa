@@ -1,13 +1,9 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.samplebusiness;
+package org.tnmk.practicespringjpa.pro10transactionsimple.sample_bussiness;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tnmk.practicespringjpa.pro10transactionsimple.datafactory.SampleEntityFactory;
-import org.tnmk.practicespringjpa.pro10transactionsimple.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro10transactionsimple.story.SampleStory;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest;
-import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithTestContainer;
 
 import java.util.Optional;
 
