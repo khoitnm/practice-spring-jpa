@@ -12,5 +12,5 @@ import org.tnmk.practicespringjpa.pro10transactionsimple.Pro10TransactionSimpleA
 @SpringBootTest(classes = { Pro10TransactionSimpleApplication.class})
 //@ContextConfiguration(initializers = DBContainerContextInitializer.class)
 @Ignore
-public abstract class BaseSpringTest {
+public abstract class BaseSpringTest_WithActualDb {
 }
