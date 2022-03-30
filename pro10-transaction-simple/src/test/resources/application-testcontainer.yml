@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: justplaceholder_from_db_container_test
+    username: justplaceholder_from_db_container_test
+    password: justplaceholder_from_db_container_test

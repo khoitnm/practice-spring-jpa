@@ -18,8 +18,8 @@ spring:
     #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
     hikari:
       pool-name: practice-spring-jpa
-  
-  # http://www.baeldung.com/sql-logging-spring-boot
+
+    driverClassName: com.mysql.cj.jdbc.Driver
   # While this is extremely simple, it’s not recommended as it directly unloads everything to standard output without any optimizations of a logging framework.
   # Moreover, it doesn’t log the parameters of prepared statements.
   jpa:
