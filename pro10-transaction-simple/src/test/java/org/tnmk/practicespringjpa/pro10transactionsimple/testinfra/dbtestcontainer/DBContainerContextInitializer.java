@@ -23,8 +23,11 @@ public class DBContainerContextInitializer implements ApplicationContextInitiali
         "spring.datasource.url=" + DB_CONTAINER.getJdbcUrl(),
         "spring.datasource.username=" + DB_CONTAINER.getUsername(),
         "spring.datasource.password=" + DB_CONTAINER.getPassword(),
-        "spring.sql.init.username=" + DB_CONTAINER.getUsername(),
-        "spring.sql.init.password=" + DB_CONTAINER.getPassword()
+
+        // The root password was configured in DbContainerStarter "MYSQL_ROOT_PASSWORD"
+        // If we don't config this correctly, it cannot create tables on the fly.
+        "spring.sql.init.username=root",
+        "spring.sql.init.password=root"
 
     ).applyTo(configurableApplicationContext.getEnvironment());
   }
