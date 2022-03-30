@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.entity;
+package org.tnmk.practicespringjpa.pro10transactionsimple.sample_bussiness;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
