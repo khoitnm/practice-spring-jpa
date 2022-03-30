@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_01_mainlogic_catch_exception_in_nested_tnx;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class SimpleService_Nested {
+public class NestedService_ThrowException {
   private final SimpleRepository simpleRepository;
 
   @Transactional

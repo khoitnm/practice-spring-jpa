@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.common;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

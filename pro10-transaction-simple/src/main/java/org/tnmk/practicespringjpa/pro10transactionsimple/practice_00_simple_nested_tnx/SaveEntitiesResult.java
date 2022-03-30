@@ -2,6 +2,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nes
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 
 @Getter
 @RequiredArgsConstructor
