@@ -33,6 +33,13 @@
             <artifactId>testcontainers</artifactId>
             <version>${testcontainers.version}</version>
             <scope>test</scope>
+            <!-- Cannot exclude junit4 from test container because MySQLContainer needs it -->
+            <!--            <exclusions>-->
+            <!--                <exclusion>-->
+            <!--                    <groupId>junit</groupId>-->
+            <!--                    <artifactId>junit</artifactId>-->
+            <!--                </exclusion>-->
+            <!--            </exclusions>-->
         </dependency>
 
         <!-- MY SQL -->
@@ -47,7 +54,7 @@
             <scope>test</scope>
         </dependency>
 
-         <!-- For equals() and hashCode() -->
+        <!-- For equals() and hashCode() -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -66,8 +73,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <!--
+                    https://junit.org/junit5/docs/current/user-guide/
+                    JUnit Vintage provides a TestEngine for running JUnit 3 and JUnit 4 based tests
+                    And we don't need it anymore, we are using newer JUnit.
+                    We should exclude this to avoid mistaken using the wrong annotation @Test from the old version.
+                    -->
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-
     </dependencies>
 
     <dependencyManagement>
@@ -99,6 +117,11 @@
                         <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
                     </annotationProcessors>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
         </plugins>
     </build>

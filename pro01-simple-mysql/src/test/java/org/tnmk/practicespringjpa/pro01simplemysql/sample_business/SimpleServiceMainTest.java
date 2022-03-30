@@ -1,7 +1,7 @@
 package org.tnmk.practicespringjpa.pro01simplemysql.sample_business;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro01simplemysql.testinfra.BaseSpringTest_WithTestContainer;
 
@@ -29,6 +29,6 @@ public class SimpleServiceMainTest extends BaseSpringTest_WithTestContainer {
 
   private void assertExist(long entityId, boolean expectExist) {
     Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findById(entityId);
-    Assert.assertEquals(expectExist, sampleEntityOptional.isPresent());
+    Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent());
   }
 }
