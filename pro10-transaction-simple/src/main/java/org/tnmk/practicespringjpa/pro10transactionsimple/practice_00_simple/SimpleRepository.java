@@ -1,0 +1,6 @@
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SimpleRepository extends JpaRepository<SimpleEntity, Long> {
+}

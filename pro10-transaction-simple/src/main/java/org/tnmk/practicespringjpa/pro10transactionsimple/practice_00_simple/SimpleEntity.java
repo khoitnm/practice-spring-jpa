@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.sample_bussiness;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name = "sample_entity")
 @Data
-public class SampleEntity {
+public class SimpleEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
