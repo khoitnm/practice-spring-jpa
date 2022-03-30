@@ -6,15 +6,15 @@ import java.time.Duration;
 
 public class DBContainerStarter {
   public static final MySQLContainer DB_CONTAINER = startContainer();
+  public static final String ROOT_PASSWORD = "root";
 
   private static MySQLContainer startContainer() {
     MySQLContainer container = new MySQLContainer()
         .withUsername("user")
         .withPassword("user")
-        .withDatabaseName("test")
-        ;
+        .withDatabaseName("test");
     container
-        .withEnv("MYSQL_ROOT_PASSWORD", "root")
+        .withEnv("MYSQL_ROOT_PASSWORD", ROOT_PASSWORD)
         .withStartupTimeout(Duration.ofSeconds(90))
         .start();
     return container;

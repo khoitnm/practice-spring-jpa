@@ -9,6 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import java.lang.invoke.MethodHandles;
 
 import static org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.dbtestcontainer.DBContainerStarter.DB_CONTAINER;
+import static org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.dbtestcontainer.DBContainerStarter.ROOT_PASSWORD;
 
 public class DBContainerContextInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
@@ -24,11 +25,9 @@ public class DBContainerContextInitializer implements ApplicationContextInitiali
         "spring.datasource.username=" + DB_CONTAINER.getUsername(),
         "spring.datasource.password=" + DB_CONTAINER.getPassword(),
 
-        // The root password was configured in DbContainerStarter "MYSQL_ROOT_PASSWORD"
-        // If we don't config this correctly, it cannot create tables on the fly.
+        // The root username is hardcoded inside {@link MySQLContainer#MYSQL_ROOT_USER}
         "spring.sql.init.username=root",
-        "spring.sql.init.password=root"
-
+        "spring.sql.init.password=" + ROOT_PASSWORD
     ).applyTo(configurableApplicationContext.getEnvironment());
   }
 }
