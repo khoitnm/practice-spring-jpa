@@ -2,6 +2,8 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nes
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
 import javax.transaction.Transactional;
 
