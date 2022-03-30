@@ -5,10 +5,11 @@ import org.junit.Test;
 import org.junit.jupiter.api.AfterEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
+import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithTestContainer;
 
 import java.util.Optional;
 
-public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
+public class SimpleServiceMainTest extends BaseSpringTest_WithTestContainer {
   @Autowired
   private SimpleService_Main simpleServiceMain;
 
