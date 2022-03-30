@@ -3,6 +3,8 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nes
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
@@ -40,12 +42,21 @@ public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
     assertExist(result.getToBeSavedInNestedService(), true);
   }
 
-  @Test
-  public void when_nestedService_error__then__everything_is_rolled_back() {
+  @ParameterizedTest
+  @CsvSource(value = {
+      //entityInMainMethod  ,entityInPrivateMethod ,entityInNestedService
+      "Name01               ,Name02                ,",        // entityInNestedService is null: it will cause roll back.
+      "Name01               ,                      ,Name03",  // entityInPrivateMethod is null: it will cause roll back.
+      "                     ,Name02                ,Name03"   // entityInMainMethod is null: obviously no thing will be saved.
+  })
+  public void when_nestedService_error__then__everything_is_rolled_back(
+      String entityInMainMethod,
+      String entityInPrivateMethod,
+      String entityInNestedService) {
     // Given
-    SimpleEntity toBeSavedInMainMethod = new SimpleEntity("Name" + UUID.randomUUID());
-    SimpleEntity toBeSavedInPrivateMethod = new SimpleEntity("Name" + UUID.randomUUID());
-    SimpleEntity toBeSavedInNestedService = new SimpleEntity(null); // this will cause error
+    SimpleEntity toBeSavedInMainMethod = new SimpleEntity(entityInMainMethod);
+    SimpleEntity toBeSavedInPrivateMethod = new SimpleEntity(entityInPrivateMethod);
+    SimpleEntity toBeSavedInNestedService = new SimpleEntity(entityInNestedService); // this will cause error
 
     try {
       // When
@@ -55,7 +66,6 @@ public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
       // expect exception happens here:
       Assertions.assertEquals(Collections.emptyList(), simpleRepository.findAll());
     }
-
   }
 
   private void assertExist(SimpleEntity simpleEntity, boolean expectExist) {
