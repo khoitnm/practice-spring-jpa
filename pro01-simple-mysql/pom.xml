@@ -66,6 +66,18 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <!--
+                    https://junit.org/junit5/docs/current/user-guide/
+                    JUnit Vintage provides a TestEngine for running JUnit 3 and JUnit 4 based tests
+                    And we don't need it anymore, we are using newer JUnit.
+                    We should exclude this to avoid mistaken using the wrong annotation @Test from the old version.
+                    -->
+                    <groupId>org.junit.vintage</groupId>
+                    <artifactId>junit-vintage-engine</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
     </dependencies>

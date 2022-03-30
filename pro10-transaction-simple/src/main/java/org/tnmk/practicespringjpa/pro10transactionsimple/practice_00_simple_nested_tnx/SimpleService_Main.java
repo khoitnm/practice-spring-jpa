@@ -16,10 +16,10 @@ public class SimpleService_Main {
   public SaveEntitiesResult saveEntities(
       SimpleEntity toBeSavedInMainMethod,
       SimpleEntity toBeSavedInPrivateMethod,
-      SimpleEntity toBeSavedInNestedService) {
+      SimpleEntity toBeSavedInNestedService) throws IllegalArgumentException {
 
     if (toBeSavedInMainMethod.getName() == null) {
-      throw new IllegalStateException("name cannot be null");
+      throw new IllegalArgumentException("name cannot be null");
     }
     toBeSavedInMainMethod = simpleRepository.save(toBeSavedInMainMethod);
 
@@ -30,9 +30,9 @@ public class SimpleService_Main {
     return new SaveEntitiesResult(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
   }
 
-  private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) {
+  private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {
     if (saveInPrivateMethod.getName() == null) {
-      throw new IllegalStateException("name cannot be null");
+      throw new IllegalArgumentException("name cannot be null");
     }
     return simpleRepository.save(saveInPrivateMethod);
   }

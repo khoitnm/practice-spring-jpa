@@ -11,9 +11,9 @@ public class SimpleService_Nested {
   private final SimpleRepository simpleRepository;
 
   @Transactional
-  public SimpleEntity save(SimpleEntity toBeSavedInMainMethod) {
+  public SimpleEntity save(SimpleEntity toBeSavedInMainMethod) throws IllegalArgumentException{
     if (toBeSavedInMainMethod.getName() == null) {
-      throw new IllegalStateException("name cannot be null");
+      throw new IllegalArgumentException("name cannot be null");
     }
     return simpleRepository.save(toBeSavedInMainMethod);
   }
