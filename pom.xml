@@ -21,6 +21,7 @@
         <module>pro07-multi-tenant</module>
         <module>pro08-mssql-simple</module>
         <module>pro09-hiraki-connection-pool</module>
+        <module>pro10-transaction-simple</module>
     </modules>
 
 <!--    <parent>-->
