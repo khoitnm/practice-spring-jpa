@@ -56,6 +56,8 @@ public class MainService_CatchAllExceptions_Test extends BaseSpringTest_WithActu
     // When
     SaveEntitiesResult result = mainService.saveEntities(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
 
+    assertExist(result.getAlwaysSuccessInMainMethod(), true);
+
     if (expectSavedInMainMethod) {
       assertExist(result.getToBeSavedInMainMethod(), true);
     }

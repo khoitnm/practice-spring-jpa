@@ -6,6 +6,7 @@ import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,8 @@ public class SimpleService_Main {
       SimpleEntity toBeSavedInPrivateMethod,
       SimpleEntity toBeSavedInNestedService) throws IllegalArgumentException {
 
+    SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity("AlwaysSuccess" + UUID.randomUUID()));
+
     if (toBeSavedInMainMethod.getName() == null) {
       throw new IllegalArgumentException("name cannot be null");
     }
@@ -29,7 +32,7 @@ public class SimpleService_Main {
 
     toBeSavedInNestedService = simpleService_nested.save(toBeSavedInNestedService);
 
-    return new SaveEntitiesResult(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
+    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
   }
 
   private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {

@@ -49,7 +49,7 @@ public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
       //entityInMainMethod  ,entityInPrivateMethod ,entityInNestedService
       "Name01               ,Name02                ,",        // entityInNestedService is null: it will cause roll back.
       "Name01               ,                      ,Name03",  // entityInPrivateMethod is null: it will cause roll back.
-      "                     ,Name02                ,Name03"   // entityInMainMethod is null: obviously no thing will be saved.
+      "                     ,Name02                ,Name03"   // entityInMainMethod is null: it will cause roll back.
   })
   public void when_nestedService_error__then__everything_is_rolled_back(
       String entityInMainMethod,
