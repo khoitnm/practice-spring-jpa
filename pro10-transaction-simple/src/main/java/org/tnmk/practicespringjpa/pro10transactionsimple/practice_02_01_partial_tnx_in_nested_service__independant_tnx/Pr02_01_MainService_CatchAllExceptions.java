@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_partial_tnx_in_nested_service;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_01_partial_tnx_in_nested_service__independant_tnx;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +12,9 @@ import javax.transaction.Transactional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Pr02_MainService_CatchAllExceptions {
+public class Pr02_01_MainService_CatchAllExceptions {
 
-  private final Pr02_NestedService_WithPartialTnx nestedService;
+  private final Pr02_01_NestedService_WithPartialTnx nestedService;
   private final SimpleRepository simpleRepository;
 
   @Transactional
@@ -29,7 +29,7 @@ public class Pr02_MainService_CatchAllExceptions {
     SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity(alwaysSuccessName_InMainService));
 
     // toBeSavedInNestedService
-    Pr02_NestedService_WithPartialTnx.NestedResult nestedResult;
+    Pr02_01_NestedService_WithPartialTnx.NestedResult nestedResult;
     try {
       nestedResult = nestedService.saveWithPartialTnx(
           alwaysSuccessName_InNestedService_PartialTnx,
@@ -46,6 +46,6 @@ public class Pr02_MainService_CatchAllExceptions {
   @Getter
   public static class MainResult {
     private final SimpleEntity alwaysSuccessInMainService;
-    private final Pr02_NestedService_WithPartialTnx.NestedResult nestedResult;
+    private final Pr02_01_NestedService_WithPartialTnx.NestedResult nestedResult;
   }
 }
