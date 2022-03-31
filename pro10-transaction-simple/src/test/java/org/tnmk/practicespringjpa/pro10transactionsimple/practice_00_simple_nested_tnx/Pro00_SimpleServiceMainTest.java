@@ -42,7 +42,7 @@ public class Pro00_SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
     // Then
     assertExist(result.getToBeSavedInMainMethod(), true);
     assertExist(result.getToBeSavedInPrivateMethod(), true);
-    assertExist(result.getToBeSavedInNestedService(), true);
+    assertExist(result.getToBeSavedInNestedService_withNestedTnx(), true);
   }
 
   @ParameterizedTest

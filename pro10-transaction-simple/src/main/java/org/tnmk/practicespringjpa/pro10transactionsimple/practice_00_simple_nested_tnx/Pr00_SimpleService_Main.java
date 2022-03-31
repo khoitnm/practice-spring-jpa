@@ -33,7 +33,7 @@ public class Pr00_SimpleService_Main {
 
     toBeSavedInNestedService = pr00SimpleService_nested.save(toBeSavedInNestedService);
 
-    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
+    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService, null);
   }
 
   private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {

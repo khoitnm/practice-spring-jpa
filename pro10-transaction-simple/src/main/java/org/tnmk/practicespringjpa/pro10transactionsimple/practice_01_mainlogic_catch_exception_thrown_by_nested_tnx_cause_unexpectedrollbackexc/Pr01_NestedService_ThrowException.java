@@ -13,6 +13,14 @@ public class Pr01_NestedService_ThrowException {
   private final SimpleRepository simpleRepository;
 
   @Transactional
+  public SimpleEntity saveWithNestedTransaction(SimpleEntity toBeSavedInMainMethod) throws IllegalArgumentException{
+    return save(toBeSavedInMainMethod);
+  }
+
+  public SimpleEntity saveWithoutNestedTransaction(SimpleEntity toBeSavedInMainMethod) throws IllegalArgumentException{
+    return save(toBeSavedInMainMethod);
+  }
+
   public SimpleEntity save(SimpleEntity toBeSavedInMainMethod) throws IllegalArgumentException{
     if (toBeSavedInMainMethod.getName() == null) {
       throw new IllegalArgumentException("name cannot be null");

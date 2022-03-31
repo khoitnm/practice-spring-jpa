@@ -3,9 +3,9 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_01_mainlogic_
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
-import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 
 import javax.transaction.Transactional;
 import java.util.UUID;
@@ -22,7 +22,8 @@ public class Pr01_MainService_CatchAllExceptions {
   public SaveEntitiesResult saveEntities(
       SimpleEntity toBeSavedInMainMethod,
       SimpleEntity toBeSavedInPrivateMethod,
-      SimpleEntity toBeSavedInNestedService) throws IllegalArgumentException {
+      SimpleEntity toBeSavedInNestedService_withNestedTnx,
+      SimpleEntity toBeSavedInNestedService_withoutNestedTnx) throws IllegalArgumentException {
 
     SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity("AlwaysSuccess" + UUID.randomUUID()));
 
@@ -43,16 +44,25 @@ public class Pr01_MainService_CatchAllExceptions {
       toBeSavedInPrivateMethod = null;
     }
 
-    // toBeSavedInNestedService
+    // toBeSavedInNestedService_withNestedTnx
     try {
-      toBeSavedInNestedService = nestedService.save(toBeSavedInNestedService);
+      toBeSavedInNestedService_withNestedTnx = nestedService.saveWithNestedTransaction(toBeSavedInNestedService_withNestedTnx);
     } catch (Exception ex) {
       // This case actually will cause UnexpectedRollbackException:
       // https://stackoverflow.com/questions/2007097/unexpectedrollbackexception-a-full-scenario-analysis
-      toBeSavedInNestedService = null;
+      toBeSavedInNestedService_withNestedTnx = null;
     }
 
-    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
+    // toBeSavedInNestedService_withoutNestedTnx
+    try {
+      toBeSavedInNestedService_withoutNestedTnx = nestedService.saveWithoutNestedTransaction(toBeSavedInNestedService_withoutNestedTnx);
+    } catch (Exception ex) {
+      // This won't cause UnexpectedRollbackException:
+      toBeSavedInNestedService_withoutNestedTnx = null;
+    }
+
+    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService_withNestedTnx,
+        toBeSavedInNestedService_withoutNestedTnx);
   }
 
   private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {
