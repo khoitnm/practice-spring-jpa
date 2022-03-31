@@ -8,6 +8,7 @@ import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository
 import org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx.SaveEntitiesResult;
 
 import javax.transaction.Transactional;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -22,6 +23,8 @@ public class MainService_CatchAllExceptions {
       SimpleEntity toBeSavedInMainMethod,
       SimpleEntity toBeSavedInPrivateMethod,
       SimpleEntity toBeSavedInNestedService) throws IllegalArgumentException {
+
+    SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity("AlwaysSuccess" + UUID.randomUUID()));
 
     // toBeSavedInMainMethod
     try {
@@ -49,7 +52,7 @@ public class MainService_CatchAllExceptions {
       toBeSavedInNestedService = null;
     }
 
-    return new SaveEntitiesResult(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
+    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
   }
 
   private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {
