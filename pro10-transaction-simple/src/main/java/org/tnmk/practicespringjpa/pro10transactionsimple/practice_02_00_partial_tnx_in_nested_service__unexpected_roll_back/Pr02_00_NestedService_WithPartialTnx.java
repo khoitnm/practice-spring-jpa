@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_partial_tnx_in_nested_service;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_00_partial_tnx_in_nested_service__unexpected_roll_back;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @Service
 @RequiredArgsConstructor
-public class Pr02_NestedService_WithPartialTnx {
+public class Pr02_00_NestedService_WithPartialTnx {
   private final TransactionTemplate transactionTemplate;
   private final SimpleRepository simpleRepository;
 
@@ -25,7 +25,8 @@ public class Pr02_NestedService_WithPartialTnx {
       String entity_InNestedService_AfterPartialTnx) throws IllegalArgumentException {
 
     AtomicReference<PartialTnxResult> result = new AtomicReference<>();
-    // Start partial transaction
+    // Start partial transaction:
+    //  This still will cause unexpected roll back in the main service if there's any error inside here.
     transactionTemplate.execute(status -> {
       SimpleEntity alwaysSuccessInPartialTnx = simpleRepository.save(new SimpleEntity(alwaysSuccessName_InNestedService_PartialTnx));
 
