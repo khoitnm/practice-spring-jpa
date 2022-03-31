@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_01_mainlogic_catch_exception_in_nested_tnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_01_mainlogic_catch_exception_thrown_by_nested_tnx_cause_unexpectedrollbackexc;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
