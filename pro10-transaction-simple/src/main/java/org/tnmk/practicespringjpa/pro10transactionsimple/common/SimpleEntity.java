@@ -18,6 +18,7 @@ public class SimpleEntity {
   @Column(name = "id")
   private Long id;
 
+  @Column(name = "name", unique = true)
   private String name;
 
   public SimpleEntity() {

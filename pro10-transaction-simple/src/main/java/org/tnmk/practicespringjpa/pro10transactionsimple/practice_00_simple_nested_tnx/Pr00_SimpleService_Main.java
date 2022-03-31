@@ -2,7 +2,6 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nes
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
@@ -17,7 +16,7 @@ public class Pr00_SimpleService_Main {
   private final SimpleRepository simpleRepository;
 
   @Transactional
-  public SaveEntitiesResult saveEntities(
+  public void saveEntities(
       SimpleEntity toBeSavedInMainMethod,
       SimpleEntity toBeSavedInPrivateMethod,
       SimpleEntity toBeSavedInNestedService) throws IllegalArgumentException {
@@ -32,8 +31,6 @@ public class Pr00_SimpleService_Main {
     toBeSavedInPrivateMethod = saveInPrivateMethod(toBeSavedInPrivateMethod);
 
     toBeSavedInNestedService = pr00SimpleService_nested.save(toBeSavedInNestedService);
-
-    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService, null);
   }
 
   private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {
