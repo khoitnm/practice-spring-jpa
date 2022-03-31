@@ -35,6 +35,9 @@ public class MainService_CatchAllExceptions_Test extends BaseSpringTest_WithActu
       //entityInMainMethod  ,entityInPrivateMethod ,entityInNestedService ,expectSavedInMainMethod, expectSavedInPrivateMethod, expectedSavedInNestedMethod
       "Name01               ,                      ,Name03                ,true                   , false                     , true",
       "                     ,Name02                ,Name03                ,false                  , true                      , true"
+
+      // The case when entityInNestedService causes error will be covered in the next test case:
+      // when_get_UnexpectedRollbackException__then__all_data_including_mainService_will_be_rolled_back()
   })
   public void test_MainService_CatchAllExceptions_saveEntities(
       String entityInMainMethod,
