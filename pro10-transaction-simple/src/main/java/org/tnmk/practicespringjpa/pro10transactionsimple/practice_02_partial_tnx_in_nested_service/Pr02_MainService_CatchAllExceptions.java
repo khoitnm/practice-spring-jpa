@@ -1,11 +1,11 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_01_mainlogic_catch_exception_thrown_by_nested_tnx_cause_unexpectedrollbackexc;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_partial_tnx_in_nested_service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
-import org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx.SaveEntitiesResult;
 
 import javax.transaction.Transactional;
 import java.util.UUID;
@@ -13,18 +13,20 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class MainService_CatchAllExceptions {
+public class Pr02_MainService_CatchAllExceptions {
 
-  private final NestedService_ThrowException nestedService;
+  private final Pr02_NestedService_WithPartialTnx nestedService;
   private final SimpleRepository simpleRepository;
 
   @Transactional
   public SaveEntitiesResult saveEntities(
       SimpleEntity toBeSavedInMainMethod,
       SimpleEntity toBeSavedInPrivateMethod,
-      SimpleEntity toBeSavedInNestedService) throws IllegalArgumentException {
+      SimpleEntity toBeSavedInNestedService,
+      boolean isExpectUpdateAfterSavingInNestedServiceSuccess
+  ) throws IllegalArgumentException {
 
-    SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity("AlwaysSuccess" + UUID.randomUUID()));
+    SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity("AlwaysSuccessInMainService" + UUID.randomUUID()));
 
     // toBeSavedInMainMethod
     try {
@@ -45,7 +47,7 @@ public class MainService_CatchAllExceptions {
 
     // toBeSavedInNestedService
     try {
-      toBeSavedInNestedService = nestedService.save(toBeSavedInNestedService);
+      toBeSavedInNestedService = nestedService.save(toBeSavedInNestedService, isExpectUpdateAfterSavingInNestedServiceSuccess);
     } catch (Exception ex) {
       // This case actually will cause UnexpectedRollbackException:
       // https://stackoverflow.com/questions/2007097/unexpectedrollbackexception-a-full-scenario-analysis

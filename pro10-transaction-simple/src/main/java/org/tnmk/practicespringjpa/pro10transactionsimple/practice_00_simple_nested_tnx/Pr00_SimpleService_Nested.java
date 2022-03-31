@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_01_mainlogic_catch_exception_thrown_by_nested_tnx_cause_unexpectedrollbackexc;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class NestedService_ThrowException {
+public class Pr00_SimpleService_Nested {
   private final SimpleRepository simpleRepository;
 
   @Transactional
