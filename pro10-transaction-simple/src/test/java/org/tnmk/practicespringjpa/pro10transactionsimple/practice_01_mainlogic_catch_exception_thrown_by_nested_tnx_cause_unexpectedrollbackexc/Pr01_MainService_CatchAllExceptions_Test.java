@@ -59,16 +59,16 @@ public class Pr01_MainService_CatchAllExceptions_Test extends BaseSpringTest_Wit
     SaveEntitiesResult result = mainService.saveEntities(toBeSavedInMainMethod, toBeSavedInPrivateMethod,
         toBeSavedInNestedService_withNestedTnx, toBeSavedInNestedService_withoutNestedTnx);
 
-    assertExist(result.getAlwaysSuccessInMainMethod(), true);
+    //    assertExist(result.getAlwaysSuccessInMainMethod(), true);
 
     if (expectSavedInMainMethod) {
-      assertExist(result.getToBeSavedInMainMethod(), true);
+      assertExist(toBeSavedInMainMethod.getName(), true);
     }
     if (expectSavedInPrivateMethod) {
-      assertExist(result.getToBeSavedInPrivateMethod(), true);
+      assertExist(toBeSavedInPrivateMethod.getName(), true);
     }
     if (expectedSavedInNestedMethod) {
-      assertExist(result.getToBeSavedInNestedService_withoutNestedTnx(), true);
+      assertExist(toBeSavedInNestedService_withoutNestedTnx.getName(), true);
     }
   }
 
@@ -86,14 +86,15 @@ public class Pr01_MainService_CatchAllExceptions_Test extends BaseSpringTest_Wit
 
     // When
     try {
-      mainService.saveEntities(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService_withNestedTnx, toBeSavedInNestedService_withoutNestedTnx);
+      mainService.saveEntities(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService_withNestedTnx,
+          toBeSavedInNestedService_withoutNestedTnx);
     } catch (UnexpectedRollbackException ex) {
       Assertions.assertEquals(Collections.emptyList(), simpleRepository.findAll());
     }
   }
 
-  private void assertExist(SimpleEntity simpleEntity, boolean expectExist) {
-    Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findById(simpleEntity.getId());
+  private void assertExist(String entityName, boolean expectExist) {
+    Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findByName(entityName);
     Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent());
   }
 }

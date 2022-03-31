@@ -37,12 +37,12 @@ public class Pro00_SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
     SimpleEntity toBeSavedInNestedService = new SimpleEntity("Name" + UUID.randomUUID());
 
     // When
-    SaveEntitiesResult result = simpleServiceMain.saveEntities(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
+    simpleServiceMain.saveEntities(toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
 
     // Then
-    assertExist(result.getToBeSavedInMainMethod(), true);
-    assertExist(result.getToBeSavedInPrivateMethod(), true);
-    assertExist(result.getToBeSavedInNestedService_withNestedTnx(), true);
+    assertExist(toBeSavedInMainMethod.getName(), true);
+    assertExist(toBeSavedInPrivateMethod.getName(), true);
+    assertExist(toBeSavedInNestedService.getName(), true);
   }
 
   @ParameterizedTest
@@ -71,8 +71,8 @@ public class Pro00_SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
     }
   }
 
-  private void assertExist(SimpleEntity simpleEntity, boolean expectExist) {
-    Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findById(simpleEntity.getId());
+  private void assertExist(String entityName, boolean expectExist) {
+    Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findByName(entityName);
     Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent());
   }
 }

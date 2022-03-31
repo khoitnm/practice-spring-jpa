@@ -1,13 +1,12 @@
 package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_partial_tnx_in_nested_service;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
-import javax.transaction.Transactional;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
@@ -16,30 +15,52 @@ public class Pr02_NestedService_WithPartialTnx {
   private final TransactionTemplate transactionTemplate;
   private final SimpleRepository simpleRepository;
 
-  @Transactional
-  public SimpleEntity save(SimpleEntity toBeSavedInMainMethod, boolean isUpdateAfterSavingSuccessfully) throws IllegalArgumentException {
-    AtomicReference<SimpleEntity> result = new AtomicReference<>();
+  /**
+   * A "Partial Transaction" is a transaction that only cover a part of the business logic of this method,
+   * it won't cover transaction for the whole method.
+   */
+  public NestedResult saveWithPartialTnx(
+      String alwaysSuccessName_InNestedService_PartialTnx,
+      String entity_InNestedService_PartialTnx,
+      String entity_InNestedService_AfterPartialTnx) throws IllegalArgumentException {
 
+    AtomicReference<PartialTnxResult> result = new AtomicReference<>();
+    // Start partial transaction
     transactionTemplate.execute(status -> {
-      simpleRepository.save(new SimpleEntity("AlwaysSuccessInNestedBusiness" + UUID.randomUUID()));
+      SimpleEntity alwaysSuccessInPartialTnx = simpleRepository.save(new SimpleEntity(alwaysSuccessName_InNestedService_PartialTnx));
 
-      result.set(saveEntityWithNotNullName(toBeSavedInMainMethod));
-      return result;
+      SimpleEntity saved = saveEntityWithNotNullName(entity_InNestedService_PartialTnx);
+
+      result.set(new PartialTnxResult(alwaysSuccessInPartialTnx, saved));
+
+      // returning in transaction execution is not important.
+      return null;
     });
+    // End partial transaction
 
-    SimpleEntity savedEntity = result.get();
-    if (isUpdateAfterSavingSuccessfully) {
-      savedEntity.setName(savedEntity.getName() + "Edited Successfully");
-      return simpleRepository.save(savedEntity);
-    } else {
-      throw new IllegalArgumentException("As expected, we'll simulate that the update process will be failed after the previous saving.");
-    }
+    PartialTnxResult partialTnxResult = result.get();
+    SimpleEntity savedEntity_InNestedService_AfterPartialTnx = saveEntityWithNotNullName(entity_InNestedService_AfterPartialTnx);
+    return new NestedResult(partialTnxResult, savedEntity_InNestedService_AfterPartialTnx);
   }
 
-  private SimpleEntity saveEntityWithNotNullName(SimpleEntity entity) {
-    if (entity.getName() == null) {
+  private SimpleEntity saveEntityWithNotNullName(String entityName) {
+    if (entityName == null) {
       throw new IllegalArgumentException("name cannot be null");
     }
-    return simpleRepository.save(entity);
+    return simpleRepository.save(new SimpleEntity(entityName));
+  }
+
+  @RequiredArgsConstructor
+  @Getter
+  public static class PartialTnxResult {
+    private final SimpleEntity alwaysSuccess_InNestedService_PartialTnx;
+    private final SimpleEntity entity_InNestedService_PartialTnx;
+  }
+
+  @RequiredArgsConstructor
+  @Getter
+  public static class NestedResult {
+    private final PartialTnxResult partialTnxResult;
+    private final SimpleEntity entity_InNestedService_AfterPartialTnx;
   }
 }

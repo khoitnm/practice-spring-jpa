@@ -1,14 +1,13 @@
 package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_partial_tnx_in_nested_service;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
 import javax.transaction.Transactional;
-import java.util.UUID;
 
 @Slf4j
 @Service
@@ -19,49 +18,34 @@ public class Pr02_MainService_CatchAllExceptions {
   private final SimpleRepository simpleRepository;
 
   @Transactional
-  public SaveEntitiesResult saveEntities(
-      SimpleEntity toBeSavedInMainMethod,
-      SimpleEntity toBeSavedInPrivateMethod,
-      SimpleEntity toBeSavedInNestedService,
-      boolean isExpectUpdateAfterSavingInNestedServiceSuccess
+  public MainResult saveEntities(
+      String alwaysSuccessName_InMainService,
+      String alwaysSuccessName_InNestedService_PartialTnx,
+      String entity_InNestedService_PartialTnx,
+      String entity_InNestedService_AfterPartialTnx
   ) throws IllegalArgumentException {
-
-    SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity("AlwaysSuccessInMainService" + UUID.randomUUID()));
-
-    // toBeSavedInMainMethod
-    try {
-      if (toBeSavedInMainMethod.getName() == null) {
-        throw new IllegalArgumentException("name cannot be null");
-      }
-      toBeSavedInMainMethod = simpleRepository.save(toBeSavedInMainMethod);
-    } catch (Exception ex) {
-      toBeSavedInMainMethod = null;
-    }
-
-    // toBeSavedInPrivateMethod
-    try {
-      toBeSavedInPrivateMethod = saveInPrivateMethod(toBeSavedInPrivateMethod);
-    } catch (Exception ex) {
-      toBeSavedInPrivateMethod = null;
-    }
+    // Note: when working with transaction, catching exception in main service is different from catching in nested service.
+    // alwaysSuccessEntity
+    SimpleEntity alwaysSuccessEntity = simpleRepository.save(new SimpleEntity(alwaysSuccessName_InMainService));
 
     // toBeSavedInNestedService
+    Pr02_NestedService_WithPartialTnx.NestedResult nestedResult;
     try {
-      toBeSavedInNestedService = nestedService.save(toBeSavedInNestedService, isExpectUpdateAfterSavingInNestedServiceSuccess);
+      nestedResult = nestedService.saveWithPartialTnx(
+          alwaysSuccessName_InNestedService_PartialTnx,
+          entity_InNestedService_PartialTnx,
+          entity_InNestedService_AfterPartialTnx);
     } catch (Exception ex) {
-      // This case actually will cause UnexpectedRollbackException:
-      // https://stackoverflow.com/questions/2007097/unexpectedrollbackexception-a-full-scenario-analysis
-      toBeSavedInNestedService = null;
+      nestedResult = null;
     }
 
-    return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService, null);
+    return new MainResult(alwaysSuccessEntity, nestedResult);
   }
 
-  private SimpleEntity saveInPrivateMethod(SimpleEntity saveInPrivateMethod) throws IllegalArgumentException {
-    if (saveInPrivateMethod.getName() == null) {
-      throw new IllegalArgumentException("name cannot be null");
-    }
-    return simpleRepository.save(saveInPrivateMethod);
+  @RequiredArgsConstructor
+  @Getter
+  public static class MainResult {
+    private final SimpleEntity alwaysSuccessInMainService;
+    private final Pr02_NestedService_WithPartialTnx.NestedResult nestedResult;
   }
-
 }

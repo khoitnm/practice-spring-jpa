@@ -14,7 +14,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class Pr01_MainService_CatchAllExceptions {
-
   private final Pr01_NestedService_ThrowException nestedService;
   private final SimpleRepository simpleRepository;
 
