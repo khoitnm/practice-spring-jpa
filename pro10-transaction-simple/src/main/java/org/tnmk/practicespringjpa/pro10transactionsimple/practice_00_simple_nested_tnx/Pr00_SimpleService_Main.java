@@ -2,6 +2,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nes
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
@@ -10,9 +11,9 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class SimpleService_Main {
+public class Pr00_SimpleService_Main {
 
-  private final SimpleService_Nested simpleService_nested;
+  private final Pr00_SimpleService_Nested pr00SimpleService_nested;
   private final SimpleRepository simpleRepository;
 
   @Transactional
@@ -30,7 +31,7 @@ public class SimpleService_Main {
 
     toBeSavedInPrivateMethod = saveInPrivateMethod(toBeSavedInPrivateMethod);
 
-    toBeSavedInNestedService = simpleService_nested.save(toBeSavedInNestedService);
+    toBeSavedInNestedService = pr00SimpleService_nested.save(toBeSavedInNestedService);
 
     return new SaveEntitiesResult(alwaysSuccessEntity, toBeSavedInMainMethod, toBeSavedInPrivateMethod, toBeSavedInNestedService);
   }

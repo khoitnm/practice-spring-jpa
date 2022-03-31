@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
-import org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx.SaveEntitiesResult;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
 import javax.transaction.Transactional;
@@ -17,9 +17,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-public class MainService_CatchAllExceptions_Test extends BaseSpringTest_WithActualDb {
+public class Pr01_MainService_CatchAllExceptions_Test extends BaseSpringTest_WithActualDb {
   @Autowired
-  private MainService_CatchAllExceptions mainService;
+  private Pr01_MainService_CatchAllExceptions mainService;
 
   @Autowired
   private SimpleRepository simpleRepository;

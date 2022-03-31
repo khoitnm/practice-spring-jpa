@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.SaveEntitiesResult;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
@@ -15,9 +16,9 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.UUID;
 
-public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
+public class Pro00_SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
   @Autowired
-  private SimpleService_Main simpleServiceMain;
+  private Pr00_SimpleService_Main simpleServiceMain;
 
   @Autowired
   private SimpleRepository simpleRepository;
