@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_01_partial_tnx_in_nested_service__independant_tnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_01_partial_tnx_in_nested_service__independant_tnx_by__tnx_requires_new;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
@@ -7,7 +7,6 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
-import org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_00_partial_tnx_in_nested_service__unexpected_roll_back.Pr02_00_MainService_CatchAllExceptions;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
 import javax.transaction.Transactional;

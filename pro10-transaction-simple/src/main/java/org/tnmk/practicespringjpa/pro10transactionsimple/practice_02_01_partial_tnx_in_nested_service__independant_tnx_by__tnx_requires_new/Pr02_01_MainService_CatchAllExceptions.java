@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_01_partial_tnx_in_nested_service__independant_tnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_01_partial_tnx_in_nested_service__independant_tnx_by__tnx_requires_new;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
