@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_simple_nested_tnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_00_00_simple_nested_tnx;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
