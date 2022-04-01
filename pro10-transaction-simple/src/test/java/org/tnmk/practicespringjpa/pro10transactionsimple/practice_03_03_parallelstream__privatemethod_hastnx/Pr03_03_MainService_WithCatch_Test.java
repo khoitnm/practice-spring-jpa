@@ -8,6 +8,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Propagation;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
@@ -37,6 +38,17 @@ public class Pr03_03_MainService_WithCatch_Test extends BaseSpringTest_WithActua
       //tnxPropagation                                  ,expectUnexpectedRollback ,expectExistBeforeParallel  ,expectExistAfterParallel ,expectExistParallel01  ,expectExistParallel03
       TransactionDefinition.PROPAGATION_REQUIRED + "    ,true                     ,false                      ,false                    ,true                   ,true",
       TransactionDefinition.PROPAGATION_REQUIRES_NEW + ",false                    ,true                       ,true                     ,true                   ,true",
+
+      // This case is very interesting:
+      //  With Propagation SUPPORT, it will reuse the transaction from the main logic (you'll see "Is new trans: false" in the log).
+      //  It means the main logic, and all of parallel threads are using the same logical transaction.
+      //
+      //  However, when one of the parallel item failed and rolled back, other threads still can commit and won't be rolled back!!!
+      //  So I guess each thread will have it's own saving point?! But it may not be correct because of the next observation.
+      //
+      //  Another surprise thing is:
+      //  the data inside main logic is rolled back even though it's already catch exceptions from child thread.
+      //  aren't they have different saving point??? I guess not, then how it actually works???
       TransactionDefinition.PROPAGATION_SUPPORTS + "    ,true                     ,false                      ,false                    ,true                   ,true"
   })
   public void when_MainService_saveInParallel_then_wontBeRolledBack(
@@ -76,9 +88,10 @@ public class Pr03_03_MainService_WithCatch_Test extends BaseSpringTest_WithActua
       log.info(ex.getMessage());
     } catch (UnexpectedRollbackException ex) {
       if (!expectUnexpectedRollback) {
-        Assertions.fail("We don't expect to get UnexpectedRollbackException, but still get it with transaction propagation "+tnxPropagation);
+        Assertions.fail("We don't expect to get UnexpectedRollbackException, but still get it with transaction propagation " +
+            toStringPropagation(tnxPropagation));
       } else {
-        log.info("Expect to get UnexpectedRollbackException");
+        log.info("Expect to get UnexpectedRollbackException with propagation " + toStringPropagation(tnxPropagation));
       }
     }
 
@@ -93,5 +106,13 @@ public class Pr03_03_MainService_WithCatch_Test extends BaseSpringTest_WithActua
   private void assertExist(String entityName, boolean expectExist) {
     Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findByName(entityName);
     Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent(), "Expect '" + entityName + "' existence to be " + expectExist);
+  }
+
+  /**
+   * @param propagation get from {@link TransactionDefinition} or {@link Propagation}.
+   * @return
+   */
+  private String toStringPropagation(int propagation) {
+    return Propagation.values()[propagation].name();
   }
 }
