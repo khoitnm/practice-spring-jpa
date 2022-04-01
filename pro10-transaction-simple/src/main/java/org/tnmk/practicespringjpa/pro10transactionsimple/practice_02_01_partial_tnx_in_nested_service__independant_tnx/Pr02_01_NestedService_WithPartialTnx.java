@@ -3,6 +3,8 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_02_01_partial
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
@@ -10,10 +12,18 @@ import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository
 import java.util.concurrent.atomic.AtomicReference;
 
 @Service
-@RequiredArgsConstructor
 public class Pr02_01_NestedService_WithPartialTnx {
-  private final TransactionTemplate transactionTemplate;
+  private final PlatformTransactionManager transactionManager;
   private final SimpleRepository simpleRepository;
+  private final TransactionTemplate transactionTemplate;
+
+  public Pr02_01_NestedService_WithPartialTnx(PlatformTransactionManager transactionManager,
+      SimpleRepository simpleRepository) {
+    this.transactionManager = transactionManager;
+    this.simpleRepository = simpleRepository;
+
+    transactionTemplate = new TransactionTemplate(transactionManager);
+  }
 
   /**
    * A "Partial Transaction" is a transaction that only cover a part of the business logic of this method,
@@ -24,6 +34,8 @@ public class Pr02_01_NestedService_WithPartialTnx {
       String entity_InNestedService_PartialTnx,
       String entity_InNestedService_AfterPartialTnx) throws IllegalArgumentException {
 
+    transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+
     AtomicReference<PartialTnxResult> result = new AtomicReference<>();
     // Start partial transaction
     transactionTemplate.execute(status -> {
@@ -32,7 +44,6 @@ public class Pr02_01_NestedService_WithPartialTnx {
       SimpleEntity saved = saveEntityWithNotNullName(entity_InNestedService_PartialTnx);
 
       result.set(new PartialTnxResult(alwaysSuccessInPartialTnx, saved));
-
       // returning in transaction execution is not important.
       return null;
     });
