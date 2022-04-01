@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class Pr02_01_MainService_CatchAllExceptions_Test extends BaseSpringTest_WithActualDb {
   @Autowired
-  private Pr02_00_MainService_CatchAllExceptions mainService;
+  private Pr02_01_MainService_CatchAllExceptions mainService;
 
   @Autowired
   private SimpleRepository simpleRepository;
@@ -35,16 +35,17 @@ public class Pr02_01_MainService_CatchAllExceptions_Test extends BaseSpringTest_
 
       // entity_InNestedService_PartialTnx is null, hence cause exception and then the whole partial transaction will be rolled back,
       // it means alwaysSuccessName_InNestedService_PartialTnx will also be rolled back.
-      // but after that partialTnx, the entity_InNestedService_AfterPartialTnx won't be rolled back.
-      // and transaction in mainService won't be rolled back either.
-      "                                    ,Name02                                  ,true                                       ,false                                                     ,false                                          ,true",
+      // right after rolling back, partialTnx block will again throw out the exception to the mainService.
+      // mainService will catch that exception and won't be rolled back.
+      "                                    ,Name02                                  ,true                                       ,false                                                     ,false                                          ,false",
 
       // Only entity_InNestedService_AfterPartialTnx cause error.
-      // So only the main service is rolled back, but the partialTnx must be committed.
-      "Name01                              ,                                        ,false                                      ,true                                                      ,true                                           ,false",
+      // But then the exception will be cough by mainBusiness, so mainBusiness won't be rolled back.
+      "Name01                              ,                                        ,true                                      ,true                                                      ,true                                           ,false",
 
-      // Both partialTnx & mainTx are rolledback
-      "                                    ,                                        ,false                                      ,false                                                     ,false                                          ,false",
+      // partialTnx is rolled back and then throw exception to main business (ignore entity_InNestedService_AfterPartialTnx)
+      // main business will catch that and commit transaction as normal.
+      "                                    ,                                        ,true                                      ,false                                                     ,false                                          ,false",
   })
   public void test_MainService_CatchAllExceptions_saveEntities(
       String entityName_InNestedService_PartialTnx,
@@ -74,6 +75,6 @@ public class Pr02_01_MainService_CatchAllExceptions_Test extends BaseSpringTest_
 
   private void assertExist(String entityName, boolean expectExist) {
     Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findByName(entityName);
-    Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent());
+    Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent(), "Expect '"+entityName+"' existence to be "+expectExist);
   }
 }
