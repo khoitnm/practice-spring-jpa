@@ -36,8 +36,6 @@ public class Pr04_00_MainService_NoCatch_Test extends BaseSpringTest_WithActualD
    * Just a small difference:<br/>
    * {@link Pr03_02_MainService_NoCatch_Test} will get {@link IllegalArgumentException}
    *    , while this will get {@link CompletionException} with root cause is {@link IllegalArgumentException}
-   * <br/>
-   * This test case actually behaves exactly as {@link Pr04_00_MainService_Catch_Test}.
    */
   @Test
   public void when_MainService_saveListAsync_then_wontBeRolledBack() {
