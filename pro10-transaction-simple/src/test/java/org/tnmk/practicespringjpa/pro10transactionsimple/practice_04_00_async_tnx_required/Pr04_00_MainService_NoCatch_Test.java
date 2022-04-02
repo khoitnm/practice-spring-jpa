@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletionException;
 
 @Slf4j
 public class Pr04_00_MainService_NoCatch_Test extends BaseSpringTest_WithActualDb {
@@ -31,13 +32,12 @@ public class Pr04_00_MainService_NoCatch_Test extends BaseSpringTest_WithActualD
   }
 
   /**
-   * This case suppose to have the same assertions of {@link Pr03_02_MainService_NoCatch_Test}
-   * However, it's interestingly different!!! <p/>
-   *
-   * 1. The main different is `assertExist(item01, false);`
-   *    In {@link Pr03_02_MainService_NoCatch_Test}, it's `assertExist(item01, true);`
+   * As expected, this test case has the same assertions of {@link Pr03_02_MainService_NoCatch_Test}
+   * Just a small difference:<br/>
+   * {@link Pr03_02_MainService_NoCatch_Test} will get {@link IllegalArgumentException}
+   *    , while this will get {@link CompletionException} with root cause is {@link IllegalArgumentException}
    * <br/>
-   * 2. This test case actually behaves exactly as {@link Pr04_00_MainService_Catch_Test}.
+   * This test case actually behaves exactly as {@link Pr04_00_MainService_Catch_Test}.
    */
   @Test
   public void when_MainService_saveListAsync_then_wontBeRolledBack() {
@@ -65,7 +65,7 @@ public class Pr04_00_MainService_NoCatch_Test extends BaseSpringTest_WithActualD
           alwaysSuccessName_InMainService_BeforeParallel,
           alwaysSuccessName_InMainService_AfterParallel,
           entityNames);
-    } catch (IllegalArgumentException ex) {
+    } catch (CompletionException ex) {
       log.info(ex.getMessage());
     }
 
@@ -76,8 +76,8 @@ public class Pr04_00_MainService_NoCatch_Test extends BaseSpringTest_WithActualD
     // This item doesn't exist because it has never been saved.
     assertExist(alwaysSuccessName_InMainService_AfterParallel, false);
 
-    assertExist(item01, false);
-    assertExist(item03, false);
+    assertExist(item01, true);
+    assertExist(item03, true);
   }
 
   private void assertExist(String entityName, boolean expectExist) {

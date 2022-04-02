@@ -49,17 +49,15 @@ public class Pr04_00_MainService {
     saveAlwaysSuccess(alwaysSuccessName_InMainService_BeforeParallel);
 
     CompletableFuture[] futures = parallelEntityNames.stream()
-        .map(entityName -> {
-          try {
-            return nestedService.async_save_withTnxRequired(entityName);
-          } catch (Exception ex) {
-            log.warn(ex.getMessage());
-            return CompletableFuture.completedFuture(null);
-          }
-        })
+        .map(entityName ->
+            nestedService.async_save_withTnxRequired(entityName))
         .toArray(CompletableFuture[]::new);
 
-    CompletableFuture.allOf(futures).join();
+    try {
+      CompletableFuture.allOf(futures).join();
+    } catch (Exception ex) {
+      log.warn(ex.getMessage());
+    }
 
     saveAlwaysSuccess(alwaysSuccessName_InMainService_AfterParallel);
   }

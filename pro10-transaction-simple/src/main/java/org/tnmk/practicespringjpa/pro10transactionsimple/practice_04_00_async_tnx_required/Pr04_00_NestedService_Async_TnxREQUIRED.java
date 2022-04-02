@@ -2,6 +2,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_04_00_async_t
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
@@ -15,6 +16,7 @@ import java.util.concurrent.CompletableFuture;
 public class Pr04_00_NestedService_Async_TnxREQUIRED {
   private final SimpleRepository simpleRepository;
 
+  @Async
   @Transactional(Transactional.TxType.REQUIRED) // this is the default type of transaction.
   public CompletableFuture<Void> async_save_withTnxRequired(String entityName) throws IllegalArgumentException {
     log.info("Saving '{}': starting ...", entityName);
