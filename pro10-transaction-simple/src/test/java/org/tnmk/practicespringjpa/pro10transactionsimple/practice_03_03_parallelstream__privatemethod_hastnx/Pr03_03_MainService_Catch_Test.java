@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class Pr03_03_MainService_WithCatch_Test extends BaseSpringTest_WithActualDb {
+public class Pr03_03_MainService_Catch_Test extends BaseSpringTest_WithActualDb {
   @Autowired
   private Pr03_03_MainService_ParallelStreamWithPrivateMethod_WithCatch mainService;
 
