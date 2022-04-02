@@ -3,6 +3,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_03_02_paralle
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
@@ -17,6 +18,7 @@ public class Pr03_02_NestedService_TnxREQUIRED {
   @Transactional(Transactional.TxType.REQUIRED) // this is the default type of transaction.
   public void save_withTnxRequired(String entityName) throws IllegalArgumentException {
     log.info("Saving '{}': starting ...", entityName);
+    log.info("transaction {}", TransactionSynchronizationManager.getCurrentTransactionName());
     if (entityName == null) {
       throw new IllegalArgumentException("name cannot be null");
     }

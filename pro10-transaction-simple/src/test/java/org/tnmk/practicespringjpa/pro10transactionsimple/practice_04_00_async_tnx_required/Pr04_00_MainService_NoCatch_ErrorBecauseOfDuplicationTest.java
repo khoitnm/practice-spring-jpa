@@ -1,13 +1,13 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_03_02_parallelstream__nestedservice_hastnx;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_04_00_async_tnx_required;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.UnexpectedRollbackException;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
+import org.tnmk.practicespringjpa.pro10transactionsimple.practice_03_02_parallelstream__nestedservice_hastnx.Pr03_02_MainService_NoCatch_Test;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
 import javax.transaction.Transactional;
@@ -15,11 +15,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.CompletionException;
 
 @Slf4j
-public class Pr03_02_MainService_Catch_Test extends BaseSpringTest_WithActualDb {
+public class Pr04_00_MainService_NoCatch_ErrorBecauseOfDuplicationTest extends BaseSpringTest_WithActualDb {
   @Autowired
-  private Pr03_02_MainService_ParallelStream mainService;
+  private Pr04_00_MainService mainService;
 
   @Autowired
   private SimpleRepository simpleRepository;
@@ -30,8 +31,14 @@ public class Pr03_02_MainService_Catch_Test extends BaseSpringTest_WithActualDb 
     simpleRepository.deleteAll();
   }
 
+  /**
+   * As expected, this test case has the same assertions of {@link Pr03_02_MainService_NoCatch_Test}
+   * Just a small difference:<br/>
+   * {@link Pr03_02_MainService_NoCatch_Test} will get {@link IllegalArgumentException}
+   *    , while this will get {@link CompletionException} with root cause is {@link IllegalArgumentException}
+   */
   @Test
-  public void when_MainService_saveInParallel_then_wontBeRolledBack() {
+  public void when_MainService_saveListAsync_then_wontBeRolledBack() {
     // GIVEN --------------------------------------------------
 
     // Items in mainService
@@ -41,38 +48,32 @@ public class Pr03_02_MainService_Catch_Test extends BaseSpringTest_WithActualDb 
     // Parallel items
     String item01 = "Item01";
 
-    // This null value will cause exception.
-    // And it will be rolled back in the transaction of that thread.
-    //
-    // The mainService will try to catch that.
-    // However, when using parallel stream, one of the child thread will reuse the parent thread.
-    // In our test case, it's just that coincidentally the error item is on the same thread with the parent thread,
-    // hence the transaction of error item is the same as transaction of the main thread.
-    // it means the main thread is rolled back, too!!!
-    // We can test that by just changing the order of `List<String> entityNames = Arrays.asList(item01, item03, item02);`,
-    // then we'll see the main thread won't be rolled back anymore!!!
-    //
-    // Other items in parallel threads also have propagation transaction REQUIRED,
-    // means they are running on different transaction
-    // so won't be rolled back.
-    String item02 = null;
+    // This duplicate (with item01) value will cause exception.
+    // Even though it run in parallel threads, but parallelStream still waiting for join those parallel threads,
+    // So when an item get error, the mainService will get that error and be rolled back.
+    // However, other parallel threads is running without transaction, so they will be committed and won't be rolled backed.
+    String item02 = "Item01";
 
     String item03 = "Item03";
     List<String> entityNames = Arrays.asList(item01, item02, item03);
 
     // WHEN --------------------------------------------------
     try {
-      mainService.saveEntities_CatchEx(
+      mainService.saveEntities_NoCatchEx(
           alwaysSuccessName_InMainService_BeforeParallel,
           alwaysSuccessName_InMainService_AfterParallel,
           entityNames);
-    } catch (UnexpectedRollbackException ex) {
-      log.info(ex.getMessage(), ex);
+    } catch (CompletionException ex) {
+      log.info("Error when saveEntities_NoCatchEx(): "+ex.getMessage(), ex);
     }
 
     // THEN --------------------------------------------------
+    // This item doesn't exist because it is rolled back.
     assertExist(alwaysSuccessName_InMainService_BeforeParallel, false);
+
+    // This item doesn't exist because it has never been saved.
     assertExist(alwaysSuccessName_InMainService_AfterParallel, false);
+
     assertExist(item01, true);
     assertExist(item03, true);
   }
