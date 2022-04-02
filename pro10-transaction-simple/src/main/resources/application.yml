@@ -27,3 +27,6 @@ spring:
       #Account for running schema scripts
       username: root
       password: root
+
+# This can help use to track transaction in log
+#logging.level.org.springframework.transaction.interceptor: TRACE

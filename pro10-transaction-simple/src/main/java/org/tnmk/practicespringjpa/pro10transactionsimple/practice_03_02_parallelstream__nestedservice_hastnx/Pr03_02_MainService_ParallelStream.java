@@ -3,6 +3,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_03_02_paralle
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
@@ -43,6 +44,7 @@ public class Pr03_02_MainService_ParallelStream {
       List<String> parallelEntityNames
   ) throws IllegalArgumentException {
     // Note: when working with transaction, catching exception in main service is different from catching in nested service.
+    log.info("transaction {}", TransactionSynchronizationManager.getCurrentTransactionName());
 
     simpleRepository.save(new SimpleEntity(alwaysSuccessName_InMainService_BeforeParallel));
 
