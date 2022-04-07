@@ -12,7 +12,7 @@ class SampleDeleteByNameSpec extends BaseSpecification {
     @Autowired
     SampleRepository sampleRepository;
 
-    def 'delete all'() {
+    def 'delete by name'() {
         given:
         List<SampleEntity> sampleEntities = createEntities(3)
         SampleEntity firstEntity = sampleEntities.get(0);
