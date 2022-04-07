@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntity
 import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleRepository
 
-class SampleDeleteAllSpec extends BaseSpecification {
+class SampleDeleteByNameSpec extends BaseSpecification {
 
-    private static final Logger logger = LoggerFactory.getLogger(SampleDeleteAllSpec.class);
+    private static final Logger logger = LoggerFactory.getLogger(SampleDeleteByNameSpec.class);
     @Autowired
     SampleRepository sampleRepository;
 
