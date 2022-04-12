@@ -6,42 +6,55 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
+import org.tnmk.practicespringjpa.pro10transactionsimple.common.utils.TimeZoneUtils;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
 import java.time.Duration;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 @Slf4j
-public class Pr05_00_MultiThread_Service_Test extends BaseSpringTest_WithActualDb {
+public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
   @Autowired
-  private Pr05_00_MultiThread_Service service;
+  private Pr05_00_MainService service;
 
   @Autowired
   private SimpleRepository simpleRepository;
 
   @Test
-  public void test_startSlowBeforeFast() {
-    ZonedDateTime startTime = ZonedDateTime.now();
+  public void test_startSlowBeforeFast() throws ExecutionException, InterruptedException {
+    OffsetDateTime startTime = OffsetDateTime.now();
 
     String slowName = "Slow_" + UUID.randomUUID();
     String fastName = "Fast_" + UUID.randomUUID();
     int slowRuntime = 5000;
     int delayFastService = 500;
 
-    service.slowFirst_fastLater(slowName, fastName, slowRuntime, delayFastService);
+    Pr05_00_MainService.Result result = service.slowFirst_fastLater(slowName, fastName, slowRuntime, delayFastService);
 
     SimpleEntity slowEntity = simpleRepository.findByName(slowName).get();
     SimpleEntity fastEntity = simpleRepository.findByName(fastName).get();
 
-    log.info("startTime: {}", startTime);
-    log.info("slowEntity: {}", slowEntity);
-    log.info("fastEntity: {}", fastEntity);
-    Assertions.assertTrue(slowEntity.getCreatedDateTime().isBefore(fastEntity.getCreatedDateTime()));
+    OffsetDateTime slowCreatedDateTime = slowEntity.getCreatedDateTime();
+    OffsetDateTime fastCreatedDateTime = fastEntity.getCreatedDateTime();
+    log.info("startTime:\t{}", format(startTime));
+    log.info("slowEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(slowCreatedDateTime), format(result.getSlowFinishDateTime()));
+    log.info("fastEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(fastCreatedDateTime), format(result.getFastFinishDateTime()));
+    log.info("slow finish date before fast created date:\t{}", result.getSlowFinishDateTime().isBefore(fastCreatedDateTime));
+
+    // The 2nd transaction cannot be committed before the 1st transaction is committed.
+    // But the createdDateTime in 2nd transaction actually can be before 1st transaction's committed date time.
+    //
+    // Anyway, because of transaction block, the fast transaction (2nd transaction) is finished (committed)
+    // after the slow transaction (1st transaction).
+    Assertions.assertTrue(result.getSlowFinishDateTime().isBefore(fastCreatedDateTime));
+    Assertions.assertTrue(result.getSlowFinishDateTime().isBefore(result.getFastFinishDateTime()));
   }
 
   @Test
-  public void test_startFastBeforeSlow() {
+  public void test_startFastBeforeSlow() throws ExecutionException, InterruptedException {
     ZonedDateTime startTime = ZonedDateTime.now();
 
     String slowName = "Slow_" + UUID.randomUUID();
@@ -49,7 +62,7 @@ public class Pr05_00_MultiThread_Service_Test extends BaseSpringTest_WithActualD
     int slowRuntime = 5000;
     int delayFastService = 500;
 
-    service.fastFirst_slowLater(fastName, slowName, slowRuntime, delayFastService);
+    Pr05_00_MainService.Result result = service.fastFirst_slowLater(fastName, slowName, slowRuntime, delayFastService);
 
     SimpleEntity slowEntity = simpleRepository.findByName(slowName).get();
     SimpleEntity fastEntity = simpleRepository.findByName(fastName).get();
@@ -66,5 +79,9 @@ public class Pr05_00_MultiThread_Service_Test extends BaseSpringTest_WithActualD
         startTime_to_finishFastEntity_Duration.toSeconds());
 
     Assertions.assertTrue(fastAndSlowDiff.toMillis() >= (long) (delayFastService - 300));
+  }
+
+  private String format(OffsetDateTime zonedDateTime) {
+    return TimeZoneUtils.formatAtLocalZoneId(zonedDateTime.toZonedDateTime(), "HH:mm:ss,SSS");
   }
 }
