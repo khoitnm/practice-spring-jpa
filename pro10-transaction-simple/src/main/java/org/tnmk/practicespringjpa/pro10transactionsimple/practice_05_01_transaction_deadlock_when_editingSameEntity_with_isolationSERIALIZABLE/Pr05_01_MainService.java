@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock_when_editingSameEntity_with_isolationSERIALIZABLE;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +16,8 @@ import java.util.concurrent.ExecutionException;
 public class Pr05_01_MainService {
 
   private final SimpleRepository simpleRepository;
-  private final Pr05_01_Thread02_FastService fastService;
-  private final Pr05_01_Thread01_SlowService slowService;
+  private final Pr05_01_FastService_Async fastService;
+  private final Pr05_01_SlowService_Async slowService;
 
   public Result slowFirst_fastLater(String slowName, String fastName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
       throws ExecutionException, InterruptedException {
