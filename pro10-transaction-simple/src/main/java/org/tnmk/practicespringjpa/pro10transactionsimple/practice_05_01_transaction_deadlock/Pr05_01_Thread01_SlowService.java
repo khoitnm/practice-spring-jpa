@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_block;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,16 +17,15 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Pr05_00_Thread01_SlowService {
+public class Pr05_01_Thread01_SlowService {
 
   private final SimpleRepository simpleRepository;
 
   @Async
   @Transactional(isolation = Isolation.SERIALIZABLE)
-  public CompletableFuture<ZonedDateTime> async_createEntity_Slow(String name, int delayMillis) {
+  public CompletableFuture<ZonedDateTime> async_editEntity_Slow(SimpleEntity simpleEntity, int delayMillis) {
     ZonedDateTime start = ZonedDateTime.now();
 
-    SimpleEntity simpleEntity = new SimpleEntity(name);
     simpleEntity = simpleRepository.save(simpleEntity);
     log.info("create slow entity: saved");
 

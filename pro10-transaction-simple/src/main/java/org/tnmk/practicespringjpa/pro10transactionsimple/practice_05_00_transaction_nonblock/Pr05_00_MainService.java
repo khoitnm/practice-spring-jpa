@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_block;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_nonblock;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

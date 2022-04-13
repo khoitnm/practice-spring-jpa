@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_block;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_nonblock;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -23,7 +23,7 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
   private SimpleRepository simpleRepository;
 
   @Test
-  public void test_startSlowBeforeFast() throws ExecutionException, InterruptedException {
+  public void test_FastTnxFinish_Before_SlowTnxFinish() throws ExecutionException, InterruptedException {
     ZonedDateTime startTime = ZonedDateTime.now();
 
     log.info("Timezone: " + TimeZone.getDefault());
@@ -44,12 +44,9 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
     log.info("slowEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(slowCreatedDateTime), format(result.getSlowFinishDateTime()));
     log.info("fastEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(fastCreatedDateTime), format(result.getFastFinishDateTime()));
 
-    // The 2nd transaction cannot be committed before the 1st transaction is committed.
-    // But the createdDateTime in 2nd transaction actually can be before 1st transaction's committed date time.
-    //
-    // Anyway, because of transaction block, the fast transaction (2nd transaction) is finished (committed)
-    // after the slow transaction (1st transaction).
-    Assertions.assertTrue(result.getSlowFinishDateTime().isBefore(result.getFastFinishDateTime()));
+    // The 2nd transaction is independent from 1st transaction (non-block)
+    // and hence it can be committed before the 1st transaction is committed.
+    Assertions.assertTrue(result.getFastFinishDateTime().isBefore(result.getSlowFinishDateTime()));
   }
 
   @Test
