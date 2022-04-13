@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.utils.ThreadUtils;
 
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.ZonedDateTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -20,12 +20,12 @@ public class Pr05_00_MainService {
 
   public Result slowFirst_fastLater(String slowName, String fastName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
       throws ExecutionException, InterruptedException {
-    CompletableFuture<OffsetDateTime> slowFuture = slowService.async_createEntity_Slow(slowName, slowRuntimeMillis);
+    CompletableFuture<ZonedDateTime> slowFuture = slowService.async_createEntity_Slow(slowName, slowRuntimeMillis);
 
     //This make sure the DB request from the previous thread will go to DB Server first.
     ThreadUtils.sleep(deplay2ndServiceInMillis);
 
-    CompletableFuture<OffsetDateTime> fastFuture = fastService.async_createEntity_fast(fastName);
+    CompletableFuture<ZonedDateTime> fastFuture = fastService.async_createEntity_fast(fastName);
 
     CompletableFuture.allOf(slowFuture, fastFuture).join();
 
@@ -34,12 +34,12 @@ public class Pr05_00_MainService {
 
   public Result fastFirst_slowLater(String fastName, String slowName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
       throws ExecutionException, InterruptedException {
-    CompletableFuture<OffsetDateTime> fastFuture = fastService.async_createEntity_fast(fastName);
+    CompletableFuture<ZonedDateTime> fastFuture = fastService.async_createEntity_fast(fastName);
 
     //This make sure the DB request from the previous thread will go to DB Server first.
     ThreadUtils.sleep(deplay2ndServiceInMillis);
 
-    CompletableFuture<OffsetDateTime> slowFuture = slowService.async_createEntity_Slow(slowName, slowRuntimeMillis);
+    CompletableFuture<ZonedDateTime> slowFuture = slowService.async_createEntity_Slow(slowName, slowRuntimeMillis);
 
     CompletableFuture.allOf(slowFuture, fastFuture).join();
 
@@ -49,7 +49,7 @@ public class Pr05_00_MainService {
   @RequiredArgsConstructor
   @Getter
   public static class Result {
-    private final OffsetDateTime slowFinishDateTime;
-    private final OffsetDateTime fastFinishDateTime;
+    private final ZonedDateTime slowFinishDateTime;
+    private final ZonedDateTime fastFinishDateTime;
   }
 }

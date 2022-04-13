@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TemporalType;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -31,10 +31,10 @@ public class SimpleEntity {
   private String description;
 
   @Column(name = "created_date_time", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6)", updatable = false)
-  private OffsetDateTime createdDateTime;
+  private ZonedDateTime createdDateTime;
 
   @Column(name = "update_date_time", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)")
-  private OffsetDateTime updateDateTime;
+  private ZonedDateTime updateDateTime;
 
   public SimpleEntity(String name) {
     this.name = name;
