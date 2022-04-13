@@ -10,7 +10,7 @@ import org.tnmk.practicespringjpa.pro10transactionsimple.common.utils.ThreadUtil
 
 import javax.transaction.Transactional;
 import java.time.Duration;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.ZonedDateTime;
 import java.util.concurrent.CompletableFuture;
 
@@ -23,8 +23,8 @@ public class Pr05_00_Thread01_SlowService {
 
   @Async
   @Transactional
-  public CompletableFuture<OffsetDateTime> async_createEntity_Slow(String name, int delayMillis) {
-    OffsetDateTime start = OffsetDateTime.now();
+  public CompletableFuture<ZonedDateTime> async_createEntity_Slow(String name, int delayMillis) {
+    ZonedDateTime start = ZonedDateTime.now();
 
     SimpleEntity simpleEntity = new SimpleEntity(name);
     simpleEntity = simpleRepository.save(simpleEntity);
@@ -32,7 +32,7 @@ public class Pr05_00_Thread01_SlowService {
 
     ThreadUtils.sleep(delayMillis);
 
-    OffsetDateTime end = OffsetDateTime.now();
+    ZonedDateTime end = ZonedDateTime.now();
     Duration duration = Duration.between(start, end);
     log.info("create slow entity: finished in {}", (double) duration.toMillis() / 1000d);
     return CompletableFuture.completedFuture(end);

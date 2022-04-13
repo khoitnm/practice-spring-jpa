@@ -9,7 +9,7 @@ import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository
 
 import javax.transaction.Transactional;
 import java.time.Duration;
-import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.ZonedDateTime;
 import java.util.concurrent.CompletableFuture;
 
@@ -22,13 +22,13 @@ public class Pr05_00_Thread02_FastService {
 
   @Async
   @Transactional
-  public CompletableFuture<OffsetDateTime> async_createEntity_fast(String name) {
-    OffsetDateTime start = OffsetDateTime.now();
+  public CompletableFuture<ZonedDateTime> async_createEntity_fast(String name) {
+    ZonedDateTime start = ZonedDateTime.now();
 
     SimpleEntity simpleEntity = new SimpleEntity(name);
     simpleEntity = simpleRepository.save(simpleEntity);
 
-    OffsetDateTime end = OffsetDateTime.now();
+    ZonedDateTime end = ZonedDateTime.now();
     Duration duration = Duration.between(start, end);
     log.info("create fast entity: finished in {}", (double) duration.toMillis() / 1000d);
     return CompletableFuture.completedFuture(end);

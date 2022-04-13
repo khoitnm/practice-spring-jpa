@@ -2,12 +2,12 @@
 spring:
   datasource:
     #The DB name cannot contains hyphen character "-", you should use underscore character "_".
-    url: jdbc:mysql://localhost:3307/practice10-transaction-simple?useSSL=false
+    url: jdbc:mysql://localhost:3307/pro01-simple-mysql?useSSL=false
     username: user
     password: user
     #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
     hikari:
-      pool-name: practice10-transaction-simple-pool
+      pool-name: pro01-simple-mysql-pool
 
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:

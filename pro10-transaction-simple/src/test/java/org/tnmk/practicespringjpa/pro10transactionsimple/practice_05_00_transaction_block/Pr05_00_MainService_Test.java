@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
-import org.tnmk.practicespringjpa.pro10transactionsimple.common.utils.TimeZoneUtils;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
 import java.time.Duration;
-import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
+import java.util.TimeZone;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -25,7 +24,9 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
 
   @Test
   public void test_startSlowBeforeFast() throws ExecutionException, InterruptedException {
-    OffsetDateTime startTime = OffsetDateTime.now();
+    ZonedDateTime startTime = ZonedDateTime.now();
+
+    log.info("Timezone: "+TimeZone.getDefault());
 
     String slowName = "Slow_" + UUID.randomUUID();
     String fastName = "Fast_" + UUID.randomUUID();
@@ -37,8 +38,8 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
     SimpleEntity slowEntity = simpleRepository.findByName(slowName).get();
     SimpleEntity fastEntity = simpleRepository.findByName(fastName).get();
 
-    OffsetDateTime slowCreatedDateTime = slowEntity.getCreatedDateTime();
-    OffsetDateTime fastCreatedDateTime = fastEntity.getCreatedDateTime();
+    ZonedDateTime slowCreatedDateTime = slowEntity.getCreatedDateTime();
+    ZonedDateTime fastCreatedDateTime = fastEntity.getCreatedDateTime();
     log.info("startTime:\t{}", format(startTime));
     log.info("slowEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(slowCreatedDateTime), format(result.getSlowFinishDateTime()));
     log.info("fastEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(fastCreatedDateTime), format(result.getFastFinishDateTime()));
@@ -81,7 +82,8 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
     Assertions.assertTrue(fastAndSlowDiff.toMillis() >= (long) (delayFastService - 300));
   }
 
-  private String format(OffsetDateTime zonedDateTime) {
-    return TimeZoneUtils.formatAtLocalZoneId(zonedDateTime.toZonedDateTime(), "HH:mm:ss,SSS");
+  private String format(ZonedDateTime zonedDateTime) {
+    return zonedDateTime.toString();
+//    return TimeZoneUtils.formatAtLocalZoneId(zonedDateTime.toZonedDateTime(), "HH:mm:ss,SSS");
   }
 }

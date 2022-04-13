@@ -3,6 +3,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.common.utils;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -66,13 +67,13 @@ public interface TimeZoneUtils {
         return formattedString;
     }
 
-    static OffsetDateTime parseOffsetDateTimeAtUTC(String dateTimeString, String dateTimePattern){
-        LocalDateTime date = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(dateTimePattern));
-        return OffsetDateTime.of(date, ZoneOffset.UTC);
-    }
-
-    static ZonedDateTime parseZonedDateTimeAtUTC(String dateTimeString, String dateTimePattern) {
+    static ZonedDateTime parseZonedDateTimeAtUTC(String dateTimeString, String dateTimePattern){
         LocalDateTime date = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(dateTimePattern));
         return ZonedDateTime.of(date, ZoneOffset.UTC);
+    }
+
+    static OffsetDateTime parseOffsetDateTimeAtUTC(String dateTimeString, String dateTimePattern) {
+        LocalDateTime date = LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern(dateTimePattern));
+        return OffsetDateTime.of(date, ZoneOffset.UTC);
     }
 }
