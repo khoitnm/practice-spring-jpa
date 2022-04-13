@@ -2,7 +2,8 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.common;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.repository.Temporal;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.TemporalType;
-import java.time.ZonedDateTime;
 import java.time.ZonedDateTime;
 
 @Entity
@@ -30,10 +29,12 @@ public class SimpleEntity {
   @Column(name = "description")
   private String description;
 
-  @Column(name = "created_date_time", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6)", updatable = false)
+  @CreationTimestamp
+  @Column(name = "created_date_time", columnDefinition = "TIMESTAMP(6)", updatable = false)
   private ZonedDateTime createdDateTime;
 
-  @Column(name = "update_date_time", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)")
+  @UpdateTimestamp
+  @Column(name = "update_date_time", columnDefinition = "TIMESTAMP(6)")
   private ZonedDateTime updateDateTime;
 
   public SimpleEntity(String name) {

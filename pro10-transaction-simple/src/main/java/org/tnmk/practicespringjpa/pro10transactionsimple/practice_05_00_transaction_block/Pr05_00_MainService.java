@@ -3,10 +3,8 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transac
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.utils.ThreadUtils;
 
-import java.time.ZonedDateTime;
 import java.time.ZonedDateTime;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -22,7 +20,7 @@ public class Pr05_00_MainService {
       throws ExecutionException, InterruptedException {
     CompletableFuture<ZonedDateTime> slowFuture = slowService.async_createEntity_Slow(slowName, slowRuntimeMillis);
 
-    //This make sure the DB request from the previous thread will go to DB Server first.
+    //This small delay will make sure that the DB request from the previous thread will go to DB Server first before starting the second thread.
     ThreadUtils.sleep(deplay2ndServiceInMillis);
 
     CompletableFuture<ZonedDateTime> fastFuture = fastService.async_createEntity_fast(fastName);

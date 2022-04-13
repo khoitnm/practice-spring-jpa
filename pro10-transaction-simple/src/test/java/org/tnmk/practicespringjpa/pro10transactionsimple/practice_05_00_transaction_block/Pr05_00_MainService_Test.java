@@ -26,7 +26,7 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
   public void test_startSlowBeforeFast() throws ExecutionException, InterruptedException {
     ZonedDateTime startTime = ZonedDateTime.now();
 
-    log.info("Timezone: "+TimeZone.getDefault());
+    log.info("Timezone: " + TimeZone.getDefault());
 
     String slowName = "Slow_" + UUID.randomUUID();
     String fastName = "Fast_" + UUID.randomUUID();
@@ -43,14 +43,12 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
     log.info("startTime:\t{}", format(startTime));
     log.info("slowEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(slowCreatedDateTime), format(result.getSlowFinishDateTime()));
     log.info("fastEntity:\tcreatedDateTime: {}, finishedDateTime: {}", format(fastCreatedDateTime), format(result.getFastFinishDateTime()));
-    log.info("slow finish date before fast created date:\t{}", result.getSlowFinishDateTime().isBefore(fastCreatedDateTime));
 
     // The 2nd transaction cannot be committed before the 1st transaction is committed.
     // But the createdDateTime in 2nd transaction actually can be before 1st transaction's committed date time.
     //
     // Anyway, because of transaction block, the fast transaction (2nd transaction) is finished (committed)
     // after the slow transaction (1st transaction).
-    Assertions.assertTrue(result.getSlowFinishDateTime().isBefore(fastCreatedDateTime));
     Assertions.assertTrue(result.getSlowFinishDateTime().isBefore(result.getFastFinishDateTime()));
   }
 
@@ -84,6 +82,6 @@ public class Pr05_00_MainService_Test extends BaseSpringTest_WithActualDb {
 
   private String format(ZonedDateTime zonedDateTime) {
     return zonedDateTime.toString();
-//    return TimeZoneUtils.formatAtLocalZoneId(zonedDateTime.toZonedDateTime(), "HH:mm:ss,SSS");
+    //    return TimeZoneUtils.formatAtLocalZoneId(zonedDateTime.toZonedDateTime(), "HH:mm:ss,SSS");
   }
 }

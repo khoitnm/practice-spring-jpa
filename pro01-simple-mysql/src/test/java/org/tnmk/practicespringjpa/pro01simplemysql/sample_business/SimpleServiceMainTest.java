@@ -5,13 +5,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro01simplemysql.testinfra.BaseSpringTest_WithActualDb;
+import org.tnmk.practicespringjpa.pro01simplemysql.testinfra.BaseSpringTest_WithTestContainer;
 
 import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
+public class SimpleServiceMainTest extends BaseSpringTest_WithTestContainer {
   @Autowired
   private SimpleService simpleServiceMain;
 
@@ -22,7 +23,6 @@ public class SimpleServiceMainTest extends BaseSpringTest_WithActualDb {
   public void test_when_everything_is_saved_successfully() {
     // Given
     SimpleEntity simpleEntity = new SimpleEntity("Name" + UUID.randomUUID());
-    simpleEntity.setCreatedDateTime(ZonedDateTime.now());
 
     // When
     SimpleEntity result = simpleServiceMain.saveEntities(simpleEntity);
