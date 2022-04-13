@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_nonblock;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_00_transaction_nonblock_when_creatingOnSameTable;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
