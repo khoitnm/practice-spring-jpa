@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_02_transaction_nodeadlock_whenEditingSameEntity_isolationREADREPEEATED;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_02_transaction_nodeadlock_whenEditingSameEntity_isolationSERIALIZABLE;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
