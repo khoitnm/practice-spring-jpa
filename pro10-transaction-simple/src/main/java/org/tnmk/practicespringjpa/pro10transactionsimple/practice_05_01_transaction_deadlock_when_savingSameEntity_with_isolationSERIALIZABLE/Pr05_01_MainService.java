@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock_when_editingSameEntity_with_isolationSERIALIZABLE;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock_when_savingSameEntity_with_isolationSERIALIZABLE;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

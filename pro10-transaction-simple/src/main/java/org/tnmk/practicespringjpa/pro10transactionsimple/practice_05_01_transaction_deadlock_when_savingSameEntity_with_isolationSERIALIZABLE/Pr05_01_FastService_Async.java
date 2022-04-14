@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock_when_editingSameEntity_with_isolationSERIALIZABLE;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_01_transaction_deadlock_when_savingSameEntity_with_isolationSERIALIZABLE;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +23,16 @@ public class Pr05_01_FastService_Async {
   @Async
   @Transactional(isolation = Isolation.SERIALIZABLE)
   public CompletableFuture<ZonedDateTime> async_createEntity_fast(SimpleEntity simpleEntity) {
+    log.info("edit fast entity: start");
+
     ZonedDateTime start = ZonedDateTime.now();
 
     simpleEntity = simpleRepository.save(simpleEntity);
+    log.info("edit fast entity: saved");
 
     ZonedDateTime end = ZonedDateTime.now();
     Duration duration = Duration.between(start, end);
-    log.info("create fast entity: finished in {}", (double) duration.toMillis() / 1000d);
+    log.info("edit fast entity: finished in {}", (double) duration.toMillis() / 1000d);
     return CompletableFuture.completedFuture(end);
   }
 }
