@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_03_transaction_nodeadlock_when_savingSameEntity_with_isolationREPEATREAD;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_04_transaction_nodeadlock_when_updatingSameRow_isolationREPEATABLEREAD;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
+import org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_03_transaction_nodeadlock_when_savingSameEntity_with_isolationREPEATREAD.Pr05_03_MainService;
 import org.tnmk.practicespringjpa.pro10transactionsimple.testinfra.BaseSpringTest_WithActualDb;
 
 import java.time.ZonedDateTime;
@@ -14,9 +15,9 @@ import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 @Slf4j
-public class Pr05_03_MainService_Test extends BaseSpringTest_WithActualDb {
+public class Pr05_04_MainService_Test extends BaseSpringTest_WithActualDb {
   @Autowired
-  private Pr05_03_MainService service;
+  private Pr05_04_MainService service;
 
   @Autowired
   private SimpleRepository simpleRepository;
@@ -32,7 +33,7 @@ public class Pr05_03_MainService_Test extends BaseSpringTest_WithActualDb {
     int slowRuntime = 5000;
     int delayFastService = 1000;
 
-    Pr05_03_MainService.Result result = service.slowFirst_fastLater(slowName, fastName, slowRuntime, delayFastService);
+    Pr05_04_MainService.Result result = service.slowFirst_fastLater(slowName, fastName, slowRuntime, delayFastService);
 
     SimpleEntity simpleEntity = simpleRepository.findById(result.getSimpleEntityId()).get();
 
@@ -41,17 +42,9 @@ public class Pr05_03_MainService_Test extends BaseSpringTest_WithActualDb {
     log.info("slow transaction finish: {}", result.getSlowFinishDateTime());
     log.info("fast transaction finish: {}", result.getFastFinishDateTime());
 
-    // This case is very interesting with Isolation.REPEATABLE_READ (less strict than SERIALIZABLE):
-    // When we use SimpleRepository.save() (in both SlowService & FastService), it actually will:
-    //  - Step 1: select item first
-    //  - Step 2: update item later
-    //  The thing is, inside the transaction, it just select item first.
-    //  And only when the transaction is really ready to be committed, it will execute updating item later (step 2).
-    //  It means the other transaction won't be blocked by the previous transaction.
-    //
-    // This case is totally different from Pr05_04 in which "update" statement is executed in the middle of the transaction,
-    // which in turn block other transactions running in parallel.
-    Assertions.assertTrue(result.getFastFinishDateTime().isBefore(result.getSlowFinishDateTime()));
+    // The interesting thing is: 2nd transaction is still blocked by 1 transaction,
+    // Hence it cannot be committed before transaction 1.
+    Assertions.assertTrue(result.getSlowFinishDateTime().isBefore(result.getFastFinishDateTime()));
 
   }
 }

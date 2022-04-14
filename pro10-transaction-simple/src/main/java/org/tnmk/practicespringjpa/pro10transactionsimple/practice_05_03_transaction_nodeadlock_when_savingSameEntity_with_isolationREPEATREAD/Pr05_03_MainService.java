@@ -3,6 +3,7 @@ package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_03_transac
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.utils.ThreadUtils;
@@ -21,7 +22,7 @@ public class Pr05_03_MainService {
 
   public Result slowFirst_fastLater(String slowName, String fastName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
       throws ExecutionException, InterruptedException {
-    SimpleEntity simpleEntity = new SimpleEntity("Init");
+    SimpleEntity simpleEntity = new SimpleEntity("Init "+ TransactionSynchronizationManager.getCurrentTransactionName());
     simpleEntity = simpleRepository.save(simpleEntity);
 
     simpleEntity.setName(slowName);

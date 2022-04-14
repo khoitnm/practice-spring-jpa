@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_03_transaction_nodeadlock_when_savingSameEntity_with_isolationREPEATREAD;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_04_transaction_nodeadlock_when_updatingSameRow_isolationREPEATABLEREAD;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.support.TransactionSynchronizationManager;
-import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro10transactionsimple.common.SimpleRepository;
 
 import java.time.Duration;
@@ -17,24 +15,23 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Pr05_03_FastService_Async {
+public class Pr05_04_FastService_Async {
 
   private final SimpleRepository simpleRepository;
 
   @Async
   @Transactional(isolation = Isolation.REPEATABLE_READ)
-  public CompletableFuture<ZonedDateTime> async_createEntity_fast(SimpleEntity simpleEntity) {
-    log.info("edit fast entity: start " + TransactionSynchronizationManager.getCurrentTransactionName());
+  public CompletableFuture<ZonedDateTime> async_createEntity_fast(String newName, long entityId) {
+    log.info("edit fast entity: start");
 
     ZonedDateTime start = ZonedDateTime.now();
 
-    simpleEntity = simpleRepository.save(simpleEntity);
+    simpleRepository.updateNameById(newName, entityId);
     log.info("edit fast entity: saved");
 
     ZonedDateTime end = ZonedDateTime.now();
     Duration duration = Duration.between(start, end);
-    log.info("edit fast entity: finished in {} with transaction {}", (double) duration.toMillis() / 1000d,
-        TransactionSynchronizationManager.getCurrentTransactionName());
+    log.info("edit fast entity: finished in {}s", (double) duration.toMillis() / 1000d);
     return CompletableFuture.completedFuture(end);
   }
 }
