@@ -10,7 +10,7 @@ spring:
 
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-    show-sql: true
+#    show-sql: true
     properties:
       hibernate.format_sql: true
 
@@ -30,3 +30,7 @@ spring:
 
 # This can help use to track transaction in log
 #logging.level.org.springframework.transaction.interceptor: TRACE
+
+# Log SQL Query with arguments.
+logging.level.org.hibernate.SQL: debug
+logging.level.org.hibernate.type.descriptor.sql: trace
