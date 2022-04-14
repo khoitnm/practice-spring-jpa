@@ -5,7 +5,7 @@
 
     <appender name="COLORFUL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss,SSS}]) %cyan([%-5level]) %message %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
+            <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%-5level]) %message %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
             </pattern>
         </encoder>
     </appender>
