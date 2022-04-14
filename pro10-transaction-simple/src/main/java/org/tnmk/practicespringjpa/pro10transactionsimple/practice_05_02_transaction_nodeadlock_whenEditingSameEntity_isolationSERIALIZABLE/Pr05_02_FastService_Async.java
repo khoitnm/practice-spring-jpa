@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_02_transaction_nodeadlock_whenEditingSameEntity_isolationREADREPEEATED;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_02_transaction_nodeadlock_whenEditingSameEntity_isolationSERIALIZABLE;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,7 @@ public class Pr05_02_FastService_Async {
   private final SimpleRepository simpleRepository;
 
   @Async
-  @Transactional(isolation = Isolation.REPEATABLE_READ)
+  @Transactional(isolation = Isolation.SERIALIZABLE)
   public CompletableFuture<ZonedDateTime> async_createEntity_fast(String newName, long entityId) {
     log.info("edit fast entity: start");
 
