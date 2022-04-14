@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_02_transaction_lock_but_not_dead;
+package org.tnmk.practicespringjpa.pro10transactionsimple.practice_05_02_transaction_nodeadlock_whenEditingSameEntity_isolationREADREPEEATED;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -38,6 +38,8 @@ public class Pr05_02_MainService_Test extends BaseSpringTest_WithActualDb {
 
     log.info("startTime:\t{}", format(startTime));
     log.info("simpleEntity: {}", simpleEntity);
+    log.info("slow transaction finish: {}", result.getSlowFinishDateTime());
+    log.info("fast transaction finish: {}", result.getFastFinishDateTime());
 
     // The 2nd transaction cannot be committed before the 1st transaction is committed.
     // But the createdDateTime in 2nd transaction actually can be before 1st transaction's committed date time.
