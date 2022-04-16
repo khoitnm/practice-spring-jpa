@@ -16,10 +16,10 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <testcontainers.version>1.15.2</testcontainers.version>
-        <lombok.version>1.18.16</lombok.version>
+        <lombok.version>1.18.22</lombok.version>
 
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
-
+        <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -98,7 +98,7 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-            <scope>provided</scope>
+<!--            <scope>provided</scope>-->
         </dependency>
 
         <!-- TEST -->
@@ -137,4 +137,25 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
+                <configuration>
+                    <!--
+                    See https://issues.apache.org/jira/browse/MCOMPILER-346 for a description and resolution of the problem
+                    -->
+                    <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                    <release>${java.version}</release>
+                    <annotationProcessors>
+                        <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+                    </annotationProcessors>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
