@@ -14,6 +14,8 @@
         <java.version>8</java.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <spring-boot.version>2.6.6</spring-boot.version>
     </properties>
 
     <dependencies>
@@ -26,8 +28,8 @@
             <artifactId>hsqldb</artifactId>
         </dependency>
         <!--<dependency>-->
-            <!--<groupId>com.h2database</groupId>-->
-            <!--<artifactId>h2</artifactId>-->
+        <!--<groupId>com.h2database</groupId>-->
+        <!--<artifactId>h2</artifactId>-->
         <!--</dependency>-->
 
         <!--Test-->
@@ -64,7 +66,7 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.1.6.RELEASE</version>
+                <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -77,6 +79,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
             </plugin>
 
 
@@ -91,7 +94,7 @@
                         <param>mysql</param>
                     </dialects>
                     <!--<customDialects> &lt;!&ndash; Optional &ndash;&gt;-->
-                        <!--<param>org.example.dialects.FooDBDialect</param>-->
+                    <!--<param>org.example.dialects.FooDBDialect</param>-->
                     <!--</customDialects>-->
                     <packages>
                         <param>org.tnmk</param>
