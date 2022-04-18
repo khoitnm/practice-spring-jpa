@@ -3,8 +3,8 @@ package org.tnmk.common.jpa.columnconverter.json
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntity
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleRepository
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.entity.SampleEntity
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.repository.SampleRepository
 
 class SampleDeleteByNameSpec extends BaseSpecification {
 

@@ -1,8 +1,8 @@
-package org.tnmk.practicespringjpa.pro01simpleentity.sample.repository;
+package org.tnmk.practicespringjpa.pro01simplehsql.sample.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.entity.SampleEntity;
 
 import javax.transaction.Transactional;
 

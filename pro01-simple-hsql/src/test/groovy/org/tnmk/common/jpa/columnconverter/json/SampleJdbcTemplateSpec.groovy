@@ -1,9 +1,9 @@
 package org.tnmk.common.jpa.columnconverter.json
 
 import org.springframework.beans.factory.annotation.Autowired
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntity
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntityWithUrl
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.story.SampleStory
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.entity.SampleEntity
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.entity.SampleEntityWithUrl
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.story.SampleStory
 
 class SampleJdbcTemplateSpec extends BaseSpecification{
 
