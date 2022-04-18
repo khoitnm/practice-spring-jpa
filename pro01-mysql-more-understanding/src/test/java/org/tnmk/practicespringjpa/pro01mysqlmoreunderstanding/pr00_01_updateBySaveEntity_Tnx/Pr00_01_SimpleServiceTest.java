@@ -1,20 +1,20 @@
-package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_00_updateBySaveEntity_noTnx;
+package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_01_updateBySaveEntity_Tnx;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleEntity;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.testinfra.BaseSpringTest_WithActualDb;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class Pr00_00_SimpleServiceTest extends BaseSpringTest_WithActualDb {
+public class Pr00_01_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     @Autowired
-    private Pr00_00_SimpleService simpleServiceMain;
+    private Pr00_01_SimpleService simpleServiceMain;
 
     @Autowired
     private SimpleRepository simpleRepository;
