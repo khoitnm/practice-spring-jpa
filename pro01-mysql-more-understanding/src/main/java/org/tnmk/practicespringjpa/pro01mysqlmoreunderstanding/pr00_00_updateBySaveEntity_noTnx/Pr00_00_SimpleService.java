@@ -3,6 +3,7 @@ package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_00_updateByS
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleEntity;
 
 import java.util.UUID;
@@ -12,7 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class Pr00_00_SimpleService {
 
-    private final Pr00_00_SimpleRepository simpleRepository;
+    private final SimpleRepository simpleRepository;
 
     // No transaction here
     public SimpleEntity insertAndUpdate(String name) {
