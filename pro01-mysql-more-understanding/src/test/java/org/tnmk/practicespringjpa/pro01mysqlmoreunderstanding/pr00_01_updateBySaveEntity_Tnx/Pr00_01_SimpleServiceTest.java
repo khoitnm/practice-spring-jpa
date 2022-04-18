@@ -22,19 +22,22 @@ public class Pr00_01_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     @Test
     public void test_when_everything_is_saved_successfully() {
         // Given
-        String name = "Name" + UUID.randomUUID();
+        String initName = "Init_" + UUID.randomUUID();
+        String updateName = "Update_" + UUID.randomUUID();
+
         // When
-        SimpleEntity result = simpleServiceMain.insertAndUpdate(name);
+        SimpleEntity result = simpleServiceMain.insertAndUpdate(initName, updateName);
 
         // Then
-        assertExist(result.getId(), true);
+        assertExistWithSameName(result.getId(), updateName);
     }
 
-    private void assertExist(long entityId, boolean expectExist) {
+    private void assertExistWithSameName(long entityId, String expectName) {
         Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findById(entityId);
 
-        Assertions.assertEquals(expectExist, sampleEntityOptional.isPresent());
+        Assertions.assertEquals(true, sampleEntityOptional.isPresent());
         log.info("SampleEntity: " + sampleEntityOptional.get());
 
+        Assertions.assertEquals(expectName, sampleEntityOptional.get().getName());
     }
 }
