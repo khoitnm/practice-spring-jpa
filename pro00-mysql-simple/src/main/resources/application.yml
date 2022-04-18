@@ -2,7 +2,7 @@
 spring:
   datasource:
     #The DB name cannot contains hyphen character "-", you should use underscore character "_".
-    url: jdbc:mysql://localhost:3307/pro00-mysql-simple?useSSL=false
+    url: jdbc:mysql://localhost:3307/pro00-mysql-simple?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: user
     password: user
     #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp

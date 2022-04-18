@@ -1,16 +1,15 @@
+
 spring:
   datasource:
-    #The DB name cannot contains hyphen character "-", you should use underscore character "_".
-    url: jdbc:mysql://localhost:3306/pro10-transaction-simple?useSSL=false&allowPublicKeyRetrieval=true&createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/pro01-mysql-more-understanding?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     username: user
     password: user
     #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
     hikari:
-      pool-name: practice10-transaction-simple-pool
+      pool-name: pro01-mysql-more-understanding-pool
 
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
-#    show-sql: true
     properties:
       hibernate.format_sql: true
 
@@ -20,17 +19,9 @@ spring:
     # Avoid accidental performance issue: https://github.com/spring-projects/spring-boot/issues/7107
     open-in-view: false
     hibernate:
-      ddl-auto: update
-
+      ddl-auto: create
   sql:
     init:
       #Account for running schema scripts
       username: root
       password: root
-
-# This can help use to track transaction in log
-#logging.level.org.springframework.transaction.interceptor: TRACE
-
-# Log SQL Query with arguments.
-logging.level.org.hibernate.SQL: debug
-logging.level.org.hibernate.type.descriptor.sql: trace
