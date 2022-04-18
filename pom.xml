@@ -11,6 +11,7 @@
     <modules>
         <module>pro01-simple-mysql</module>
         <module>pro01-simple-hsql</module>
+        <module>pro01-simple-mssql</module>
         <module>pro01-simple-entity-uuid-field</module>
         <module>pro01-simple-timestamp-fields</module>
         <module>pro02-one-to-many</module>
@@ -20,7 +21,6 @@
         <module>pro05-embedded-entity</module>
         <module>pro06-partial-update</module>
         <module>pro07-multi-tenant</module>
-        <module>pro08-mssql-simple</module>
         <module>pro09-hiraki-connection-pool</module>
         <module>pro10-transaction</module>
     </modules>

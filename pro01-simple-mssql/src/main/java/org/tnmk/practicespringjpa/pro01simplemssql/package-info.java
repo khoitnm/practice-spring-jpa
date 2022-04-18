@@ -1,0 +1,1 @@
+package org.tnmk.practicespringjpa.pro01simplemssql;
