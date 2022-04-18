@@ -24,17 +24,18 @@ public class Pr05_05_Service_JpaSaveEntity_Async {
 
     @Async
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public CompletableFuture<ZonedDateTime> async_jpaSaveEntity(SimpleEntity simpleEntity, int delayMillis) {
+    public CompletableFuture<ZonedDateTime> async_updateEntity(SimpleEntity simpleEntity, String updateName, int delayMillis) {
         MDC.put("thread", "jpaSaveEntity");
 
         log.info("jpaSaveEntity: start");
 
         ZonedDateTime start = ZonedDateTime.now();
 
+        simpleEntity.setName(updateName);
         simpleRepository.save(simpleEntity);
         log.info("jpaSaveEntity: saved");
 
-        externalSystemSimulator.addItem(simpleEntity.getName(), delayMillis);
+        externalSystemSimulator.addItem(simpleEntity, delayMillis);
 
         ZonedDateTime end = ZonedDateTime.now();
         Duration duration = Duration.between(start, end);
