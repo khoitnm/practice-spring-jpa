@@ -1,6 +1,6 @@
-package org.tnmk.practicespringjpa.pro01simpleentity.sample.entity;
+package org.tnmk.practicespringjpa.pro01simplehsql.sample.entity;
 
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.repository.SampleJdbcRepostiory;
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.repository.SampleJdbcRepostiory;
 
 /**
  * This class show an example that we can compose many columns into one field.

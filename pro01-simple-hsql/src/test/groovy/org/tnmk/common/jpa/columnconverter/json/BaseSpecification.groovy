@@ -3,7 +3,7 @@ package org.tnmk.common.jpa.columnconverter.json
 import org.junit.Ignore
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.annotation.DirtiesContext
-import org.tnmk.practicespringjpa.pro01simpleentity.Application
+import org.tnmk.practicespringjpa.pro01simplehsql.Application
 import spock.lang.Specification
 
 @Ignore

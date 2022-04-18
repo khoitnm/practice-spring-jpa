@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro01simpleentity;
+package org.tnmk.practicespringjpa.pro01simplehsql;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

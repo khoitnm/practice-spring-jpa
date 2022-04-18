@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.tnmk.skeleton.practice-spring-jpa</groupId>
-    <artifactId>pro01-simple-entity</artifactId>
+    <artifactId>pro01-simple-hsql</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 

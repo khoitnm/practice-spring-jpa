@@ -1,10 +1,10 @@
-package org.tnmk.practicespringjpa.pro01simpleentity.sample.repository;
+package org.tnmk.practicespringjpa.pro01simplehsql.sample.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.tnmk.practicespringjpa.pro01simpleentity.sample.entity.SampleEntityWithUrl;
+import org.tnmk.practicespringjpa.pro01simplehsql.sample.entity.SampleEntityWithUrl;
 
 import java.util.List;
 
