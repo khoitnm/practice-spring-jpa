@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr01_00_fullUpdate_UnexpectedData;
+package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr01_fullUpdate_vs_partialUpdate.pr01_00_fullUpdate_UnexpectedData;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleEntity;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.common.SimpleRepository;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr01_fullUpdate_vs_partialUpdate.Pr01_CreateEntityService;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.testinfra.BaseSpringTest_WithActualDb;
 
 import java.util.Optional;
@@ -15,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class Pr01_00_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     @Autowired
-    private Pr01_00_CreateEntityService createEntityService;
+    private Pr01_CreateEntityService createEntityService;
 
     @Autowired
     private Pr01_00_ChangeName_byFullUpdate_Service changeNameService;
