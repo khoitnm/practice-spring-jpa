@@ -21,6 +21,9 @@ public class SimpleEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled = true;
+
     // TIMESTAMP(6) will include millis in timestamp
     // And this field is saved and loaded as it is (it won't actumatically convert to UTC before saving).
     //
@@ -37,10 +40,6 @@ public class SimpleEntity {
     private ZonedDateTime createdDateTime;
 
     public SimpleEntity() {
-    }
-
-    public SimpleEntity(String uniqueCode) {
-        this.uniqueCode = uniqueCode;
     }
 
     public SimpleEntity(String uniqueCode, String name) {
