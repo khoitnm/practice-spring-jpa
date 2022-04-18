@@ -22,16 +22,17 @@ public class Pr00_01_SimpleService {
      * The only difference is this code run inside a transaction.
      */
     @Transactional
-    public SimpleEntity insertAndUpdate(String name) {
+    public SimpleEntity insertAndUpdate(String initName, String updateName) {
         log.info("This will execute one query: 'INSERT ...'");
-        SimpleEntity simpleEntity = new SimpleEntity(name);
+        String uniqueCode = "Code"+UUID.randomUUID();
+        SimpleEntity simpleEntity = new SimpleEntity(uniqueCode, initName);
         simpleRepository.save(simpleEntity);
 
         log.info("This will execute 2 queries: 'UPDATE ... by PK', 'SELECT ... by PK.\n" +
                 "Compare to Pr00_00_SimpleService, " +
                 "this updating logic doesn't need an additional SELECT before UPDATING " +
                 "(because it's running inside a transaction)");
-        simpleEntity.setName(name + "Edited_" + UUID.randomUUID());
+        simpleEntity.setName(updateName);
         simpleEntity = simpleRepository.save(simpleEntity);
 
         log.info("The interesting this is: \n" +
