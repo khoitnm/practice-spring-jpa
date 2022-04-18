@@ -1,7 +1,7 @@
 spring:
   datasource:
     #The DB name cannot contains hyphen character "-", you should use underscore character "_".
-    url: jdbc:mysql://localhost:3307/practice10-transaction-simple?useSSL=false
+    url: jdbc:mysql://localhost:3306/practice10-transaction-simple?useSSL=false&allowPublicKeyRetrieval=true
     username: user
     password: user
     #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
