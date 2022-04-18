@@ -8,7 +8,6 @@ import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.tnmk.practicespringjpa.pro10transaction.common.SimpleRepository;
 import org.tnmk.practicespringjpa.pro10transaction.testinfra.BaseSpringTest_WithActualDb;
 
-import java.time.ZonedDateTime;
 import java.util.TimeZone;
 import java.util.UUID;
 import java.util.concurrent.CompletionException;
@@ -25,9 +24,7 @@ public class Pr05_05_MainService_Test extends BaseSpringTest_WithActualDb {
     private Pr05_05_ExternalSystemSimulator externalSystemSimulator;
 
     @Test
-    public void test_startSlowBeforeFast() throws ExecutionException, InterruptedException {
-        ZonedDateTime startTime = ZonedDateTime.now();
-
+    public void test_editFirstAndThenInsertDuplicateValueLater__butThen_InsertSuccessWhileEditingFailed() throws ExecutionException, InterruptedException {
         log.info("Timezone: " + TimeZone.getDefault());
 
         String insertedName = "ToBeUpdatedName" + UUID.randomUUID();

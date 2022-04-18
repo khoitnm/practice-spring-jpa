@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.practicespringjpa.pro10transaction.common.SimpleRepository;
-import org.tnmk.practicespringjpa.pro10transaction.common.utils.ThreadUtils;
 
 import java.time.Duration;
 import java.time.ZonedDateTime;
@@ -23,7 +22,7 @@ public class Pr05_05_ServiceNativeUpdate_Async {
 
     @Async
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public CompletableFuture<ZonedDateTime> async_nativeUpdateRow(String newName, long entityId, int delayMillis) {
+    public CompletableFuture<ZonedDateTime> async_insertRow(String newName) {
         MDC.put("thread", "nativeUpdateRow");
 
         log.info("nativeUpdateRow: start");

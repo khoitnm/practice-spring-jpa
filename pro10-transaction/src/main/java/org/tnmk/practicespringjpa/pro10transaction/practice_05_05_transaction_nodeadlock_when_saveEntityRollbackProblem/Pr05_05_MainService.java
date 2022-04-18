@@ -26,15 +26,14 @@ public class Pr05_05_MainService {
         SimpleEntity simpleEntity = new SimpleEntity("Init");
         simpleEntity = simpleRepository.save(simpleEntity);
 
-        simpleEntity.setName(updateName);
-        CompletableFuture<ZonedDateTime> fastFuture = japSaveEntityService.async_jpaSaveEntity(simpleEntity, slowRuntimeMillis);
+        CompletableFuture<ZonedDateTime> fastFuture = japSaveEntityService.async_updateEntity(simpleEntity, updateName, slowRuntimeMillis);
 
-
-        //This small delay will make sure that the DB request from the previous thread will go to DB Server first before starting the second thread.
+        // This small delay will make sure that the previous thread send request to DB Server first before starting the second thread.
         ThreadUtils.sleep(deplay2ndServiceInMillis);
 
-        // This will cause duplicate error.
-        CompletableFuture<ZonedDateTime> slowFuture = nativeUpdateService.async_nativeUpdateRow(updateName, simpleEntity.getId(), slowRuntimeMillis);
+        // Even though this thread is started after the previous thread, it still inserts data successfully.
+        // And because of that, it will make the previous thread get duplicate error when updating entity.
+        CompletableFuture<ZonedDateTime> slowFuture = nativeUpdateService.async_insertRow(updateName);
 
         CompletableFuture.allOf(slowFuture, fastFuture).join();
 
