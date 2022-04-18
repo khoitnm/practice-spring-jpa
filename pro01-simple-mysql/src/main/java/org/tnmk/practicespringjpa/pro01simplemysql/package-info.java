@@ -1,1 +1,0 @@
-package org.tnmk.practicespringjpa.pro01simplemysql;

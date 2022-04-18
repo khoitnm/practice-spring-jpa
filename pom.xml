@@ -9,9 +9,9 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>pro01-simple-mysql</module>
-        <module>pro01-simple-hsql</module>
-        <module>pro01-simple-mssql</module>
+        <module>pro00-hsql-simple</module>
+        <module>pro00-mysql-simple</module>
+        <module>pro00-mssql-simple</module>
         <module>pro01-simple-entity-uuid-field</module>
         <module>pro01-simple-timestamp-fields</module>
         <module>pro02-one-to-many</module>
@@ -24,13 +24,6 @@
         <module>pro09-hiraki-connection-pool</module>
         <module>pro10-transaction</module>
     </modules>
-
-<!--    <parent>-->
-<!--        <groupId>org.springframework.boot</groupId>-->
-<!--        <artifactId>spring-boot-starter-parent</artifactId>-->
-<!--        <version>2.1.8.RELEASE</version>-->
-<!--        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;-->
-<!--    </parent>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
