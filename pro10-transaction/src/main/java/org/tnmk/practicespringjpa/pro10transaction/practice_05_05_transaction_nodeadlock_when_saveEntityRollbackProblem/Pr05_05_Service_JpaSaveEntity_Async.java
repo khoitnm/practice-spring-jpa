@@ -35,7 +35,13 @@ public class Pr05_05_Service_JpaSaveEntity_Async {
         simpleRepository.save(simpleEntity);
         log.info("jpaSaveEntity: saved");
 
-        externalSystemSimulator.addItem(simpleEntity, delayMillis);
+        log.info("jpaSaveEntity: addEntity to an externalSystem: starting\n" +
+                "\tAnd if the previous jpaSave failed (for whatever reason), no data is saved into the other system.\n" +
+                "\tIf the previous jpaSave succeed, we'll try to save data into the other system." +
+                "\tAnd if we cannot save data into the other system, rollback the data that saved into DB.");
+        externalSystemSimulator.addEntity(simpleEntity, delayMillis);
+        log.info("jpaSaveEntity: addEntity to an externalSystem: finished!!!\n" +
+                "\tIf we see this log, it means we cannot rollback data in the other system anymore.");
 
         ZonedDateTime end = ZonedDateTime.now();
         Duration duration = Duration.between(start, end);
