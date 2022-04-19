@@ -20,10 +20,10 @@ public class Pr05_05_MainService {
     private final Pr05_05_Service_JpaSaveEntity_Async japSaveEntityService;
     private final Pr05_05_ServiceNativeUpdate_Async nativeUpdateService;
 
-    public Result editFirst_insertDuplicateLater(String updateName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
+    public Result editFirst_insertDuplicateLater(String originalName, String updateName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
             throws ExecutionException, InterruptedException {
         MDC.put("thread", "main");
-        SimpleEntity simpleEntity = new SimpleEntity("Init");
+        SimpleEntity simpleEntity = new SimpleEntity(originalName);
         simpleEntity = simpleRepository.save(simpleEntity);
 
         CompletableFuture<ZonedDateTime> fastFuture = japSaveEntityService.async_updateEntity(simpleEntity, updateName, slowRuntimeMillis);
