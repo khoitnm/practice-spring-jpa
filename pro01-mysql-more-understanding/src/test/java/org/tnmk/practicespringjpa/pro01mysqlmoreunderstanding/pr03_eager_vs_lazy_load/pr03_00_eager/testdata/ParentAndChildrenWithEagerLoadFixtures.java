@@ -2,10 +2,11 @@ package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_laz
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager.ChildWithEagerLoadEntity;
-import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager.ChildWithEagerLoadRepository;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.common.ParentEntity;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.common.ParentRepository;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager.ChildWithEagerLoadEntity;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager.ChildWithEagerLoadRepository;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager.testdata.ParentAndChildrenWithEagerLoad;
 
 import java.util.List;
 import java.util.stream.Collectors;
