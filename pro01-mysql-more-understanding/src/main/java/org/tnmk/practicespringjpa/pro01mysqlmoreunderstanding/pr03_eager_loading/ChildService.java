@@ -12,12 +12,15 @@ public class ChildService {
 
   private final ChildRepository childRepository;
 
-  //  @Transactional
-  public Optional<ChildEntity> findChildById(long childId) {
+  public Optional<ChildEntity> findById(long childId) {
     return childRepository.findById(childId);
   }
 
   public List<ChildEntity> findByIds(List<Long> childIds) {
-    return childRepository.findByIdIn(childIds);
+    return childRepository.findAllById(childIds);
+  }
+
+  public List<ChildEntity> findByNameContaining(String name) {
+    return childRepository.findByNameContaining(name);
   }
 }

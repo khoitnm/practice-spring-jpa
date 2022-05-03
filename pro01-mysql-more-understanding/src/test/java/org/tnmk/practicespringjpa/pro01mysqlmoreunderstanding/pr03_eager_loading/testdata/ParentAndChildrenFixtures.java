@@ -29,7 +29,7 @@ public class ParentAndChildrenFixtures {
     parentRepository.save(parent);
 
     List<ChildEntity> children = IntStream.range(0, childrenCountPerParent).mapToObj(i ->
-        createChild(parent, "Child " + i + " of '" + parent + "'")
+        createChild(parent, "Child " + i + " of '" + parent.getName() + "'")
     ).collect(Collectors.toList());
 
     return new ParentAndChildren(parent, children);
