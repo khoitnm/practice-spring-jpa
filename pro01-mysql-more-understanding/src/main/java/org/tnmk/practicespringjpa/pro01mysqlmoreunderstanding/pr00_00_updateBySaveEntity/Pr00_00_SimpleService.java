@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_00_updateBySaveEntity_noTnx;
+package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_00_updateBySaveEntity;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,14 +15,17 @@ public class Pr00_00_SimpleService {
 
     private final SimpleRepository simpleRepository;
 
-    // No transaction here
-    public SimpleEntity insertAndUpdate(String initName, String updateName) {
-        log.info("This will execute one query: 'INSERT ...'");
+    public SimpleEntity insert(String initName) {
+        log.info("Insert entity with name {}...", initName);
         String uniqueCode = "Code_" + UUID.randomUUID();
         SimpleEntity simpleEntity = new SimpleEntity(uniqueCode, initName);
-        simpleRepository.save(simpleEntity);
+        return simpleRepository.save(simpleEntity);
+    }
+    // No transaction here
+    public SimpleEntity update(long entityId, String updateName) {
+        log.info("Update name {} by saving entity...", updateName);
+        SimpleEntity simpleEntity = simpleRepository.findById(entityId).get();
 
-        log.info("This will execute 2 queries: 'SELECT ... by PK', 'UPDATE ... by PK'");
         simpleEntity.setName(updateName);
         simpleEntity = simpleRepository.save(simpleEntity);
         return simpleEntity;
