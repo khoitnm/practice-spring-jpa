@@ -1,38 +1,63 @@
 package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_loading;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_loading.testdata.ParentAndChildren;
+import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_loading.testdata.ParentAndChildrenFixtures;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.testinfra.BaseSpringTest_WithActualDb;
 
+import java.util.Arrays;
+import java.util.List;
+
+@Slf4j
 public class Pr03_EagerLoadingTest extends BaseSpringTest_WithActualDb {
 
   @Autowired
-  private ChildRepository childRepository;
-
-  @Autowired
-  private ParentRepository parentRepository;
-
+  private ParentAndChildrenFixtures fixtures;
   @Autowired
   private ChildService childService;
 
   @Test
   public void test_whenSelectingChild_TheEagerLoadedParent_WillAlsoBeReturned() {
     // GIVEN:
-    ParentEntity parent = new ParentEntity("parent");
-    ChildEntity child = new ChildEntity("child");
-
-    parent = parentRepository.save(parent);
-
-    child.setParentEntity(parent);
-    child = childRepository.save(child);
+    ParentAndChildren parentAndChildren = fixtures.createParentAndChild("parent", 1);
+    ChildEntity child = parentAndChildren.getChildren().get(0);
 
     // WHEN:
+    log.info("When find child by id {}...", child.getId());
     // When looking at the log messages, because ParentEntity is eager loaded along with ChildEntity,
     // we should see only one `SELECT ... FROM child_entity LEFT OUTER JOIN parent ...`
     ChildEntity childEntityInDB = childService.findChildById(child.getId()).get();
 
     // THEN:
-    Assertions.assertEquals(parent.getName(), childEntityInDB.getParentEntity().getName());
+    log.info("Assertions...");
+    Assertions.assertEquals(parentAndChildren.getParent().getName(), childEntityInDB.getParentEntity().getName());
+  }
+
+  @Test
+  public void test_whenSelectingChildrenList_TheEagerLoadedParents_WillAlsoBeReturned() {
+    // GIVEN:
+    List<ParentAndChildren> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+
+    List<Long> childrenIds = Arrays.asList(
+        parentAndChildren.get(0).getChildren().get(0).getId(),
+        parentAndChildren.get(0).getChildren().get(1).getId(),
+        parentAndChildren.get(1).getChildren().get(0).getId(),
+        parentAndChildren.get(2).getChildren().get(0).getId()
+    );
+    // WHEN:
+    // When looking at the log messages, even though ParentEntity is eager loaded along with ChildEntity,
+    // it still execute `SELECT ... FROM child_entity WHERE id IN (...)` first,
+    // and then loop through each child to get corresponding parent by another `SELECT ... FROM parent_entity WHERE id = ...` later.
+    log.info("When find children by ids {}...", childrenIds);
+    List<ChildEntity> childrenInDB = childService.findByIds(childrenIds);
+
+    // THEN:
+    log.info("Assertions...");
+    for (ChildEntity childEntityInDB : childrenInDB) {
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
+    }
   }
 }
