@@ -17,8 +17,11 @@ public class Pr01_00_ChangeName_byFullUpdate_Service {
 
     @Async
     public CompletableFuture<Void> async_NoTnx_ChangeName(long entityId, String updateName) {
+        log.info("async_NoTnx_ChangeName: findById {}", entityId);
         SimpleEntity simpleEntity = simpleRepository.findById(entityId).get();
         simpleEntity.setName(updateName);
+
+        log.info("async_NoTnx_ChangeName: update name '{}' by saving entity", updateName);
         simpleRepository.save(simpleEntity);
         return CompletableFuture.completedFuture(null);
     }

@@ -46,6 +46,8 @@ public class Pr01_00_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     }
 
     private void assert_Either_NameIsNotUpdatedAsExpected_Or_StatusIsNotUpdatedAsExpected(long entityId, String updatedName, boolean updatedStatus) {
+        log.info("Assertion entity with id {}... ", entityId);
+
         Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findById(entityId);
 
         Assertions.assertEquals(true, sampleEntityOptional.isPresent());

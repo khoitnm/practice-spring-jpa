@@ -4,15 +4,25 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <appender name="COLORFUL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi><!-- Setting withJansi to true enables ANSI color code interpretation by the Jansi library, which transparently filters out ANSI escape sequences if the underlying terminal is not compatible.-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%-5level]) %message %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
             </pattern>
         </encoder>
     </appender>
 
-    <appender name="COLORFUL_CONSOLE_SQL" class="ch.qos.logback.core.ConsoleAppender">
+    <appender name="COLORFUL_CONSOLE_SQL_STATEMENT" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%-5level]) %magenta(%message) %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="COLORFUL_CONSOLE_SQL_PARAM" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%-5level]) %gray(%message) %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
             </pattern>
         </encoder>
     </appender>
@@ -20,9 +30,14 @@
     <root level="INFO">
         <appender-ref ref="COLORFUL_CONSOLE"/>
     </root>
+
     <logger name="org.tnmk" level="TRACE"/>
+
     <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
-        <appender-ref ref="COLORFUL_CONSOLE_SQL"/>
+        <appender-ref ref="COLORFUL_CONSOLE_SQL_STATEMENT"/>
     </logger>
-    <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>
+
+    <logger name="org.hibernate.type.descriptor.sql" level="TRACE" additivity="false">
+        <appender-ref ref="COLORFUL_CONSOLE_SQL_PARAM"/>
+    </logger>
 </configuration>

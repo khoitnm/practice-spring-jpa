@@ -33,6 +33,8 @@ public class Pr00_01_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     }
 
     private void assertExistWithSameName(long entityId, String expectName) {
+        log.info("Assert whether an entity with id {} has expected name '{}' or not... ", entityId, expectName);
+
         Optional<SimpleEntity> sampleEntityOptional = simpleRepository.findById(entityId);
 
         Assertions.assertEquals(true, sampleEntityOptional.isPresent());

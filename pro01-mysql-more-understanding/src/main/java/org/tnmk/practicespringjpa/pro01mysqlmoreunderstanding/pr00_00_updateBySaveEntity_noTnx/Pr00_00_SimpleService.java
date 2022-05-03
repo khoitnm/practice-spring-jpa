@@ -22,7 +22,7 @@ public class Pr00_00_SimpleService {
         SimpleEntity simpleEntity = new SimpleEntity(uniqueCode, initName);
         simpleRepository.save(simpleEntity);
 
-        log.info("This will execute 3 queries: 'SELECT ... by PK', 'UPDATE ... by PK', 'SELECT ... by PK");
+        log.info("This will execute 2 queries: 'SELECT ... by PK', 'UPDATE ... by PK'");
         simpleEntity.setName(updateName);
         simpleEntity = simpleRepository.save(simpleEntity);
         return simpleEntity;
