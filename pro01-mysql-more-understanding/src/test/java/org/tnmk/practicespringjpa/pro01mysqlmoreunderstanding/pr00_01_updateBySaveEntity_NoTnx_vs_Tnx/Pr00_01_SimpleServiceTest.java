@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_00_updateBySaveEntity_noTnx;
+package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_01_updateBySaveEntity_NoTnx_vs_Tnx;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -12,21 +12,36 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class Pr00_00_SimpleServiceTest extends BaseSpringTest_WithActualDb {
+public class Pr00_01_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     @Autowired
-    private Pr00_00_SimpleService simpleServiceMain;
+    private Pr00_01_SimpleService_With_Tnx pr0001SimpleServiceWithTnx;
 
+    @Autowired
+    private Pr00_01_SimpleService_Without_Tnx pr0001SimpleServiceWithoutTnx;
     @Autowired
     private SimpleRepository simpleRepository;
 
     @Test
-    public void test_when_everything_is_saved_successfully() {
+    public void test_WithoutTransaction() {
         // Given
         String initName = "Init_" + UUID.randomUUID();
         String updateName = "Update_" + UUID.randomUUID();
 
         // When
-        SimpleEntity result = simpleServiceMain.insertAndUpdate(initName, updateName);
+        SimpleEntity result = pr0001SimpleServiceWithoutTnx.insertAndUpdate(initName, updateName);
+
+        // Then
+        assertExistWithSameName(result.getId(), updateName);
+    }
+
+    @Test
+    public void test_WithTransaction() {
+        // Given
+        String initName = "Init_" + UUID.randomUUID();
+        String updateName = "Update_" + UUID.randomUUID();
+
+        // When
+        SimpleEntity result = pr0001SimpleServiceWithTnx.insertAndUpdate(initName, updateName);
 
         // Then
         assertExistWithSameName(result.getId(), updateName);

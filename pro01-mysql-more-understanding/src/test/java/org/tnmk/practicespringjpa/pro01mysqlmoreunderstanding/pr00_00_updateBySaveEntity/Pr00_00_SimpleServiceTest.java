@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_01_updateBySaveEntity_Tnx;
+package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr00_00_updateBySaveEntity;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Assertions;
@@ -12,9 +12,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class Pr00_01_SimpleServiceTest extends BaseSpringTest_WithActualDb {
+public class Pr00_00_SimpleServiceTest extends BaseSpringTest_WithActualDb {
     @Autowired
-    private Pr00_01_SimpleService simpleServiceMain;
+    private Pr00_00_SimpleService simpleServiceMain;
 
     @Autowired
     private SimpleRepository simpleRepository;
@@ -24,9 +24,10 @@ public class Pr00_01_SimpleServiceTest extends BaseSpringTest_WithActualDb {
         // Given
         String initName = "Init_" + UUID.randomUUID();
         String updateName = "Update_" + UUID.randomUUID();
+        SimpleEntity insertedEntity = simpleServiceMain.insert(initName);
 
         // When
-        SimpleEntity result = simpleServiceMain.insertAndUpdate(initName, updateName);
+        SimpleEntity result = simpleServiceMain.update(insertedEntity.getId(), updateName);
 
         // Then
         assertExistWithSameName(result.getId(), updateName);
