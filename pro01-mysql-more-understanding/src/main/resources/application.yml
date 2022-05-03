@@ -11,7 +11,7 @@ spring:
     driverClassName: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
-      hibernate.format_sql: true
+#      hibernate.format_sql: true
 
       # This config must match with Dialect config in TransactionalOutboxConfig.persistor()
       hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
