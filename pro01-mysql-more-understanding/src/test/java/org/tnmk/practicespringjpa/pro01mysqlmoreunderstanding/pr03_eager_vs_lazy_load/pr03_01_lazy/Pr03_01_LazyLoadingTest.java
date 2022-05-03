@@ -33,7 +33,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
 
     // THEN:
     log.info("Assertions...");
-    Assertions.assertEquals(parentAndChildren.getParent().getName(), childEntityInDB.getParentEntity().getName());
+    Assertions.assertEquals(parentAndChildren.getParent().getId(), childEntityInDB.getParentEntity().getId());
   }
 
   @Test
@@ -57,7 +57,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     log.info("Assertions...");
     Assertions.assertEquals(childrenIds.size(), childrenInDB.size());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
-      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
     }
   }
 
@@ -79,7 +79,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     log.info("Assertions...");
     Assertions.assertTrue(!childrenInDB.isEmpty());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
-      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
     }
   }
 }
