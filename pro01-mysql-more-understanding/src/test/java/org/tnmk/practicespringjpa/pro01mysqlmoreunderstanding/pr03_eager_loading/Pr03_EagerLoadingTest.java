@@ -20,7 +20,7 @@ public class Pr03_EagerLoadingTest extends BaseSpringTest_WithActualDb {
   private ChildService childService;
 
   @Test
-  public void test_whenSelectingChild_TheEagerLoadedParent_WillAlsoBeReturned() {
+  public void when_FindChildById_then_TheEagerLoadedParent_WillAlsoBeReturned() {
     // GIVEN:
     ParentAndChildren parentAndChildren = fixtures.createParentAndChild("parent", 1);
     ChildEntity child = parentAndChildren.getChildren().get(0);
@@ -29,7 +29,7 @@ public class Pr03_EagerLoadingTest extends BaseSpringTest_WithActualDb {
     log.info("When find child by id {}...", child.getId());
     // When looking at the log messages, because ParentEntity is eager loaded along with ChildEntity,
     // we should see only one `SELECT ... FROM child_entity LEFT OUTER JOIN parent ...`
-    ChildEntity childEntityInDB = childService.findChildById(child.getId()).get();
+    ChildEntity childEntityInDB = childService.findById(child.getId()).get();
 
     // THEN:
     log.info("Assertions...");
@@ -37,7 +37,7 @@ public class Pr03_EagerLoadingTest extends BaseSpringTest_WithActualDb {
   }
 
   @Test
-  public void test_whenSelectingChildrenList_TheEagerLoadedParents_WillAlsoBeReturned() {
+  public void when_FindChildrenByIds_then_TheEagerLoadedParents_WillAlsoBeReturned() {
     // GIVEN:
     List<ParentAndChildren> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
 
@@ -48,14 +48,36 @@ public class Pr03_EagerLoadingTest extends BaseSpringTest_WithActualDb {
         parentAndChildren.get(2).getChildren().get(0).getId()
     );
     // WHEN:
-    // When looking at the log messages, even though ParentEntity is eager loaded along with ChildEntity,
-    // it still execute `SELECT ... FROM child_entity WHERE id IN (...)` first,
-    // and then loop through each child to get corresponding parent by another `SELECT ... FROM parent_entity WHERE id = ...` later.
+    //  As we can guess, the number of SQL statements are executed is different from
+    //  the previous test case `when_FindChildById_then_TheEagerLoadedParent_WillAlsoBeReturned()`
     log.info("When find children by ids {}...", childrenIds);
     List<ChildEntity> childrenInDB = childService.findByIds(childrenIds);
 
     // THEN:
     log.info("Assertions...");
+    Assertions.assertEquals(childrenIds.size(), childrenInDB.size());
+    for (ChildEntity childEntityInDB : childrenInDB) {
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
+    }
+  }
+
+  @Test
+  public void when_FindChildrenByName_then_TheEagerLoadedParents_WillAlsoBeReturned() {
+    // GIVEN:
+    List<ParentAndChildren> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    String typicalChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+
+    // WHEN:
+    //  This is the only difference from the above test case
+    //  `whenFindChildrenByIds_TheEagerLoadedParents_WillAlsoBeReturned().
+    //  However, the interesting thing is: the number of SQL executions are different!!!
+    //  Please take a look at the log message.
+    log.info("When find children by name '{}'...", typicalChildrenName);
+    List<ChildEntity> childrenInDB = childService.findByNameContaining(typicalChildrenName);
+
+    // THEN:
+    log.info("Assertions...");
+    Assertions.assertTrue(!childrenInDB.isEmpty());
     for (ChildEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }

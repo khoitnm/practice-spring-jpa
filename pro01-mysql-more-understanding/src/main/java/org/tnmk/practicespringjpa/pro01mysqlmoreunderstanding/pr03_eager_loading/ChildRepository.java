@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface ChildRepository extends JpaRepository<ChildEntity, Long> {
   List<ChildEntity> findByIdIn(List<Long> ids);
+
+  List<ChildEntity> findByNameContaining(String name);
 }
