@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_loading;
+package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.common;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
