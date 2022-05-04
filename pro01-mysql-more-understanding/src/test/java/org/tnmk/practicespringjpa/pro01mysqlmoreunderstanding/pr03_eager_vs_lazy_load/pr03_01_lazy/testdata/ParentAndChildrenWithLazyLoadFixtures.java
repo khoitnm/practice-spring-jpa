@@ -14,12 +14,14 @@ import java.util.stream.IntStream;
 @Service
 @RequiredArgsConstructor
 public class ParentAndChildrenWithLazyLoadFixtures {
+  public static final String PARENT_NAME_PREFIX = "Parent ";
+  public static final String CHILD_NAME_PREFIX = "Child ";
   private final ChildWithLazyLoadRepository childRepository;
   private final ParentRepository parentRepository;
 
   public List<ParentAndChildrenWithLazyLoad> createParentsAndChildren(int parentsCount, int childrenCountPerParent) {
     List<ParentAndChildrenWithLazyLoad> result = IntStream.range(0, parentsCount)
-        .mapToObj(i -> createParentAndChild("Parent " + i, childrenCountPerParent))
+        .mapToObj(i -> createParentAndChild(PARENT_NAME_PREFIX + i, childrenCountPerParent))
         .collect(Collectors.toList());
     return result;
   }
@@ -29,7 +31,7 @@ public class ParentAndChildrenWithLazyLoadFixtures {
     parentRepository.save(parent);
 
     List<ChildWithLazyLoadEntity> children = IntStream.range(0, childrenCountPerParent).mapToObj(i ->
-        createChild(parent, "Child " + i + " of '" + parent.getName() + "'")
+        createChild(parent, CHILD_NAME_PREFIX + i + " of '" + parent.getName() + "'")
     ).collect(Collectors.toList());
 
     return new ParentAndChildrenWithLazyLoad(parent, children);

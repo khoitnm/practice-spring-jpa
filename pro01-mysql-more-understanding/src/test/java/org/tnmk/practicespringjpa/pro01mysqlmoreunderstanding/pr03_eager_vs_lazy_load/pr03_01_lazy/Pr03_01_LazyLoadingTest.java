@@ -80,7 +80,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   public void when_FindChildrenByName_then_CannotLazyLoadParent() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    String aPartOfChildrenName = ParentAndChildrenWithLazyLoadFixtures.CHILD_NAME_PREFIX;
 
     // WHEN:
     //  This is the only difference from the above test case
@@ -107,7 +107,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   public void when_FindChildrenByNameContaining_AndLazyLoadParentInTnx_then_NoExceptionIsThrown() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    String aPartOfChildrenName = ParentAndChildrenWithLazyLoadFixtures.CHILD_NAME_PREFIX;
 
     // WHEN:
     log.info("When find children by name '{}'...", aPartOfChildrenName);
@@ -133,7 +133,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   public void when_FindChildrenByNameContaining_AndJoinParent_then_NoExceptionIsThrown() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    String aPartOfChildrenName = ParentAndChildrenWithLazyLoadFixtures.CHILD_NAME_PREFIX;
 
     // WHEN:
     log.info("When finding children by name '{}'...", aPartOfChildrenName);

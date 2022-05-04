@@ -11,6 +11,6 @@ import java.util.List;
 public interface ChildWithLazyLoadRepository extends JpaRepository<ChildWithLazyLoadEntity, Long> {
   List<ChildWithLazyLoadEntity> findByNameContaining(@Param("name") String name);
 
-  @Query("SELECT c, p FROM ChildWithLazyLoadEntity c JOIN c.parentEntity p WHERE c.name LIKE %:childName%")
+  @Query("SELECT c, p FROM ChildWithLazyLoadEntity c LEFT JOIN FETCH c.parentEntity p WHERE c.name LIKE %:childName%")
   List<ChildWithLazyLoadEntity> findByChildNameContaining_AndJoinParent(@Param("childName") String childName);
 }
