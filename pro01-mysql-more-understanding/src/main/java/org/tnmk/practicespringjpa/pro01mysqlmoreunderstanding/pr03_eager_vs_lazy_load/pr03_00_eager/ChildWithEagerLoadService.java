@@ -23,4 +23,8 @@ public class ChildWithEagerLoadService {
   public List<ChildWithEagerLoadEntity> findByNameContaining(String name) {
     return childRepository.findByNameContaining(name);
   }
+
+  public List<ChildWithEagerLoadEntity> findByNameContaining_withNativeQuery(String name) {
+    return childRepository.findByNameContaining_withNativeQuery(name);
+  }
 }

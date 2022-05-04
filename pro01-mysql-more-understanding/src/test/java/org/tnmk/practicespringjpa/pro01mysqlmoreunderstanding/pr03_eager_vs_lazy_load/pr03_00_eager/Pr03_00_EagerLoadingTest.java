@@ -22,6 +22,7 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
 
   @AfterEach
   public void cleanUp() {
+    log.info("Clean up data ...");
     fixtures.cleanUpAllParentsAndChildren();
   }
 
@@ -38,7 +39,7 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
     ChildWithEagerLoadEntity childEntityInDB = childService.findById(child.getId()).get();
 
     // THEN:
-    log.info("Assertions...");
+    log.info("Assertions parent's name...");
     Assertions.assertEquals(parentAndChildren.getParent().getName(), childEntityInDB.getParentEntity().getName());
   }
 
@@ -57,12 +58,14 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
     List<ChildWithEagerLoadEntity> childrenInDB = childService.findByIds(childrenIds);
 
     // THEN:
-    log.info("Assertions...");
-    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenIds.size());
-    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
+    log.info("Assertions parents' names...");
     for (ChildWithEagerLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
+
+    log.info("Assertions children size...");
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenIds.size());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
   }
 
   @Test
@@ -79,14 +82,42 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
     //  However, the interesting thing is: the number of SQL executions are different!!!
     //  Please take a look at the log message.
     log.info("When find children by name '{}'...", aPartOfChildrenName);
-    List<ChildWithEagerLoadEntity> childrenInDB = childService.findByNameContaining(aPartOfChildrenName);
+    List<ChildWithEagerLoadEntity> childrenInDB = childService.findByNameContaining(aPartOfChildrenName); // this basically returns all children
 
     // THEN:
-    log.info("Assertions...");
-    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
+    log.info("Assertions parents' names...");
     for (ChildWithEagerLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
+
+    log.info("Assertions children size...");
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
+  }
+
+  @Test
+  public void when_FindChildrenByName_withNativeQuery_then_TheEagerLoadedParents_WillBeReturned() {
+    // GIVEN:
+    int parentsCount = 3;
+    int childrenCountPerParent = 2;
+    List<ParentAndChildrenWithEagerLoad> parentAndChildren = fixtures.createParentsAndChildren(parentsCount, childrenCountPerParent);
+    String aPartOfChildrenName = ParentAndChildrenWithEagerLoadFixtures.CHILD_NAME_PREFIX;
+
+    // WHEN:
+    //  This is the only difference from the above test case
+    //  `whenFindChildrenByIds_TheEagerLoadedParents_WillAlsoBeReturned().
+    //  However, the interesting thing is: the number of SQL executions are different!!!
+    //  Please take a look at the log message.
+    log.info("When find children by name '{}'...", aPartOfChildrenName);
+    List<ChildWithEagerLoadEntity> childrenInDB = childService.findByNameContaining_withNativeQuery(aPartOfChildrenName); // this basically returns all children
+
+    // THEN:
+    log.info("Assertions parents' names...");
+    for (ChildWithEagerLoadEntity childEntityInDB : childrenInDB) {
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
+    }
+
+    log.info("Assertions children size...");
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
   }
 
   private static List<Long> getAllChildrenIds(List<ParentAndChildrenWithEagerLoad> parentsAndChildren) {
