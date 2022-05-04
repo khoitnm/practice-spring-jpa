@@ -23,6 +23,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
 
   @AfterEach
   public void cleanUp() {
+    log.info("Clean up data ...");
     fixtures.cleanUpAllParentsAndChildren();
   }
 
