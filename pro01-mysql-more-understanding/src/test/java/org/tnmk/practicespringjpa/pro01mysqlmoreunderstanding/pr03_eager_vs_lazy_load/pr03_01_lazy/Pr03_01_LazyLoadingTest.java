@@ -21,7 +21,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   private ChildWithLazyLoadService childService;
 
   @Test
-  public void when_FindChildById_then_TheLazyLoadParent_WontBeReturned() {
+  public void when_FindChildById_then_CannotLazyLoadParent() {
     // GIVEN:
     ParentAndChildrenWithLazyLoad parentAndChildren = fixtures.createParentAndChild("parent", 1);
     ChildWithLazyLoadEntity child = parentAndChildren.getChildren().get(0);
@@ -47,7 +47,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   }
 
   @Test
-  public void when_FindChildrenByIds_then_TheLazyLoadParents_WontBeReturned() {
+  public void when_FindChildrenByIds_then_CannotLazyLoadParent() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
 
@@ -77,18 +77,18 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   }
 
   @Test
-  public void when_FindChildrenByName_then_TheLazyLoadParents_WontBeReturned() {
+  public void when_FindChildrenByName_then_CannotLazyLoadParent() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String typicalChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
 
     // WHEN:
     //  This is the only difference from the above test case
     //  `whenFindChildrenByIds_TheLazyLoadedParents_WillAlsoBeReturned().
     //  However, the interesting thing is: the number of SQL executions are different!!!
     //  Please take a look at the log message.
-    log.info("When finding children by name '{}'...", typicalChildrenName);
-    List<ChildWithLazyLoadEntity> childrenInDB = childService.findByNameContaining(typicalChildrenName);
+    log.info("When finding children by name '{}'...", aPartOfChildrenName);
+    List<ChildWithLazyLoadEntity> childrenInDB = childService.findByNameContaining(aPartOfChildrenName);
 
     // THEN:
     log.info("Assertions...");
@@ -104,15 +104,19 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   }
 
   @Test
-  public void when_FindChildrenByName_AndAlsoLazyLoadParents_then_NoExceptionIsThrown() {
+  public void when_FindChildrenByNameContaining_AndLazyLoadParentInTnx_then_NoExceptionIsThrown() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String typicalChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
 
     // WHEN:
-
-    log.info("When find children by name '{}'...", typicalChildrenName);
-    List<ChildWithLazyLoadEntity> childrenInDB = childService.findChildrenByNameContaining_AndLazyLoadParent(typicalChildrenName);
+    log.info("When find children by name '{}'...", aPartOfChildrenName);
+    /**
+     * The difference from {@link ChildWithLazyLoadService#findByNameContaining(String)} is:
+     * we also won't get exception when we access ParentEntity's fields from the result of this method from outside the service.
+     * However, we get N+1 problem here.
+     */
+    List<ChildWithLazyLoadEntity> childrenInDB = childService.findByNameContaining_AndLazyLoadParentInTnx(aPartOfChildrenName);
 
     // THEN:
     log.info("Assertions...");
@@ -120,7 +124,33 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
 
-      // As we see, there's no exception anymore.
+      // As mentioned in the above comment, this method also won't get LazyInitializationException.
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
+    }
+  }
+
+  @Test
+  public void when_FindChildrenByNameContaining_AndJoinParent_then_NoExceptionIsThrown() {
+    // GIVEN:
+    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+
+    // WHEN:
+    log.info("When finding children by name '{}'...", aPartOfChildrenName);
+    /**
+     * The same as {@link ChildWithLazyLoadService#findByNameContaining_AndLazyLoadParentInTnx(String)},
+     * we also won't get exception when we access ParentEntity's fields from the result of this method from outside the service.
+     * The difference is by joining, the amount of SQL statements are executed by Hibernate is only one.
+     */
+    List<ChildWithLazyLoadEntity> childrenInDB = childService.findByNameContaining_AndJoinParent(aPartOfChildrenName);
+
+    // THEN:
+    log.info("Assertions...");
+    Assertions.assertTrue(!childrenInDB.isEmpty());
+    for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
+
+      // As mentioned in the above comment, this method also won't get LazyInitializationException.
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
   }
