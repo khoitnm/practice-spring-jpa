@@ -26,7 +26,7 @@ public class ChildWithLazyLoadService {
   }
 
   // This transaction annotation will make the DB Session is still open when lazy loaded is executed.
-  @Transactional
+  @Transactional(readOnly = true)
   public List<ChildWithLazyLoadEntity> findByNameContaining_AndLazyLoadParentInTnx(String name) {
     List<ChildWithLazyLoadEntity> result = childRepository.findByNameContaining(name);
 
