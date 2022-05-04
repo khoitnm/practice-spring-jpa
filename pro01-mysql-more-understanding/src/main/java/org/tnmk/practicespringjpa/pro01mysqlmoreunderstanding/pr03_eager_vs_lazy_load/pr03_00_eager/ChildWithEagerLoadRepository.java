@@ -7,7 +7,5 @@ import java.util.List;
 
 @Repository
 public interface ChildWithEagerLoadRepository extends JpaRepository<ChildWithEagerLoadEntity, Long> {
-  List<ChildWithEagerLoadEntity> findByIdIn(List<Long> ids);
-
   List<ChildWithEagerLoadEntity> findByNameContaining(String name);
 }

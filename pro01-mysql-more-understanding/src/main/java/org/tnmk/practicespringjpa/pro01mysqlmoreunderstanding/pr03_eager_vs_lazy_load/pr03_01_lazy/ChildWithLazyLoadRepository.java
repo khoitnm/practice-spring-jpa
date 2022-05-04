@@ -8,7 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ChildWithLazyLoadRepository extends JpaRepository<ChildWithLazyLoadEntity, Long> {
-  List<ChildWithLazyLoadEntity> findByIdIn(List<Long> ids);
-
   List<ChildWithLazyLoadEntity> findByNameContaining(@Param("name") String name);
 }
