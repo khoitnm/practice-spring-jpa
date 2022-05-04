@@ -1,6 +1,7 @@
 package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_01_lazy;
 
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.LazyInitializationException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,15 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     // THEN:
     log.info("Assertions...");
     Assertions.assertEquals(parentAndChildren.getParent().getId(), childEntityInDB.getParentEntity().getId());
+
+    Assertions.assertThrows(LazyInitializationException.class, () -> {
+      //  It will get LazyInitializationException because:
+      //  - ParentEntity only has value in Id field with lazy loading.
+      //  - So, when accessing other field in ParentEntity, Hibernate will try to get more data from DB (by executing SQL `select ...`)
+      //  - But this getName() is executed outside of Service class, which means there's no more Session.
+      //    Hen we get exception.
+      childEntityInDB.getParentEntity().getName();
+    });
   }
 
   @Test
@@ -58,6 +68,11 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     Assertions.assertEquals(childrenIds.size(), childrenInDB.size());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
+
+      Assertions.assertThrows(LazyInitializationException.class, () -> {
+        // The reason for getting LazyInitializationException was already explained in the first test case.
+        childEntityInDB.getParentEntity().getName();
+      });
     }
   }
 
@@ -80,6 +95,11 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     Assertions.assertTrue(!childrenInDB.isEmpty());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
+
+      Assertions.assertThrows(LazyInitializationException.class, () -> {
+        // The reason for getting LazyInitializationException was already explained in the first test case.
+        childEntityInDB.getParentEntity().getName();
+      });
     }
   }
 }
