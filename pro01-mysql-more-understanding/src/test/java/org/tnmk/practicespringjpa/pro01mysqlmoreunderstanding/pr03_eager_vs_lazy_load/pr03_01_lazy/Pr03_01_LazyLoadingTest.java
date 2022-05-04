@@ -2,6 +2,7 @@ package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_laz
 
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.LazyInitializationException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_01_lazy.testdata.ParentAndChildrenWithLazyLoadFixtures;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.testinfra.BaseSpringTest_WithActualDb;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
@@ -19,6 +20,11 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   private ParentAndChildrenWithLazyLoadFixtures fixtures;
   @Autowired
   private ChildWithLazyLoadService childService;
+
+  @AfterEach
+  public void cleanUp() {
+    fixtures.cleanUpAllParentsAndChildren();
+  }
 
   @Test
   public void when_FindChildById_then_CannotLazyLoadParent() {
@@ -49,14 +55,11 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   @Test
   public void when_FindChildrenByIds_then_CannotLazyLoadParent() {
     // GIVEN:
-    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    int parentsCount = 3;
+    int childrenCountPerParent = 2;
+    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(parentsCount, childrenCountPerParent);
+    List<Long> childrenIds = getAllChildrenIds(parentAndChildren);
 
-    List<Long> childrenIds = Arrays.asList(
-        parentAndChildren.get(0).getChildren().get(0).getId(),
-        parentAndChildren.get(0).getChildren().get(1).getId(),
-        parentAndChildren.get(1).getChildren().get(0).getId(),
-        parentAndChildren.get(2).getChildren().get(0).getId()
-    );
     // WHEN:
     //  As we can guess, the number of SQL statements are executed is different from
     //  the previous test case `when_FindChildById_then_TheLazyLoadedParent_WillAlsoBeReturned()`
@@ -65,7 +68,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
 
     // THEN:
     log.info("Assertions...");
-    Assertions.assertEquals(childrenIds.size(), childrenInDB.size());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
 
@@ -79,7 +82,9 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   @Test
   public void when_FindChildrenByName_then_CannotLazyLoadParent() {
     // GIVEN:
-    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    int parentsCount = 3;
+    int childrenCountPerParent = 2;
+    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(parentsCount, childrenCountPerParent);
     String aPartOfChildrenName = ParentAndChildrenWithLazyLoadFixtures.CHILD_NAME_PREFIX;
 
     // WHEN:
@@ -92,7 +97,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
 
     // THEN:
     log.info("Assertions...");
-    Assertions.assertTrue(!childrenInDB.isEmpty());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
 
@@ -106,7 +111,9 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   @Test
   public void when_FindChildrenByNameContaining_AndLazyLoadParentInTnx_then_NoExceptionIsThrown() {
     // GIVEN:
-    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    int parentsCount = 3;
+    int childrenCountPerParent = 2;
+    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(parentsCount, childrenCountPerParent);
     String aPartOfChildrenName = ParentAndChildrenWithLazyLoadFixtures.CHILD_NAME_PREFIX;
 
     // WHEN:
@@ -120,7 +127,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
 
     // THEN:
     log.info("Assertions...");
-    Assertions.assertTrue(!childrenInDB.isEmpty());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
     for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
 
@@ -153,5 +160,16 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
       // As mentioned in the above comment, this method also won't get LazyInitializationException.
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
+  }
+
+  private static List<Long> getAllChildrenIds(List<ParentAndChildrenWithLazyLoad> parentsAndChildren) {
+    List<Long> childrenIds = parentsAndChildren.stream().flatMap(
+        parentAndChildrenItem -> toChildrenIds(parentAndChildrenItem.getChildren()).stream()
+    ).collect(Collectors.toList());
+    return childrenIds;
+  }
+
+  private static List<Long> toChildrenIds(List<ChildWithLazyLoadEntity> children) {
+    return children.stream().map(ChildWithLazyLoadEntity::getId).collect(Collectors.toList());
   }
 }

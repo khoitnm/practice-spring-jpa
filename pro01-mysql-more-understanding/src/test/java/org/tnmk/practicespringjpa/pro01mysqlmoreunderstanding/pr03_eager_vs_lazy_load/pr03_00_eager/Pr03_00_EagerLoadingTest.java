@@ -1,6 +1,7 @@
 package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,8 @@ import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_00_eager.testdata.ParentAndChildrenWithEagerLoadFixtures;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.testinfra.BaseSpringTest_WithActualDb;
 
-import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
@@ -18,6 +19,11 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
   private ParentAndChildrenWithEagerLoadFixtures fixtures;
   @Autowired
   private ChildWithEagerLoadService childService;
+
+  @AfterEach
+  public void cleanUp() {
+    fixtures.cleanUpAllParentsAndChildren();
+  }
 
   @Test
   public void when_FindChildById_then_TheEagerLoadedParent_WillAlsoBeReturned() {
@@ -39,14 +45,11 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
   @Test
   public void when_FindChildrenByIds_then_TheEagerLoadedParents_WillAlsoBeReturned() {
     // GIVEN:
-    List<ParentAndChildrenWithEagerLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    int parentsCount = 3;
+    int childrenCountPerParent = 2;
+    List<ParentAndChildrenWithEagerLoad> parentAndChildren = fixtures.createParentsAndChildren(parentsCount, childrenCountPerParent);
+    List<Long> childrenIds = getAllChildrenIds(parentAndChildren);
 
-    List<Long> childrenIds = Arrays.asList(
-        parentAndChildren.get(0).getChildren().get(0).getId(),
-        parentAndChildren.get(0).getChildren().get(1).getId(),
-        parentAndChildren.get(1).getChildren().get(0).getId(),
-        parentAndChildren.get(2).getChildren().get(0).getId()
-    );
     // WHEN:
     //  As we can guess, the number of SQL statements are executed is different from
     //  the previous test case `when_FindChildById_then_TheEagerLoadedParent_WillAlsoBeReturned()`
@@ -55,7 +58,8 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
 
     // THEN:
     log.info("Assertions...");
-    Assertions.assertEquals(childrenIds.size(), childrenInDB.size());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenIds.size());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
     for (ChildWithEagerLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
@@ -64,8 +68,10 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
   @Test
   public void when_FindChildrenByName_then_TheEagerLoadedParents_WillAlsoBeReturned() {
     // GIVEN:
-    List<ParentAndChildrenWithEagerLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    int parentsCount = 3;
+    int childrenCountPerParent = 2;
+    List<ParentAndChildrenWithEagerLoad> parentAndChildren = fixtures.createParentsAndChildren(parentsCount, childrenCountPerParent);
+    String aPartOfChildrenName = ParentAndChildrenWithEagerLoadFixtures.CHILD_NAME_PREFIX;
 
     // WHEN:
     //  This is the only difference from the above test case
@@ -77,9 +83,20 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
 
     // THEN:
     log.info("Assertions...");
-    Assertions.assertTrue(!childrenInDB.isEmpty());
+    Assertions.assertEquals(parentsCount * childrenCountPerParent, childrenInDB.size());
     for (ChildWithEagerLoadEntity childEntityInDB : childrenInDB) {
       Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
+  }
+
+  private static List<Long> getAllChildrenIds(List<ParentAndChildrenWithEagerLoad> parentsAndChildren) {
+    List<Long> childrenIds = parentsAndChildren.stream().flatMap(
+        parentAndChildrenItem -> toChildrenIds(parentAndChildrenItem.getChildren()).stream()
+    ).collect(Collectors.toList());
+    return childrenIds;
+  }
+
+  private static List<Long> toChildrenIds(List<ChildWithEagerLoadEntity> children) {
+    return children.stream().map(ChildWithEagerLoadEntity::getId).collect(Collectors.toList());
   }
 }
