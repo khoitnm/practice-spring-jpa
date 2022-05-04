@@ -65,15 +65,15 @@ public class Pr03_00_EagerLoadingTest extends BaseSpringTest_WithActualDb {
   public void when_FindChildrenByName_then_TheEagerLoadedParents_WillAlsoBeReturned() {
     // GIVEN:
     List<ParentAndChildrenWithEagerLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
-    String typicalChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+    String aPartOfChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
 
     // WHEN:
     //  This is the only difference from the above test case
     //  `whenFindChildrenByIds_TheEagerLoadedParents_WillAlsoBeReturned().
     //  However, the interesting thing is: the number of SQL executions are different!!!
     //  Please take a look at the log message.
-    log.info("When find children by name '{}'...", typicalChildrenName);
-    List<ChildWithEagerLoadEntity> childrenInDB = childService.findByNameContaining(typicalChildrenName);
+    log.info("When find children by name '{}'...", aPartOfChildrenName);
+    List<ChildWithEagerLoadEntity> childrenInDB = childService.findByNameContaining(aPartOfChildrenName);
 
     // THEN:
     log.info("Assertions...");
