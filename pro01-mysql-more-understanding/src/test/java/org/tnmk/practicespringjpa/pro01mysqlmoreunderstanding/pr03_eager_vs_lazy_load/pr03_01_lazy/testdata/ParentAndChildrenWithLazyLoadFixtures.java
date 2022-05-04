@@ -2,6 +2,7 @@ package org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_laz
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.common.ParentEntity;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.common.ParentRepository;
 import org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.pr03_eager_vs_lazy_load.pr03_01_lazy.ChildWithLazyLoadEntity;
@@ -43,4 +44,9 @@ public class ParentAndChildrenWithLazyLoadFixtures {
     return childRepository.save(child);
   }
 
+  @Transactional
+  public void cleanUpAllParentsAndChildren() {
+    childRepository.deleteAll();
+    parentRepository.deleteAll();
+  }
 }
