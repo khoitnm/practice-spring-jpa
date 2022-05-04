@@ -21,13 +21,13 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   private ChildWithLazyLoadService childService;
 
   @Test
-  public void when_FindChildById_then_TheLazyLoadedParent_WillAlsoBeReturned() {
+  public void when_FindChildById_then_TheLazyLoadParent_WontBeReturned() {
     // GIVEN:
     ParentAndChildrenWithLazyLoad parentAndChildren = fixtures.createParentAndChild("parent", 1);
     ChildWithLazyLoadEntity child = parentAndChildren.getChildren().get(0);
 
     // WHEN:
-    log.info("When find child by id {}...", child.getId());
+    log.info("When finding child by id {}...", child.getId());
     // When looking at the log messages, because ParentEntity is lazy loaded along with ChildEntity,
     // we should see only one `SELECT ... FROM child_entity LEFT OUTER JOIN parent ...`
     ChildWithLazyLoadEntity childEntityInDB = childService.findById(child.getId()).get();
@@ -47,7 +47,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   }
 
   @Test
-  public void when_FindChildrenByIds_then_TheLazyLoadedParents_WillAlsoBeReturned() {
+  public void when_FindChildrenByIds_then_TheLazyLoadParents_WontBeReturned() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
 
@@ -60,7 +60,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     // WHEN:
     //  As we can guess, the number of SQL statements are executed is different from
     //  the previous test case `when_FindChildById_then_TheLazyLoadedParent_WillAlsoBeReturned()`
-    log.info("When find children by ids {}...", childrenIds);
+    log.info("When finding children by ids {}...", childrenIds);
     List<ChildWithLazyLoadEntity> childrenInDB = childService.findByIds(childrenIds);
 
     // THEN:
@@ -77,7 +77,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
   }
 
   @Test
-  public void when_FindChildrenByName_then_TheLazyLoadedParents_WillAlsoBeReturned() {
+  public void when_FindChildrenByName_then_TheLazyLoadParents_WontBeReturned() {
     // GIVEN:
     List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
     String typicalChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
@@ -87,7 +87,7 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
     //  `whenFindChildrenByIds_TheLazyLoadedParents_WillAlsoBeReturned().
     //  However, the interesting thing is: the number of SQL executions are different!!!
     //  Please take a look at the log message.
-    log.info("When find children by name '{}'...", typicalChildrenName);
+    log.info("When finding children by name '{}'...", typicalChildrenName);
     List<ChildWithLazyLoadEntity> childrenInDB = childService.findByNameContaining(typicalChildrenName);
 
     // THEN:
@@ -100,6 +100,28 @@ public class Pr03_01_LazyLoadingTest extends BaseSpringTest_WithActualDb {
         // The reason for getting LazyInitializationException was already explained in the first test case.
         childEntityInDB.getParentEntity().getName();
       });
+    }
+  }
+
+  @Test
+  public void when_FindChildrenByName_AndAlsoLazyLoadParents_then_NoExceptionIsThrown() {
+    // GIVEN:
+    List<ParentAndChildrenWithLazyLoad> parentAndChildren = fixtures.createParentsAndChildren(3, 2);
+    String typicalChildrenName = parentAndChildren.get(0).getChildren().get(0).getName().substring(0, 5);
+
+    // WHEN:
+
+    log.info("When find children by name '{}'...", typicalChildrenName);
+    List<ChildWithLazyLoadEntity> childrenInDB = childService.findChildrenByNameContaining_AndLazyLoadParent(typicalChildrenName);
+
+    // THEN:
+    log.info("Assertions...");
+    Assertions.assertTrue(!childrenInDB.isEmpty());
+    for (ChildWithLazyLoadEntity childEntityInDB : childrenInDB) {
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getId());
+
+      // As we see, there's no exception anymore.
+      Assertions.assertNotNull(childEntityInDB.getParentEntity().getName());
     }
   }
 }
