@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name = "sample_entity")
+@Table(name = "simple_entity")
 @Data
 @NoArgsConstructor
 public class SimpleEntity {
@@ -34,7 +34,7 @@ public class SimpleEntity {
   private ZonedDateTime createdDateTime;
 
   @UpdateTimestamp
-  @Column(name = "update_date_time", columnDefinition = "TIMESTAMP(6)")
+  @Column(name = "update_date_time", columnDefinition = "TIMESTAMP(6) DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)")
   private ZonedDateTime updateDateTime;
 
   public SimpleEntity(String name) {

@@ -16,7 +16,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Pr05_05_ServiceNativeUpdate_Async {
+public class Pr05_05_Service_InsertByNativeQuery_Async {
 
     private final SimpleRepository simpleRepository;
 
