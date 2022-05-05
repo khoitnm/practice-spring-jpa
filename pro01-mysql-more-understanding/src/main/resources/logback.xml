@@ -3,6 +3,9 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+    <!-- custom coloring conversion -->
+    <conversionRule conversionWord="brightGray" converterClass="org.tnmk.practicespringjpa.pro01mysqlmoreunderstanding.logging.BrightGrayConverter" />
+
     <appender name="COLORFUL_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>true</withJansi><!-- Setting withJansi to true enables ANSI color code interpretation by the Jansi library, which transparently filters out ANSI escape sequences if the underlying terminal is not compatible.-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -22,7 +25,7 @@
     <appender name="COLORFUL_CONSOLE_SQL_PARAM" class="ch.qos.logback.core.ConsoleAppender">
         <withJansi>true</withJansi>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%-5level]) %gray(%message) %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
+            <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss.SSS}]) %cyan([%-5level]) %brightGray(%message) %green([%thread]) %blue([%class{0}.%method]) MDC: %mdc %n
             </pattern>
         </encoder>
     </appender>
