@@ -20,7 +20,7 @@ public class Pr05_05_ExternalSystemSimulator {
     }
 
     public Optional<SimpleEntity> findEntityByName(String itemName) {
-        log.info("Current data:\n{}", data);
+        log.info("Current data in externalSystem:\n{}", data);
         return data.stream().filter(item -> item.getName().equals(itemName)).findAny();
     }
 }

@@ -22,7 +22,6 @@ public class Pr05_05_MainService {
 
     public Result editFirst_insertDuplicateLater(String originalName, String updateName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
             throws ExecutionException, InterruptedException {
-        MDC.put("thread", "main");
         SimpleEntity simpleEntity = new SimpleEntity(originalName);
         simpleEntity = simpleRepository.save(simpleEntity);
 
