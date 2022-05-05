@@ -16,7 +16,7 @@ public interface SimpleRepository extends JpaRepository<SimpleEntity, Long> {
     @Modifying
     void updateNameById(@Param("name") String newName, @Param("id") Long id);
 
-    @Query(value = "INSERT INTO SimpleEntity(name) VALUES (:name)", nativeQuery = true)
+    @Query(value = "INSERT INTO simple_entity(name) VALUES (:name)", nativeQuery = true)
     @Modifying
     void insertName(@Param("name") String newName);
 }

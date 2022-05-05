@@ -17,8 +17,8 @@ import java.util.concurrent.ExecutionException;
 public class Pr05_05_MainService {
 
     private final SimpleRepository simpleRepository;
-    private final Pr05_05_Service_JpaSaveEntity_Async japSaveEntityService;
-    private final Pr05_05_ServiceNativeUpdate_Async nativeUpdateService;
+    private final Pr05_05_Service_UpdateByJpaSaveEntity_Async japSaveEntityService;
+    private final Pr05_05_Service_InsertByNativeQuery_Async nativeUpdateService;
 
     public Result editFirst_insertDuplicateLater(String originalName, String updateName, int slowRuntimeMillis, int deplay2ndServiceInMillis)
             throws ExecutionException, InterruptedException {

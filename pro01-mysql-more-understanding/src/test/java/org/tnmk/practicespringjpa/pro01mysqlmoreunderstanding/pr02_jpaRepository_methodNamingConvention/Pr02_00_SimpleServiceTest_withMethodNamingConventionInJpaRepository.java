@@ -20,7 +20,8 @@ public class Pr02_00_SimpleServiceTest_withMethodNamingConventionInJpaRepository
     @Test
     public void test_ItemsWithSameNameAreDeletedSuccessfully() {
         // Given
-        String entityName = "ManyItemsWithUseThisSameName";
+        log.info("Preparing test data ...");
+        String entityName = "TheNameThatUsedByManyItems";
         createEntitiesWithSameName(2, entityName);
 
         // When
@@ -48,6 +49,7 @@ public class Pr02_00_SimpleServiceTest_withMethodNamingConventionInJpaRepository
     }
 
     private void assert_EntitiesWithName_NoExistAnyMore(String expectName) {
+        log.info("Assertions...");
         List<SimpleEntity> actualEntitiesInDB = simpleRepository.findByName(expectName);
         Assertions.assertTrue(actualEntitiesInDB.isEmpty());
     }

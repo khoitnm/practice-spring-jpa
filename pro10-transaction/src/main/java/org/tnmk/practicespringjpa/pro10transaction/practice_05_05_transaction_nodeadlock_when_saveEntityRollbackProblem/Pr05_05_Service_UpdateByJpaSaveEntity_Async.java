@@ -17,7 +17,7 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class Pr05_05_Service_JpaSaveEntity_Async {
+public class Pr05_05_Service_UpdateByJpaSaveEntity_Async {
 
     private final SimpleRepository simpleRepository;
     private final Pr05_05_ExternalSystemSimulator externalSystemSimulator;
