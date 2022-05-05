@@ -23,22 +23,10 @@ public class Pr05_05_Service_InsertByNativeQuery_Async {
     @Async
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     public CompletableFuture<ZonedDateTime> async_insertRow(String newName) {
-        MDC.put("thread", "nativeUpdateRow");
-
-        log.info("nativeUpdateRow: start");
-
-        ZonedDateTime start = ZonedDateTime.now();
-
+        log.info("async_insertRow: start...");
         simpleRepository.insertName(newName);
-        log.info("nativeUpdateRow: saved");
-
-//        ThreadUtils.sleep(delayMillis);
-//        log.info("nativeUpdateRow: finish delay");
-
-        ZonedDateTime end = ZonedDateTime.now();
-        Duration duration = Duration.between(start, end);
-        log.info("nativeUpdateRow: finished in {}s", (double) duration.toMillis() / 1000d);
-        return CompletableFuture.completedFuture(end);
+        log.info("async_insertRow: finished!");
+        return CompletableFuture.completedFuture(ZonedDateTime.now());
     }
 }
 ;
