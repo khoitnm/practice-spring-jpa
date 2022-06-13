@@ -15,7 +15,7 @@ import java.time.Instant;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class SimpleJdbcRepository {
+public class SampleJdbcRepository {
   private final DataSource dataSource;
 
   /**
