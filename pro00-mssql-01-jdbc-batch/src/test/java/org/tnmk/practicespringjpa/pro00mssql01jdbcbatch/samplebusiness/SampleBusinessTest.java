@@ -5,21 +5,21 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.datafactory.SampleEntityFactory;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.story.SampleStory;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository.SampleRepository;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActualDb;
 
 import java.util.Optional;
 
 public class SampleBusinessTest extends BaseSpringTest_WithActualDb {
   @Autowired
-  private SampleStory sampleStory;
+  private SampleRepository sampleRepository;
 
   @Test
   public void test() {
     SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
-    SampleEntity savedSampleEntity = sampleStory.create(sampleEntity);
+    SampleEntity savedSampleEntity = sampleRepository.save(sampleEntity);
 
-    Optional<SampleEntity> sampleEntityOptional = sampleStory.findById(savedSampleEntity.getId());
+    Optional<SampleEntity> sampleEntityOptional = sampleRepository.findById(savedSampleEntity.getId());
     Assert.assertTrue(sampleEntityOptional.isPresent());
   }
 }
