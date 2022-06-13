@@ -12,5 +12,5 @@ import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.Pro00Mssql01JdbcBatchApp
 @SpringBootTest(classes = { Pro00Mssql01JdbcBatchApplication.class})
 //@ContextConfiguration(initializers = DBContainerContextInitializer.class)
 @Ignore
-public abstract class BaseSpringTest {
+public abstract class BaseSpringTest_WithActualDb {
 }
