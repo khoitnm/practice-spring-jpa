@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.datafactory.SampleEntityFactory;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.entity.SampleEntity;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.story.SampleStory;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActualDb;
 
 import java.util.Optional;
 
-public class SampleBusinessTest extends BaseSpringTest {
+public class SampleBusinessTest extends BaseSpringTest_WithActualDb {
   @Autowired
   private SampleStory sampleStory;
 
