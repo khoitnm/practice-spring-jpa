@@ -27,7 +27,7 @@ public class SampleJdbcRepository {
    * @return generated entity id.
    */
   public long insert(String entityName, String uniqueCode) {
-    String sqlInsert = "INSERT INTO sample_entity (name, entity_code, starting_date_time)"
+    String sqlInsert = "INSERT INTO sample_entity (name, entity_code)"
         + "VALUES (?, ?, ?);";
 
     // Column's name here must match the PK name in SampleEntity.
@@ -40,7 +40,6 @@ public class SampleJdbcRepository {
     ) {
       statement.setString(1, entityName);
       statement.setString(2, uniqueCode);
-      statement.setDate(3, new Date(Instant.now().toEpochMilli()));
       int insertedRows = statement.executeUpdate();
       log.info("Inserted Rows: " + insertedRows);
 

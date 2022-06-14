@@ -7,12 +7,10 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.sql.BatchUpdateException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,14 +18,18 @@ import java.util.List;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class SampleBatchJdbcRepository {
+public class SampleBatchJdbcRepository_NotWorkFor_MsSqlServer {
   private final DataSource dataSource;
 
+  // FIXME, this approach works with MySQL
+  //  However, it doesn't work with MS SQL Server with error:
+  //    - When executing `ResultSet rs = statement.getGeneratedKeys()`, it throws an exception:
+  //    - "com.microsoft.sqlserver.jdbc.SQLServerException: The statement must be executed before any results can be obtained."
   public List<CreateEntityResult> insert(List<CreateEntityRequest> requests) {
     List<CreateEntityResult> results = new ArrayList<>(requests.size());
 
-    String sqlInsert = "INSERT INTO sample_entity (name, entity_code, starting_date_time)"
-        + "VALUES (?, ?, ?);";
+    String sqlInsert = "INSERT INTO sample_entity (name, entity_code)"
+        + "VALUES (?, ?);";
 
     // Column's name here must match the PK name in SampleEntity.
     String generatedColumns[] = { "id" };
@@ -40,7 +42,6 @@ public class SampleBatchJdbcRepository {
       for (CreateEntityRequest request : requests) {
         statement.setString(1, request.getName());
         statement.setString(2, request.getEntityCode());
-        statement.setDate(3, new Date(Instant.now().toEpochMilli()));
         statement.addBatch();
       }
       int[] insertedRows = statement.executeBatch();
