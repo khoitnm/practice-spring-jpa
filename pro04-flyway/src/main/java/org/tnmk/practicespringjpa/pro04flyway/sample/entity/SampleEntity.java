@@ -3,7 +3,7 @@ package org.tnmk.practicespringjpa.pro04flyway.sample.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "sample_entity", catalog = "practice_spring_jpa_flyway_db")
+@Table(name = "sample_entity")
 public class SampleEntity {
 
     @Id
