@@ -3,7 +3,7 @@ package org.tnmk.common.jpa.columnconverter.json
 import org.flywaydb.core.Flyway
 import org.springframework.beans.factory.annotation.Autowired
 
-class FlywayTest extends BaseSpecification {
+class FlywayTest extends BaseSpecification_withActualDb {
 
   @Autowired
   Flyway flyway;

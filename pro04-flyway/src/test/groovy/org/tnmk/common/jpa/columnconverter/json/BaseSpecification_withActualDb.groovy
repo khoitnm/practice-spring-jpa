@@ -9,6 +9,6 @@ import spock.lang.Specification
 @Ignore
 @DirtiesContext
 @SpringBootTest(classes = FlywayApplication.class)
-abstract class BaseSpecification extends Specification {
+abstract class BaseSpecification_withActualDb extends Specification {
 
 }

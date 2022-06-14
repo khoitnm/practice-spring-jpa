@@ -13,7 +13,11 @@ public class SampleEntity {
     @Column(name = "sample_entity_id")
     private Long sampleEntityId;
 
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "entity_code", unique = true)
+    private String entityCode;
 
     public Long getSampleEntityId() {
         return sampleEntityId;
@@ -30,4 +34,12 @@ public class SampleEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+  public String getEntityCode() {
+    return entityCode;
+  }
+
+  public void setEntityCode(String entityCode) {
+    this.entityCode = entityCode;
+  }
 }
