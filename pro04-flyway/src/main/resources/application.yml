@@ -9,14 +9,14 @@ spring:
     # 2. If we already have schema created beforehand, then just connect it directly in url.
     #
     # In this example code, we'll let flyway create schema for us.
-    schemas: pro04-flyway
+    schemas: pro04_flyway
     validate-on-migrate: true
     encoding: UTF-8
   datasource:
     # The DB name cannot contains hyphen character "-", you should use underscore character "_".
     # MySQL Server 8.x
 #    url: jdbc:mysql://localhost:3307?serverTimezone=UTC
-    url: jdbc:mysql://localhost:3307/pro04-flyway?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3307/pro04_flyway?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
     # MySQL Server 5.x
     #url: jdbc:mysql://localhost:3306?useSSL=false
     username: root
