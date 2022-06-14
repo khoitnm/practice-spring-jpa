@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.entity;
+package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample;
 
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;

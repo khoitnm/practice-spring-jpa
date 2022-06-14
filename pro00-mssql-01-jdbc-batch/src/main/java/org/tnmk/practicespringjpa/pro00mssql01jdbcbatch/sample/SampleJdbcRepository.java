@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository;
+package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

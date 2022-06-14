@@ -1,12 +1,9 @@
-package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.samplebusiness;
+package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository.SampleJdbcRepository;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository.SampleRepository;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActualDb;
 
 import java.util.UUID;

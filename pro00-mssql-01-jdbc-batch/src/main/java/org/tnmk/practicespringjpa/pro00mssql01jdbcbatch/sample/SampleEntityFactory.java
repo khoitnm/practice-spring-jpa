@@ -1,6 +1,6 @@
-package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.datafactory;
+package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample;
 
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.entity.SampleEntity;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.SampleEntity;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
