@@ -4,12 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActualDb;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActual_MsSqlServer;
 
 import java.util.UUID;
 
 @Slf4j
-public class SampleJdbcRepositoryTest extends BaseSpringTest_WithActualDb {
+public class SampleJdbcRepositoryTest extends BaseSpringTest_WithActual_MsSqlServer {
   @Autowired
   private SampleJdbcRepository sampleJdbcRepository;
 

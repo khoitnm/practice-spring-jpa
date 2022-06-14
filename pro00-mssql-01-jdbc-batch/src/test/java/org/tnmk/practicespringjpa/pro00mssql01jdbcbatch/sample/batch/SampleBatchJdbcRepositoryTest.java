@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.SampleEntity;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.SampleRepository;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActualDb;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActual_MsSqlServer;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
-public class SampleBatchJdbcRepositoryTest extends BaseSpringTest_WithActualDb {
+public class SampleBatchJdbcRepositoryTest extends BaseSpringTest_WithActual_MsSqlServer {
   @Autowired
-  private SampleBatchJdbcRepository batchJdbcRepository;
+  private SampleBatchJdbcRepository_NotWorkFor_MsSqlServer batchJdbcRepository;
 
   @Autowired
   private SampleRepository sampleRepository;
@@ -30,7 +30,6 @@ public class SampleBatchJdbcRepositoryTest extends BaseSpringTest_WithActualDb {
       log.info("Inserted data inside DB: " + sampleEntity);
       Assertions.assertEquals(sampleEntity.getName(), request.getName());
     }
-
   }
 
   private CreateEntityRequest request(int manualIndex) {

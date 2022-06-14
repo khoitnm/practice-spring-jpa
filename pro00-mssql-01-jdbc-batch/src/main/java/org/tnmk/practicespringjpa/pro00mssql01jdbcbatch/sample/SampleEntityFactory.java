@@ -10,7 +10,6 @@ public class SampleEntityFactory {
     SampleEntity sampleEntity = new SampleEntity();
     sampleEntity.setName("Sample_" + System.nanoTime());
     sampleEntity.setEntityCode("C" + UUID.randomUUID());
-    sampleEntity.setStartingDateTime(ZonedDateTime.now());
     return sampleEntity;
   }
 }

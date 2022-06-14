@@ -27,17 +27,4 @@ public class SampleEntity {
 
   @Column(name = "entity_code", nullable = false, unique = true)
   private String entityCode;
-
-  @Column(name = "starting_date_time", columnDefinition = "DATETIME")
-  private ZonedDateTime startingDateTime;
-  /**
-   * The columnDefinition here is specific for MS SQL Server only. It won't work with other kinds of DBs such as My SQL, Oracle.
-   */
-  @Column(name = "creation_dateTime", updatable = false, columnDefinition = "datetime2 DEFAULT getdate()")
-  @CreationTimestamp
-  private Instant createdDateTime;
-
-  @Column(name = "update_dateTime")
-  @UpdateTimestamp
-  private ZonedDateTime updateDateTime;
 }
