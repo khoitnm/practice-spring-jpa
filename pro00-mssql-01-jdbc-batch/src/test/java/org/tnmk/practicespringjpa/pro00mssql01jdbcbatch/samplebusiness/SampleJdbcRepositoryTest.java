@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.entity.SampleEntity;
-import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository.SampleRepository;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository.SampleJdbcRepository;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.repository.SampleRepository;
 import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.testinfra.BaseSpringTest_WithActualDb;
 
 import java.util.UUID;
@@ -20,9 +20,10 @@ public class SampleJdbcRepositoryTest extends BaseSpringTest_WithActualDb {
   private SampleRepository sampleRepository;
 
   @Test
-  public void test() {
+  public void test_insertOneEntity_successfully() {
     String entityName = "SimpleJdbcRepository_Test_" + UUID.randomUUID();
-    long entityId = sampleJdbcRepository.insert(entityName);
+    String uniqueCode = "C" + UUID.randomUUID();
+    long entityId = sampleJdbcRepository.insert(entityName, uniqueCode);
 
     SampleEntity sampleEntity = sampleRepository.findById(entityId).get();
     log.info("Inserted data inside DB: " + sampleEntity);

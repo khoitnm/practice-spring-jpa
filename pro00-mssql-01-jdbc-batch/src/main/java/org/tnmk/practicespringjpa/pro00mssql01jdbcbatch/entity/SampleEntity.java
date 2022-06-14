@@ -22,7 +22,11 @@ public class SampleEntity {
   @Column(name = "id")
   private Long id;
 
+  @Column(name = "name", nullable = false)
   private String name;
+
+  @Column(name = "entity_code", nullable = false, unique = true)
+  private String entityCode;
 
   @Column(name = "starting_date_time", columnDefinition = "DATETIME")
   private ZonedDateTime startingDateTime;

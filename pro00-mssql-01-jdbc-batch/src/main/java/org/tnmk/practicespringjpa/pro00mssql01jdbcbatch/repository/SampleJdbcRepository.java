@@ -22,9 +22,13 @@ public class SampleJdbcRepository {
    * @param entityName
    * @return generated entity id.
    */
-  public long insert(String entityName) {
-    String sqlInsert = "INSERT INTO sample_entity (name, starting_date_time)"
-        + "VALUES (?, ?);";
+  /**
+   * @param entityName
+   * @return generated entity id.
+   */
+  public long insert(String entityName, String uniqueCode) {
+    String sqlInsert = "INSERT INTO sample_entity (name, entity_code, starting_date_time)"
+        + "VALUES (?, ?, ?);";
 
     // Column's name here must match the PK name in SampleEntity.
     String generatedColumns[] = { "id" };
@@ -35,7 +39,8 @@ public class SampleJdbcRepository {
         PreparedStatement statement = connection.prepareStatement(sqlInsert, generatedColumns);
     ) {
       statement.setString(1, entityName);
-      statement.setDate(2, new Date(Instant.now().toEpochMilli()));
+      statement.setString(2, uniqueCode);
+      statement.setDate(3, new Date(Instant.now().toEpochMilli()));
       int insertedRows = statement.executeUpdate();
       log.info("Inserted Rows: " + insertedRows);
 

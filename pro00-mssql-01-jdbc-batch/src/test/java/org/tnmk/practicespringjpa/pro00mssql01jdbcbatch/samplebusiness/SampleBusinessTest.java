@@ -15,7 +15,7 @@ public class SampleBusinessTest extends BaseSpringTest_WithActualDb {
   private SampleRepository sampleRepository;
 
   @Test
-  public void test() {
+  public void test_insertOneEntity_successfully() {
     SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
     SampleEntity savedSampleEntity = sampleRepository.save(sampleEntity);
 
