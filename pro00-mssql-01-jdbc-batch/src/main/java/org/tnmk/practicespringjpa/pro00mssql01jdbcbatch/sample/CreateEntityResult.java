@@ -1,4 +1,4 @@
-package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.batch;
+package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample;
 
 import lombok.Data;
 
