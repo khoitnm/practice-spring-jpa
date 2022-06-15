@@ -1,8 +1,10 @@
-package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.batch;
+package org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.CreateEntityRequest;
+import org.tnmk.practicespringjpa.pro00mssql01jdbcbatch.sample.CreateEntityResult;
 
 import javax.sql.DataSource;
 import java.sql.BatchUpdateException;
@@ -18,7 +20,7 @@ import java.util.List;
 @Slf4j
 @Repository
 @RequiredArgsConstructor
-public class SampleBatchJdbcRepository_NotWorkFor_MsSqlServer {
+public class SampleJdbcRepository_BatchInsert_NotWorkFor_MsSqlServer {
   private final DataSource dataSource;
 
   // FIXME, this approach works with MySQL
