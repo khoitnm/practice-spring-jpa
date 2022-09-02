@@ -25,8 +25,8 @@ public class RelABFactory {
 
   public static RelAB createABRel(int aId, int bId) {
     RelAB relAB = new RelAB();
-    relAB.setEntityAId(aId);
-    relAB.setEntityBId(bId);
+    relAB.setAId(aId);
+    relAB.setBId(bId);
     return relAB;
   }
 }

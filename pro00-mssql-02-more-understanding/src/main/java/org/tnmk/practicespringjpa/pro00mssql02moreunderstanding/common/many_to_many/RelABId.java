@@ -11,6 +11,6 @@ import java.io.Serializable;
 @EqualsAndHashCode
 public class RelABId implements Serializable {
 
-  private int entityAId;
-  private int entityBId;
+  private int aId;
+  private int bId;
 }
