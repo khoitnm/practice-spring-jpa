@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class CompoundABId implements Serializable {
+public class RelABId implements Serializable {
 
   private int entityAId;
   private int entityBId;
