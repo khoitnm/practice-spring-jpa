@@ -13,6 +13,7 @@
         <module>pro00-mysql-simple</module>
         <module>pro00-mssql-simple</module>
         <module>pro00-mssql-01-jdbc-batch</module>
+        <module>pro00-mssql-02-more-understanding</module>
         <module>pro01-mysql-more-understanding</module>
         <module>pro01-simple-entity-uuid-field</module>
         <module>pro01-simple-timestamp-fields</module>
