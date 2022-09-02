@@ -21,5 +21,5 @@ public interface RelABRepository extends JpaRepository<RelAB, Integer> {
 
   @Modifying
   @Query(nativeQuery = true, value = "insert into ab_rel(a_id, b_id) values (:aId, :bId)")
-  void insertRealAB(@Param("aId") int aId, @Param("bId") int bId);
+  void insertRelAB(@Param("aId") int aId, @Param("bId") int bId);
 }
