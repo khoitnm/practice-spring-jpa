@@ -9,15 +9,15 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
-@IdClass(CompoundABId.class)
-@Table(name = "entity_ab_with_compound_id")
+@IdClass(RelABId.class)
+@Table(name = "ab_rel")
 @Data
-public class EntityAB_WithCompoundId {
+public class RelAB {
   @Id
-  @Column(name = "user_id")
-  private Integer userId;
+  @Column(name = "a_id")
+  private int entityAId;
 
   @Id
-  @Column(name = "iam_role_name")
-  private String iamRoleName;
+  @Column(name = "b_id")
+  private int entityBId;
 }
