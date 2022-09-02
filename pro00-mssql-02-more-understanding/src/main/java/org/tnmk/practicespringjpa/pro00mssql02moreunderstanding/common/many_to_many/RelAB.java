@@ -15,9 +15,9 @@ import javax.persistence.Table;
 public class RelAB {
   @Id
   @Column(name = "a_id")
-  private int entityAId;
+  private int aId;
 
   @Id
   @Column(name = "b_id")
-  private int entityBId;
+  private int bId;
 }

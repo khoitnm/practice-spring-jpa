@@ -13,9 +13,13 @@ import java.util.List;
 public interface RelABRepository extends JpaRepository<RelAB, Integer> {
   @Modifying
   @Transactional
-  @Query("delete from RelAB where entityAId = :aId")
+  @Query("delete from RelAB where aId = :aId")
   void deleteByEntityAId(@Param("aId") int aId);
 
-  @Query("select rel from RelAB rel where rel.entityAId = :aId")
+  @Query("select rel from RelAB rel where rel.aId = :aId")
   List<RelAB> findByEntityAId(@Param("aId") int aId);
+
+  @Modifying
+  @Query(nativeQuery = true, value = "insert into ab_rel(a_id, b_id) values (:aId, :bId)")
+  void insertRealAB(@Param("aId") int aId, @Param("bId") int bId);
 }
