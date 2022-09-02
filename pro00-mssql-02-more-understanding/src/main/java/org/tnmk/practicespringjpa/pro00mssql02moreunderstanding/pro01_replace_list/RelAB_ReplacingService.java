@@ -45,7 +45,7 @@ public class RelAB_ReplacingService {
        * By using this, JPA will not `select` before `insert`.
        * It just executes `insert` only, which avoid deadlock problem.
        */
-      relABRepository.insertRealAB(abRel.getAId(), abRel.getBId());
+      relABRepository.insertRelAB(abRel.getAId(), abRel.getBId());
     }
     log.info("RelAB_ReplacingService: end replaceList({}, {}):", aId, abRels);
   }
