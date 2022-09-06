@@ -3,8 +3,10 @@ package org.tnmk.practicespringjpa.pro00mssql02moreunderstanding.pro01_replace_l
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 import org.tnmk.practicespringjpa.pro00mssql02moreunderstanding.common.many_to_many.RelAB;
+import org.tnmk.practicespringjpa.pro00mssql02moreunderstanding.common.many_to_many.RelABJdbcRepository;
 import org.tnmk.practicespringjpa.pro00mssql02moreunderstanding.common.many_to_many.RelABRepository;
 
 import javax.persistence.EntityManager;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RelAB_ReplacingService {
   private final RelABRepository relABRepository;
+  private final RelABJdbcRepository relABJdbcRepository;
   private final EntityManager entityManager;
 
   @Transactional
@@ -35,18 +38,12 @@ public class RelAB_ReplacingService {
     log.info("RelAB_ReplacingService: end replaceList({}, {}):", aId, abRels);
   }
 
-  @Transactional
+  @Transactional(isolation = Isolation.READ_UNCOMMITTED)
   public void replaceList_NoDeadlock_WhenRunInParallel(int aId, List<RelAB> abRels) {
     log.info("RelAB_ReplacingService: start replaceList({}, {}):", aId, abRels);
 
     relABRepository.deleteByEntityAId(aId);
-    for (RelAB abRel : abRels) {
-      /**
-       * By using this, JPA will not `select` before `insert`.
-       * It just executes `insert` only, which avoid deadlock problem.
-       */
-      relABRepository.insertRelAB(abRel.getAId(), abRel.getBId());
-    }
+    relABJdbcRepository.insertInBatch(abRels);
     log.info("RelAB_ReplacingService: end replaceList({}, {}):", aId, abRels);
   }
 }
