@@ -6,6 +6,10 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
+/**
+ * https://www.jpa-buddy.com/blog/the-ultimate-guide-on-composite-ids-in-jpa-entities/
+ * The composite key must have equals(), hashCode(), and Serializable.
+ */
 @Getter
 @Setter
 @EqualsAndHashCode
