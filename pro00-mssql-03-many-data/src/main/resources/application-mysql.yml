@@ -1,0 +1,29 @@
+# NOTE: To be able to use this profile, you must config `pom.xml` to add MySQL dependency.
+spring:
+  datasource:
+    #The DB name cannot contain hyphen character "-", you should use underscore character "_".
+    url: jdbc:mysql://localhost:3307/pro00-mssql-03-many-data?useSSL=false&createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true
+    username: root
+    password: root
+    #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
+    hikari:
+      pool-name: pro00-mssql-03-many-data-pool
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    #    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+      # This config must match with Dialect config in TransactionalOutboxConfig.persistor()
+      hibernate.dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+
+    # Avoid accidental performance issue: https://github.com/spring-projects/spring-boot/issues/7107
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+
+  sql:
+    init:
+      #Account for running schema scripts
+      username: root
+      password: root
