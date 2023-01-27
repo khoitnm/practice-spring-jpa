@@ -93,6 +93,7 @@ public class SampleBatchUpdateRepository {
             .collect(Collectors.joining(", "));
     StringBuilder query = new StringBuilder("UPDATE sample_entity SET name = CASE ");
     for (SampleEntity entity : sampleEntities) {
+      // FIXME this approach actually cause SQL injections concerns, we have to improve it.
       query.append(String.format("WHEN id=%d THEN '%s' ", entity.getId(), entity.getName()));
     }
     query.append(String.format("END WHERE id IN (%s) ", ids));
