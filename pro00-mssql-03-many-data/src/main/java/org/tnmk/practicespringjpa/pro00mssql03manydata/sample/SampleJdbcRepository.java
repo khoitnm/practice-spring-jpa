@@ -26,7 +26,7 @@ public class SampleJdbcRepository {
    */
   public long insert(String entityName, String uniqueCode) {
     String sqlInsert = "INSERT INTO sample_entity (name, entity_code)"
-        + "VALUES (?, ?, ?);";
+        + "VALUES (?, ?);";
 
     // Column's name here must match the PK name in SampleEntity.
     String generatedColumns[] = { "id" };
