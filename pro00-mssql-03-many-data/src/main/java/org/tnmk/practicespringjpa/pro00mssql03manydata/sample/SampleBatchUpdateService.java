@@ -12,17 +12,14 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SampleBatchUpdateService {
   private final SampleRepository sampleRepository;
-  private final SampleBatchUpdateRepository sampleBatchUpdateRepository;
 
-  public void updateTopItems(int updateCount) {
-    List<SampleEntity> itemsToBeUpdated =
+  public List<SampleEntity> changeRandomNamesForTopItems(int updateCount) {
+    List<SampleEntity> topItems =
         sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
 
-    for (SampleEntity sampleEntity : itemsToBeUpdated) {
+    for (SampleEntity sampleEntity : topItems) {
       sampleEntity.setName("BatchUpdatedName_" + System.nanoTime());
     }
-
-    sampleBatchUpdateRepository.updateEntityCodesForEntities(itemsToBeUpdated);
-    log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
+    return topItems;
   }
 }

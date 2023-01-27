@@ -5,10 +5,17 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro00mssql03manydata.testinfra.BaseSpringTest_WithActual_MsSqlServer;
 
+import java.util.List;
+
 @Slf4j
 public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActual_MsSqlServer {
+  private static final int UPDATE_COUNTS = 1000;
+
   @Autowired
   private SampleBatchUpdateService sampleBatchUpdateService;
+
+  @Autowired
+  private SampleBatchUpdateRepository sampleBatchUpdateRepository;
 
   /**
    * Before running this test case, please run the script in
@@ -16,7 +23,33 @@ public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActua
    * to insert sample data into this table.
    */
   @Test
-  public void updateTopItems_Successfully() {
-    sampleBatchUpdateService.updateTopItems(1000);
+  public void updateTopItems_Approach01_Successfully() {
+    List<SampleEntity> itemsToBeUpdated =
+        sampleBatchUpdateService.changeRandomNamesForTopItems(UPDATE_COUNTS);
+
+    sampleBatchUpdateRepository.updateNamesForEntities_Approach01(itemsToBeUpdated);
+    log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
+  }
+
+  @Test
+  public void updateTopItems_Approach02_Successfully() {
+    List<SampleEntity> itemsToBeUpdated =
+        sampleBatchUpdateService.changeRandomNamesForTopItems(UPDATE_COUNTS);
+
+    sampleBatchUpdateRepository.updateNamesForEntities_Approach02(itemsToBeUpdated);
+    log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
+  }
+
+  /**
+   * Guideline: This approach give the best performance among tree.
+   * https://javabydeveloper.com/spring-jdbctemplate-batch-update-with-maxperformance/
+   */
+  @Test
+  public void updateTopItems_Approach03_Successfully() {
+    List<SampleEntity> itemsToBeUpdated =
+        sampleBatchUpdateService.changeRandomNamesForTopItems(UPDATE_COUNTS);
+
+    sampleBatchUpdateRepository.updateNamesForEntities_Approach03(itemsToBeUpdated);
+    log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
   }
 }
