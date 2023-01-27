@@ -10,13 +10,19 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class BatchUpdateService {
+public class SampleBatchUpdateService {
   private final SampleRepository sampleRepository;
+  private final SampleBatchUpdateRepository sampleBatchUpdateRepository;
 
   public void updateTopItems(int updateCount) {
     List<SampleEntity> itemsToBeUpdated =
         sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
 
-    log.info("itemsToBeUpdated: {}", itemsToBeUpdated);
+    for (SampleEntity sampleEntity : itemsToBeUpdated) {
+      sampleEntity.setName("BatchUpdatedName_" + System.nanoTime());
+    }
+
+    sampleBatchUpdateRepository.updateEntityCodesForEntities(itemsToBeUpdated);
+    log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
   }
 }
