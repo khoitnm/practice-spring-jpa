@@ -7,4 +7,7 @@
         <appender-ref ref="CONSOLE"/>
     </root>
     <logger name="org.tnmk" level="TRACE"/>
+
+    <!-- Write SQL log -->
+    <logger name="org.hibernate.SQL" level="DEBUG"/>
 </configuration>

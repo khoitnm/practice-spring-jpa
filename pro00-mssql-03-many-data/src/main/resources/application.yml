@@ -17,8 +17,8 @@ spring:
     hibernate:
       ddl-auto: update
     properties:
-      #    show-sql: true
-      hibernate.format_sql: true
+      show-sql: true
+      hibernate.format_sql: false
 
       # This config must match with Dialect config in TransactionalOutboxConfig.persistor()
       hibernate.dialect: org.hibernate.dialect.SQLServer2012Dialect
