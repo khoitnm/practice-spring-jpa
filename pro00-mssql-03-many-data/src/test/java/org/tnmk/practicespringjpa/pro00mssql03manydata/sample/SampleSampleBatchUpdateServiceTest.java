@@ -5,12 +5,10 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.tnmk.practicespringjpa.pro00mssql03manydata.testinfra.BaseSpringTest_WithActual_MsSqlServer;
 
-import java.util.List;
-
 @Slf4j
-public class BatchUpdateServiceTest extends BaseSpringTest_WithActual_MsSqlServer {
+public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActual_MsSqlServer {
   @Autowired
-  private BatchUpdateService batchUpdateService;
+  private SampleBatchUpdateService sampleBatchUpdateService;
 
   /**
    * Before running this test case, please run the script in
@@ -19,6 +17,6 @@ public class BatchUpdateServiceTest extends BaseSpringTest_WithActual_MsSqlServe
    */
   @Test
   public void updateTopItems_Successfully() {
-    batchUpdateService.updateTopItems(2);
+    sampleBatchUpdateService.updateTopItems(1000);
   }
 }
