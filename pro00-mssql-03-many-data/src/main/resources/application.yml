@@ -1,7 +1,8 @@
 
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=master
+    # set encrypt=false to avoid error "unable to find valid certification path to requested target".
+    url: jdbc:sqlserver://localhost:1433;databaseName=master;encrypt=false;
     username: sa
     password: Password1
 
