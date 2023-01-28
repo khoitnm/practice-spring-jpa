@@ -10,9 +10,12 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class SampleBatchUpdateService {
+public class ChangeEntityNameService {
   private final SampleRepository sampleRepository;
 
+  /**
+   * This method only changes names of entities, but won't save those new names to DB.
+   */
   public List<SampleEntity> changeRandomNamesForTopItems(int updateCount) {
     List<SampleEntity> topItems =
         sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
