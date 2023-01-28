@@ -8,11 +8,11 @@ import org.tnmk.practicespringjpa.pro00mssql03manydata.testinfra.BaseSpringTest_
 import java.util.List;
 
 @Slf4j
-public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActual_MsSqlServer {
+public class SampleChangeEntityNameServiceTest extends BaseSpringTest_WithActual_MsSqlServer {
   private static final int UPDATE_COUNTS = 1000;
 
   @Autowired
-  private SampleBatchUpdateService sampleBatchUpdateService;
+  private ChangeEntityNameService changeEntityNameService;
 
   @Autowired
   private SampleBatchUpdateRepository sampleBatchUpdateRepository;
@@ -25,7 +25,7 @@ public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActua
   @Test
   public void updateTopItems_Approach01_Successfully() {
     List<SampleEntity> itemsToBeUpdated =
-        sampleBatchUpdateService.changeRandomNamesForTopItems(UPDATE_COUNTS);
+        changeEntityNameService.changeRandomNamesForTopItems(UPDATE_COUNTS);
 
     sampleBatchUpdateRepository.updateNamesForEntities_Approach01(itemsToBeUpdated);
     log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
@@ -34,7 +34,7 @@ public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActua
   @Test
   public void updateTopItems_Approach02_Successfully() {
     List<SampleEntity> itemsToBeUpdated =
-        sampleBatchUpdateService.changeRandomNamesForTopItems(UPDATE_COUNTS);
+        changeEntityNameService.changeRandomNamesForTopItems(UPDATE_COUNTS);
 
     sampleBatchUpdateRepository.updateNamesForEntities_Approach02(itemsToBeUpdated);
     log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
@@ -47,7 +47,7 @@ public class SampleSampleBatchUpdateServiceTest extends BaseSpringTest_WithActua
   @Test
   public void updateTopItems_Approach03_Successfully() {
     List<SampleEntity> itemsToBeUpdated =
-        sampleBatchUpdateService.changeRandomNamesForTopItems(UPDATE_COUNTS);
+        changeEntityNameService.changeRandomNamesForTopItems(UPDATE_COUNTS);
 
     sampleBatchUpdateRepository.updateNamesForEntities_Approach03(itemsToBeUpdated);
     log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
