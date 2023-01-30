@@ -25,4 +25,15 @@ public class ChangeEntityNameService {
         }
         return topItems;
     }
+
+    public List<SampleEntity> changeRandomNamesAndEntityCodesForTopItems(String prefixName, String prefixCode, int updateCount) {
+        List<SampleEntity> topItems =
+            sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
+
+        for (SampleEntity sampleEntity : topItems) {
+            sampleEntity.setName(prefixName + "_" + System.nanoTime());
+            sampleEntity.setEntityCode(prefixCode + "_" + System.nanoTime());
+        }
+        return topItems;
+    }
 }
