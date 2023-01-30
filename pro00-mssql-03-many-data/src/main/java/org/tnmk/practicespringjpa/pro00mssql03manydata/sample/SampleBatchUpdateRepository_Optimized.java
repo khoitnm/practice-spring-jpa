@@ -20,7 +20,9 @@ public class SampleBatchUpdateRepository_Optimized {
     private final JdbcTemplate jdbcTemplate;
 
     /**
-     * @param sampleEntities
+     * This approach is actually similar to {@link SampleBatchUpdateRepository#updateNamesForEntities_Approach03(List)}.
+     * The main difference is approach03 having risk of SQL injections attack.
+     * So this approach use PreparedStatement instead of concating string into query to avoid that risk.
      */
     public void updateNamesForEntities_Approach04(List<SampleEntity> sampleEntities) {
         StopWatch stopWatch = new StopWatch();
@@ -44,18 +46,23 @@ public class SampleBatchUpdateRepository_Optimized {
      * <code>
      * UPDATE sample_entity SET
      *    name = CASE                   -- [fieldIndex: y = 0]:
-     *      WHEN id = 1 THEN 'Name1'    -- [itemIndex: i = 0]: param[0] & param[1] == param[i*2] & param[i*2 + 1]
-     *      WHEN id = 2 THEN 'Name2'    -- [itemIndex: i = 1]: param[2] & param[3] == param[i*2] & param[i*2 + 1]
+     *      WHEN id = 0 THEN 'Name0'    -- [itemIndex: i = 0]: param[0] & param[1] == param[i*2] & param[i*2 + 1]
+     *      WHEN id = 1 THEN 'Name1'    -- [itemIndex: i = 1]: param[2] & param[3] == param[i*2] & param[i*2 + 1]
      *      ...
      *      WHEN id = N THEN 'NameN'    -- [itemIndex: i = N]: param[N*2] & param[N*2+1]
      *    END,
      *    entity_code = CASE            -- [fieldIndex: y = 1]:
-     *      WHEN id = 1 THEN 'Code1'    -- [itemIndex: i = 0]: param[N*2+1 + 1 + 0]    & param[N*2+1 + 1 + 1] == param[(N*2+1)*y + 1 + (i*2)] &  == param[(N*2+1)*y + 1 + (i*2+1)]
-     *      WHEN id = 2 THEN 'Code2'    -- [itemIndex: i = 1]: param[N*2+1 + 1 + 2]    & param[N*2+1 + 1 + 3] == param[(N*2+1)*y + 1 + (i*2)] &  == param[(N*2+1)*y + 1 + (i*2+1)]
+     *      WHEN id = 0 THEN 'Code0'    -- [itemIndex: i = 0]: param[N*2+1 + 1 + 0]    & param[N*2+1 + 1 + 1] == param[(N*2+1)*y + y + (i*2)] &  == param[(N*2+1)*y + y + (i*2+1)]
+     *      WHEN id = 1 THEN 'Code1'    -- [itemIndex: i = 1]: param[N*2+1 + 1 + 2]    & param[N*2+1 + 1 + 3] == param[(N*2+1)*y + y + (i*2)] &  == param[(N*2+1)*y + y + (i*2+1)]
      *      ...
      *      WHEN id = N THEN 'CodeN'    -- [itemIndex: i = N]: param[N*2+1 + 1 + N*2]  & param[N*2+1 + 1 + N*2+1]
      *    END
-     * WHERE id IN (1, 2, ..., N)
+     * WHERE id IN (
+     *    0,                            -- [itemIndex: i = 0] params[(N*2+1)*y+y+(i*2+1) + 1 + 0] == params[(N*2+1)*y+y+(i*2+1) + i]
+     *    1,                            -- [itemIndex: i = 1] params[(N*2+1)*y+y+(i*2+1) + 1 + 1]
+     *    ...,
+     *    N                             -- [itemIndex: i = N] params[(N*2+1)*y+y+(i*2+1) + 1 + N]
+     * )
      * </code>
      * </pre>
      */
@@ -81,15 +88,19 @@ public class SampleBatchUpdateRepository_Optimized {
      */
     private PreparedStatementCallback createPreparedStatementForUpdateNamesAndCodes(List<SampleEntity> sampleEntities) {
         PreparedStatementCallback preparedStatement = (PreparedStatementCallback<Boolean>) ps -> {
+            int lastIndex = sampleEntities.size() - 1;
             int i = 0;
             for (SampleEntity sampleEntity : sampleEntities) {
-                // Set values to update `name` field
+                // Values for updating `name` field
                 ps.setLong(i * 2, sampleEntity.getId());
                 ps.setString(i * 2 + 1, sampleEntity.getName());
 
-                // Set values to update `entity_code` field
-                ps.setLong(i * 3, sampleEntity.getId());
-                ps.setString(i * 3 + 1, sampleEntity.getName());
+                // Values for updating `entity_code` field
+                ps.setLong((lastIndex*2+1)*1 + 1 + (i*2), sampleEntity.getId());
+                ps.setString((lastIndex*2+1)*1 + 1 + (i*2+1), sampleEntity.getEntityCode());
+
+                // Values for ids placeholder.
+                ps.setLong((lastIndex*2+1)*1+1+(i*2+1) + 1 + i, sampleEntity.getId());
                 i++;
             }
             return true;
