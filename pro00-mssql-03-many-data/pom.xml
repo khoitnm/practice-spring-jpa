@@ -15,7 +15,7 @@
 
         <spring-boot.version>3.0.2</spring-boot.version>
         <testcontainers.version>1.17.6</testcontainers.version>
-<!--        <lombok.version>1.18.22</lombok.version>-->
+        <!--        <lombok.version>1.18.22</lombok.version>-->
 
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.0.0-M8</maven-surefire-plugin.version>
@@ -48,27 +48,34 @@
         </dependency>
 
         <!-- MY SQL -->
-<!--        <dependency>-->
-<!--            <groupId>mysql</groupId>-->
-<!--            <artifactId>mysql-connector-java</artifactId>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.testcontainers</groupId>-->
-<!--            <artifactId>mysql</artifactId>-->
-<!--            <version>${testcontainers.version}</version>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>mysql</groupId>-->
+        <!--            <artifactId>mysql-connector-java</artifactId>-->
+        <!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.testcontainers</groupId>-->
+        <!--            <artifactId>mysql</artifactId>-->
+        <!--            <version>${testcontainers.version}</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
 
-         <!-- For equals() and hashCode() -->
+        <!-- For equals() and hashCode() -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-collections4 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-<!--            <version>${lombok.version}</version>-->
+            <!--            <version>${lombok.version}</version>-->
             <scope>provided</scope>
         </dependency>
 
@@ -79,18 +86,18 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
             <exclusions>
-<!--                <exclusion>-->
-<!--                    <groupId>org.apache.logging.log4j</groupId>-->
-<!--                    <artifactId>log4j-to-slf4j</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>org.slf4j</groupId>-->
-<!--                    <artifactId>jul-to-slf4j</artifactId>-->
-<!--                </exclusion>-->
-<!--                <exclusion>-->
-<!--                    <groupId>ch.qos.logback</groupId>-->
-<!--                    <artifactId>logback-classic</artifactId>-->
-<!--                </exclusion>-->
+                <!--                <exclusion>-->
+                <!--                    <groupId>org.apache.logging.log4j</groupId>-->
+                <!--                    <artifactId>log4j-to-slf4j</artifactId>-->
+                <!--                </exclusion>-->
+                <!--                <exclusion>-->
+                <!--                    <groupId>org.slf4j</groupId>-->
+                <!--                    <artifactId>jul-to-slf4j</artifactId>-->
+                <!--                </exclusion>-->
+                <!--                <exclusion>-->
+                <!--                    <groupId>ch.qos.logback</groupId>-->
+                <!--                    <artifactId>logback-classic</artifactId>-->
+                <!--                </exclusion>-->
             </exclusions>
         </dependency>
 
@@ -122,7 +129,8 @@
                     <forceJavacCompilerUse>true</forceJavacCompilerUse>
                     <release>${java.version}</release>
                     <annotationProcessors>
-                        <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor</annotationProcessor>
+                        <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor
+                        </annotationProcessor>
                     </annotationProcessors>
                 </configuration>
             </plugin>
