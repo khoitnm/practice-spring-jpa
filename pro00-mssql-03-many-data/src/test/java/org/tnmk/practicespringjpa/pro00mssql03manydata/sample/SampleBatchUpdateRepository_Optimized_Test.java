@@ -25,7 +25,7 @@ public class SampleBatchUpdateRepository_Optimized_Test extends BaseSpringTest_W
     @Test
     public void updateTopItems_Approach04_Successfully() {
         List<SampleEntity> itemsToBeUpdated =
-            changeEntityNameService.changeRandomNamesForTopItems("Approach04", UPDATE_COUNTS);
+            changeEntityNameService.changeRandomNamesAndEntityCodesForTopItems("Approach04_name", "Approach04_code", UPDATE_COUNTS);
 
         sampleBatchUpdateRepositoryOptimized.updateNamesForEntities_Approach04(itemsToBeUpdated);
         log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
