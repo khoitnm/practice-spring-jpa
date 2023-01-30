@@ -11,18 +11,18 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ChangeEntityNameService {
-  private final SampleRepository sampleRepository;
+    private final SampleRepository sampleRepository;
 
-  /**
-   * This method only changes names of entities, but won't save those new names to DB.
-   */
-  public List<SampleEntity> changeRandomNamesForTopItems(int updateCount) {
-    List<SampleEntity> topItems =
-        sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
+    /**
+     * This method only changes names of entities, but won't save those new names to DB.
+     */
+    public List<SampleEntity> changeRandomNamesForTopItems(String prefix, int updateCount) {
+        List<SampleEntity> topItems =
+            sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
 
-    for (SampleEntity sampleEntity : topItems) {
-      sampleEntity.setName("BatchUpdatedName_" + System.nanoTime());
+        for (SampleEntity sampleEntity : topItems) {
+            sampleEntity.setName(prefix + "_" + System.nanoTime());
+        }
+        return topItems;
     }
-    return topItems;
-  }
 }

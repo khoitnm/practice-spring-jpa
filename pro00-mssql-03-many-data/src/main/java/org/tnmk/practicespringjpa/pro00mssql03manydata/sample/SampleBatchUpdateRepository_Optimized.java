@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StopWatch;
 
@@ -17,9 +18,12 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class SampleBatchUpdateRepository_Optimized {
     private static final int PARAM_INDEX_STARTING = 1;
-    private static final int PARAMS_COUNT_EACH_FIELD = 2;
-    private static final int TOTAL_FIELDS_NEED_TO_BE_UPDATED = 2;
-    private static final int MAX_UPDATE_ITEMS_IN_ONE_QUERY = 1000;
+
+    // Max params in a query (defined by MS SQL DB) = 2100.
+    // 1 items takes 5 params (there are 2 fields, each field needs 2 params, plus one param for id placeholder in WHERE statement).
+    // So 1 query take max 2100/5 = 420 items
+    // to make it safe, I'll put 419 items.
+    private static final int MAX_UPDATE_ITEMS_IN_ONE_QUERY = 419;
     private final JdbcTemplate jdbcTemplate;
 
     /**
@@ -35,12 +39,12 @@ public class SampleBatchUpdateRepository_Optimized {
         List<List<SampleEntity>> sampleEntityGroups = ListUtils.partition(sampleEntities, MAX_UPDATE_ITEMS_IN_ONE_QUERY);
         for (List<SampleEntity> sampleEntityGroup : sampleEntityGroups) {
             String query = createQueryForUpdateNamesAndCodes(sampleEntityGroup.size());
-            PreparedStatementCallback preparedStatementCallback = createPreparedStatementForUpdateNamesAndCodes(sampleEntityGroup);
+            PreparedStatementSetter preparedStatementCallback = createPreparedStatementForUpdateNamesAndCodes(sampleEntityGroup);
             jdbcTemplate.update(query, preparedStatementCallback);
         }
 
         stopWatch.stop();
-        logRuntime("updateNamesForEntities_Approach03", stopWatch);
+        logRuntime("updateNamesForEntities_Approach04", stopWatch);
     }
 
     /**
@@ -75,13 +79,13 @@ public class SampleBatchUpdateRepository_Optimized {
         for (int i = 0; i < entitiesCount; i++) {
             whenAndThenPart.append("  WHEN id=? THEN ? \n");
         }
-        query.append("name = CASE ").append(whenAndThenPart).append("END, ");
-        query.append("entity_code = CASE ").append(whenAndThenPart).append("END ");
+        query.append("name = CASE \n").append(whenAndThenPart).append("END, \n");
+        query.append("entity_code = CASE \n").append(whenAndThenPart).append("END \n");
 
         String idsPlaceholder =
             IntStream.range(0, entitiesCount).mapToObj(entity -> "?")
                 .collect(Collectors.joining(", "));
-        query.append(String.format("WHERE id IN (%) ", idsPlaceholder));
+        query.append(String.format("WHERE id IN (%s) ", idsPlaceholder));
         return query.toString();
     }
 
@@ -89,40 +93,28 @@ public class SampleBatchUpdateRepository_Optimized {
      * This method create prepared statements for the query which is created from
      * {@link #createQueryForUpdateNamesAndCodes(int)}
      */
-    private PreparedStatementCallback createPreparedStatementForUpdateNamesAndCodes(List<SampleEntity> sampleEntities) {
-        PreparedStatementCallback preparedStatement = (PreparedStatementCallback<Boolean>) ps -> {
-            int lastIndex = sampleEntities.size() - 1;
-            int i = 0;
+    private PreparedStatementSetter createPreparedStatementForUpdateNamesAndCodes(List<SampleEntity> sampleEntities) {
+        PreparedStatementSetter preparedStatement = ps -> {
+            int paramIndex = PARAM_INDEX_STARTING;
+            // Values for updating `name` field
             for (SampleEntity sampleEntity : sampleEntities) {
-                // Values for updating `name` field
-                ps.setLong(paramIndexOfField(0, lastIndex, i), sampleEntity.getId());
-                ps.setString(paramIndexOfField(0, lastIndex, i) + 1, sampleEntity.getName());
-
-                // Values for updating `entity_code` field
-                ps.setLong(paramIndexOfField(1, lastIndex, i), sampleEntity.getId());
-                ps.setString(paramIndexOfField(1, lastIndex, i) + 1, sampleEntity.getEntityCode());
-
-                // Values for ids placeholder.
-                ps.setLong(paramIndexAfterAllFields(TOTAL_FIELDS_NEED_TO_BE_UPDATED, lastIndex, i), sampleEntity.getId());
-                i++;
+                ps.setLong(paramIndex++, sampleEntity.getId());
+                ps.setString(paramIndex++, sampleEntity.getName());
             }
-            return true;
+
+            // Values for updating `entity_code` field
+            for (SampleEntity sampleEntity : sampleEntities) {
+                ps.setLong(paramIndex++, sampleEntity.getId());
+                ps.setString(paramIndex++, sampleEntity.getEntityCode());
+            }
+
+            // Values for ids placeholder.
+            for (SampleEntity sampleEntity : sampleEntities) {
+                ps.setLong(paramIndex++, sampleEntity.getId());
+            }
         };
 
         return preparedStatement;
-    }
-
-    private int paramIndexOfField(int fieldIndex, int lastEntityIndex, int entityIndex) {
-        int result = PARAM_INDEX_STARTING
-            + (lastEntityIndex * PARAMS_COUNT_EACH_FIELD + 1) * fieldIndex
-            + fieldIndex
-            + (entityIndex * PARAMS_COUNT_EACH_FIELD);
-        return result;
-    }
-
-    private int paramIndexAfterAllFields(int totalFields, int lastEntityIndex, int entityIndex) {
-        int result = paramIndexOfField(totalFields - 1, lastEntityIndex, entityIndex) + 1 + entityIndex;
-        return result;
     }
 
     private void logRuntime(String messageDescription, StopWatch stopWatch) {
