@@ -40,10 +40,7 @@ public class SampleChangeEntityNameServiceTest extends BaseSpringTest_WithActual
     log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
   }
 
-  /**
-   * Guideline: This approach give the best performance among tree.
-   * https://javabydeveloper.com/spring-jdbctemplate-batch-update-with-maxperformance/
-   */
+
   @Test
   public void updateTopItems_Approach03_Successfully() {
     List<SampleEntity> itemsToBeUpdated =

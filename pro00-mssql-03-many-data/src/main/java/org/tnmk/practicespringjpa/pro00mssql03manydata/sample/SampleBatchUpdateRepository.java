@@ -63,6 +63,10 @@ public class SampleBatchUpdateRepository {
     logRuntime("updateNamesForEntities_Approach02", stopWatch);
   }
 
+  /**
+   * Guideline: This approach give the best performance among tree.
+   * https://javabydeveloper.com/spring-jdbctemplate-batch-update-with-maxperformance/
+   */
   public void updateNamesForEntities_Approach03(List<SampleEntity> sampleEntities) {
     StopWatch stopWatch = new StopWatch();
     stopWatch.start();
