@@ -16,6 +16,9 @@ import java.util.stream.IntStream;
 @Repository
 @RequiredArgsConstructor
 public class SampleBatchUpdateRepository_Optimized {
+    private static final int PARAM_INDEX_STARTING = 1;
+    private static final int PARAMS_COUNT_EACH_FIELD = 2;
+    private static final int TOTAL_FIELDS_NEED_TO_BE_UPDATED = 2;
     private static final int MAX_UPDATE_ITEMS_IN_ONE_QUERY = 1000;
     private final JdbcTemplate jdbcTemplate;
 
@@ -92,21 +95,34 @@ public class SampleBatchUpdateRepository_Optimized {
             int i = 0;
             for (SampleEntity sampleEntity : sampleEntities) {
                 // Values for updating `name` field
-                ps.setLong(i * 2, sampleEntity.getId());
-                ps.setString(i * 2 + 1, sampleEntity.getName());
+                ps.setLong(paramIndexOfField(0, lastIndex, i), sampleEntity.getId());
+                ps.setString(paramIndexOfField(0, lastIndex, i) + 1, sampleEntity.getName());
 
                 // Values for updating `entity_code` field
-                ps.setLong((lastIndex*2+1)*1 + 1 + (i*2), sampleEntity.getId());
-                ps.setString((lastIndex*2+1)*1 + 1 + (i*2+1), sampleEntity.getEntityCode());
+                ps.setLong(paramIndexOfField(1, lastIndex, i), sampleEntity.getId());
+                ps.setString(paramIndexOfField(1, lastIndex, i) + 1, sampleEntity.getEntityCode());
 
                 // Values for ids placeholder.
-                ps.setLong((lastIndex*2+1)*1+1+(i*2+1) + 1 + i, sampleEntity.getId());
+                ps.setLong(paramIndexAfterAllFields(TOTAL_FIELDS_NEED_TO_BE_UPDATED, lastIndex, i), sampleEntity.getId());
                 i++;
             }
             return true;
         };
 
         return preparedStatement;
+    }
+
+    private int paramIndexOfField(int fieldIndex, int lastEntityIndex, int entityIndex) {
+        int result = PARAM_INDEX_STARTING
+            + (lastEntityIndex * PARAMS_COUNT_EACH_FIELD + 1) * fieldIndex
+            + fieldIndex
+            + (entityIndex * PARAMS_COUNT_EACH_FIELD);
+        return result;
+    }
+
+    private int paramIndexAfterAllFields(int totalFields, int lastEntityIndex, int entityIndex) {
+        int result = paramIndexOfField(totalFields - 1, lastEntityIndex, entityIndex) + 1 + entityIndex;
+        return result;
     }
 
     private void logRuntime(String messageDescription, StopWatch stopWatch) {
