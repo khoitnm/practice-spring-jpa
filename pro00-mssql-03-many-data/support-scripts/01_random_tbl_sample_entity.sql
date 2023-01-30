@@ -57,8 +57,9 @@ WITH t2 AS (SELECT n FROM (VALUES (0), (0)) t(n)),                              
 
 INSERT
 INTO dbo.sample_entity WITH(TABLOCKX)
-SELECT 'name_' + CAST((num + @InitOffset) as nvarchar(24)), -- name
-       'entity_code_' + CAST((num + @InitOffset) as nvarchar(20))
+SELECT
+       'entity_code_' + CAST((num + @InitOffset) as nvarchar(20)),
+       'name_' + CAST((num + @InitOffset) as nvarchar(24)), -- name
 FROM CrossJoinData;
 RAISERROR
 ('%d rows inserted',0, 0, @@ROWCOUNT) WITH NOWAIT;
