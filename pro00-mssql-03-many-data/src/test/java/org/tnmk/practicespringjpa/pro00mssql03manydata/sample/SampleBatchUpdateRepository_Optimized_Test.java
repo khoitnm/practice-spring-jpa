@@ -39,6 +39,6 @@ public class SampleBatchUpdateRepository_Optimized_Test extends BaseSpringTest_W
 
         UpdateResult result = sampleBatchUpdateRepositoryOptimized.updateNamesForEntities_Approach04B_withReportedResultForEachGroup(itemsToBeUpdated);
         log.info("itemsToBeUpdated: \n{}", result);
-        Assertions.assertTrue(!result.getErrorItems().isEmpty());
+        Assertions.assertTrue(!result.getErrorItemGroups().isEmpty());
     }
 }
