@@ -9,7 +9,7 @@ import java.util.List;
 
 @Slf4j
 public class SampleBatchUpdateRepository_Optimized_Test extends BaseSpringTest_WithActual_MsSqlServer {
-    private static final int UPDATE_COUNTS = 1000;
+    private static final int UPDATE_COUNTS = 50;
 
     @Autowired
     private ChangeEntityNameService changeEntityNameService;
@@ -25,9 +25,9 @@ public class SampleBatchUpdateRepository_Optimized_Test extends BaseSpringTest_W
     @Test
     public void updateTopItems_Approach04_Successfully() {
         List<SampleEntity> itemsToBeUpdated =
-            changeEntityNameService.changeRandomNamesAndEntityCodesForTopItems("Approach04_name", "Approach04_code", UPDATE_COUNTS);
+            changeEntityNameService.changeRandomNamesAndEntityCodesForTopItems("Approach04B_name", "Approach04B_code", UPDATE_COUNTS);
 
-        sampleBatchUpdateRepositoryOptimized.updateNamesForEntities_Approach04(itemsToBeUpdated);
-        log.info("itemsToBeUpdated: \n{}", itemsToBeUpdated.size());
+        UpdateResult result = sampleBatchUpdateRepositoryOptimized.updateNamesForEntities_Approach04B_withReportedResultForEachGroup(itemsToBeUpdated);
+        log.info("itemsToBeUpdated: \n{}", result);
     }
 }
