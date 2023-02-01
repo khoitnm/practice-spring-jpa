@@ -47,6 +47,30 @@ public class SampleBatchUpdateRepository_Optimized {
         logRuntime("updateNamesForEntities_Approach04", stopWatch);
     }
 
+    public UpdateResult updateNamesForEntities_Approach04B_withReportedResultForEachGroup(List<SampleEntity> sampleEntities) {
+        StopWatch stopWatch = new StopWatch();
+        stopWatch.start();
+
+        UpdateResult result = new UpdateResult();
+        // These are groups of sample entities in which each group are merged into one SQL query.
+        List<List<SampleEntity>> sampleEntityGroups = ListUtils.partition(sampleEntities, MAX_UPDATE_ITEMS_IN_ONE_QUERY);
+        for (List<SampleEntity> sampleEntityGroup : sampleEntityGroups) {
+            try {
+                String query = createQueryForUpdateNamesAndCodes(sampleEntityGroup.size());
+                PreparedStatementSetter preparedStatementCallback = createPreparedStatementForUpdateNamesAndCodes(sampleEntityGroup);
+                jdbcTemplate.update(query, preparedStatementCallback);
+                result.addSuccessItems(sampleEntityGroup);
+            } catch (Exception ex) {
+                result.addErrorItems(sampleEntityGroup, ex);
+            }
+        }
+
+        stopWatch.stop();
+        logRuntime("updateNamesForEntities_Approach04", stopWatch);
+
+        return result;
+    }
+
     /**
      * The final query will be like this:
      * <pre>

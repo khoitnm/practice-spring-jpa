@@ -36,4 +36,22 @@ public class ChangeEntityNameService {
         }
         return topItems;
     }
+
+    public List<SampleEntity> changeRandomNamesAndEntityCodesForTopItems_withSomeErrorItems(
+        String prefixName, String prefixCode, int updateCount
+    ) {
+        List<SampleEntity> topItems =
+            sampleRepository.findAll(PageRequest.of(0, updateCount)).getContent();
+
+        for (SampleEntity sampleEntity : topItems) {
+            sampleEntity.setName(prefixName + "_" + System.nanoTime());
+            if (sampleEntity.getId() < 13) {
+                sampleEntity.setEntityCode(prefixCode + "_" + System.nanoTime());
+            } else {
+                // these items will cause errors when updating.
+                sampleEntity.setEntityCode("duplicated");
+            }
+        }
+        return topItems;
+    }
 }
