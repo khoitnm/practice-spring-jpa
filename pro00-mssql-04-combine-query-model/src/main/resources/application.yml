@@ -1,30 +1,20 @@
-
 spring:
-  datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=master
-    username: sa
-    password: Password1
-
-    # This configuration will make Spring Boot start the `schema.sql` file.
-    # Ref: https://docs.spring.io/spring-boot/docs/current/reference/html/howto.html#howto-database-initialization
-    initialization-mode: always
-
-    # Execute all schema_*.sql when starting the application.
-    # Ref: https://www.baeldung.com/spring-boot-sql-import-files
-#    data: schema_*.sql
-
-  jpa:
-    # Disabled it to avoid unexpected performance issue: https://www.baeldung.com/spring-open-session-in-view
-    open-in-view: false
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-#    #The platform for DDL or DML scripts (it's all by default)
-##    platform: mysql
-#
-#    #HikariCP: the connection pool framework: http://www.baeldung.com/hikaricp
-#    hikari:
-#      pool-name: practice-spring-jpa
-#
-
+    datasource:
+        url: jdbc:sqlserver://localhost:1433;databaseName=master;encrypt=false;sendStringParametersAsUnicode=false;
+        username: sa
+        password: Password1
+        hikari:
+            leak-detection-threshold: 5000
+            connection-timeout: 5000
+            maximum-pool-size: 5
+    jpa:
+        # Disabled it to avoid unexpected performance issue: https://www.baeldung.com/spring-open-session-in-view
+        open-in-view: false
+        generate-ddl: true
+        hibernate:
+            ddl-auto: update
+        properties:
+            hibernate:
+                generate_statistics: false # Enable it if you want to check verbose metrics
+        show-sql: true
 
