@@ -12,18 +12,13 @@ import java.time.Instant;
 @Setter
 @ToString
 public class CombinedModel {
-    @Value("#{target.id}")
     private Long id;
 
-    @Value("#{target.name}")
     private String name;
 
-    @Value("#{target.parent.id}")
     private Long parentId;
 
-    @Value("#{target.parent.name}")
     private String parentName;
 
-    @Value("#{target.startingDateTime}")
     private Instant startingDateTime;
 }
