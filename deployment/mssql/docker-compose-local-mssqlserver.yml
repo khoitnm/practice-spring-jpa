@@ -1,7 +1,7 @@
 # This file is just used for local machine to start MS SQL Server
 version: '3'
 services:
-  sc-sqlserverdb:
+  demo-sqlserverdb:
     image: mcr.microsoft.com/mssql/server:2017-latest
     restart: always
     environment:

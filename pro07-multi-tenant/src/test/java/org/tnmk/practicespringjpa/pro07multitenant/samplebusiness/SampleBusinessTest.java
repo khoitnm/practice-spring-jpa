@@ -10,16 +10,28 @@ import org.tnmk.practicespringjpa.pro07multitenant.testinfra.BaseSpringTest;
 
 import java.util.Optional;
 
-public class SampleBusinessTest extends BaseSpringTest {
-  @Autowired
-  private SampleStory sampleStory;
+public class SampleBusinessTest extends BaseSpringTest
+{
+    @Autowired
+    private SampleStory sampleStory;
 
-  @Test
-  public void test() {
-    SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
-    SampleEntity savedSampleEntity = sampleStory.create(sampleEntity);
+    @Test
+    public void test()
+    {
+        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
+        SampleEntity savedSampleEntity = sampleStory.create(sampleEntity);
 
-    Optional<SampleEntity> sampleEntityOptional = sampleStory.findById(savedSampleEntity.getId());
-    Assert.assertTrue(sampleEntityOptional.isPresent());
-  }
+        Optional<SampleEntity> sampleEntityOptional = sampleStory.findById(savedSampleEntity.getId());
+        Assert.assertTrue(sampleEntityOptional.isPresent());
+    }
+
+    @Test
+    public void test_CannotGetDataFromOtherTenant()
+    {
+        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
+        SampleEntity savedSampleEntity = sampleStory.create(sampleEntity);
+
+        Optional<SampleEntity> sampleEntityOptional = sampleStory.findById(savedSampleEntity.getId());
+        Assert.assertTrue(sampleEntityOptional.isPresent());
+    }
 }

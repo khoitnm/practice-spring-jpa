@@ -1,5 +1,6 @@
 package org.tnmk.practicespringjpa.pro07multitenant.common.multitenant;
 
+import lombok.NonNull;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringjpa.pro07multitenant.common.security.SecurityContext;

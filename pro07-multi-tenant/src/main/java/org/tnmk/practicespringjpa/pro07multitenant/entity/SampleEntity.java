@@ -1,16 +1,16 @@
 package org.tnmk.practicespringjpa.pro07multitenant.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.Instant;
 
 /**
@@ -21,22 +21,27 @@ import java.time.Instant;
 @Table(name = "sample_entity")
 @Setter
 @Getter
-public class SampleEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Long id;
+public class SampleEntity
+{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
 
-  private String name;
+    private String name;
 
-  /**
-   * The columnDefinition here is specific for MS SQL Server only. It won't work with other kinds of DBs such as My SQL, Oracle.
-   */
-  @Column(name = "creation_dateTime", updatable = false, columnDefinition = "datetime2 DEFAULT getdate()")
-  @CreationTimestamp
-  private Instant createdDateTime;
+    /**
+     * The columnDefinition here is specific for MS SQL Server only. It won't work with other kinds of DBs such as My SQL, Oracle.
+     */
+    @Column(name = "creation_dateTime", updatable = false, columnDefinition = "datetime2 DEFAULT getdate()")
+    @CreationTimestamp
+    private Instant createdDateTime;
 
-  @Column(name = "update_dateTime")
-  @UpdateTimestamp
-  private Instant updateDateTime;
+    @Column(name = "update_dateTime")
+    @UpdateTimestamp
+    private Instant updateDateTime;
+
+    @Column(name = "organization_id")
+    @UpdateTimestamp
+    private Instant organizationId;
 }
