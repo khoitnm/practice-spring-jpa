@@ -11,16 +11,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>24</java.version>
-        <maven.compiler.source>24</maven.compiler.source>
-        <maven.compiler.target>24</maven.compiler.target>
+        <java.version>21</java.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
 
 
-        <spring.boot.version>3.1.5</spring.boot.version>
+        <spring.boot.version>3.5.0</spring.boot.version>
         <lombok.version>1.18.38</lombok.version>
         <esapi.version>2.6.2.0</esapi.version>
         <commons-lang3.version>3.17.0</commons-lang3.version>
-        <testcontainers.version>1.18.0</testcontainers.version>
+        <testcontainers.version>1.21.1</testcontainers.version>
 
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
@@ -69,30 +69,6 @@
             <artifactId>flyway-core</artifactId>
         </dependency>
 
-        <!-- Multi-Tenant -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.owasp.esapi</groupId>-->
-        <!--            <artifactId>esapi</artifactId>-->
-        <!--&lt;!&ndash;            <version>2.2.3.0</version>&ndash;&gt;-->
-        <!--            <exclusions>-->
-        <!--                &lt;!&ndash; Exclude to avoid conflict with logback which is the default logger in spring boot &ndash;&gt;-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>log4j</groupId>-->
-        <!--                    <artifactId>log4j</artifactId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>org.slf4j</groupId>-->
-        <!--                    <artifactId>slf4j-simple</artifactId>-->
-        <!--                </exclusion>-->
-        <!--                <exclusion>-->
-        <!--                    <groupId>org.slf4j</groupId>-->
-        <!--                    <artifactId>slf4j-api</artifactId>-->
-        <!--                </exclusion>-->
-        <!--            </exclusions>-->
-        <!--        </dependency>-->
-
-
-        <!-- For equals() and hashCode() -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -103,7 +79,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
-            <!--            <scope>provided</scope>-->
         </dependency>
 
         <!-- TEST -->
@@ -112,20 +87,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <!--                <exclusion>-->
-                <!--                    <groupId>org.apache.logging.log4j</groupId>-->
-                <!--                    <artifactId>log4j-to-slf4j</artifactId>-->
-                <!--                </exclusion>-->
-                <!--                <exclusion>-->
-                <!--                    <groupId>org.slf4j</groupId>-->
-                <!--                    <artifactId>jul-to-slf4j</artifactId>-->
-                <!--                </exclusion>-->
-                <!--                <exclusion>-->
-                <!--                    <groupId>ch.qos.logback</groupId>-->
-                <!--                    <artifactId>logback-classic</artifactId>-->
-                <!--                </exclusion>-->
-            </exclusions>
         </dependency>
 
     </dependencies>

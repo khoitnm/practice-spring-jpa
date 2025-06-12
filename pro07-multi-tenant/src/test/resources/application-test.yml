@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1433;databaseName=master
+    url: jdbc:sqlserver://localhost:1433;databaseName=master;encrypt=false;sendStringParametersAsUnicode=false;
     # This account is created in `db/init.sql`
     username: sa
     password: Password1

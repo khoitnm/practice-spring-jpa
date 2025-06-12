@@ -1,6 +1,5 @@
 package org.tnmk.practicespringjpa.pro07multitenant.common.multitenant;
 
-import lombok.NonNull;
 import org.hibernate.context.spi.CurrentTenantIdentifierResolver;
 import org.springframework.stereotype.Component;
 import org.tnmk.practicespringjpa.pro07multitenant.common.security.SecurityContext;
@@ -10,7 +9,7 @@ public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentif
 
   @Override
   public String resolveCurrentTenantIdentifier() {
-    final String organizationId = SecurityContext.getOrganizationId();
+    final String organizationId = SecurityContext.getTenantId();
     if (organizationId != null) {
       return organizationId;
     }

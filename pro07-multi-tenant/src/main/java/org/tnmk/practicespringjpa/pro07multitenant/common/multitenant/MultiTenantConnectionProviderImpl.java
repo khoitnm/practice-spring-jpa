@@ -1,5 +1,7 @@
 package org.tnmk.practicespringjpa.pro07multitenant.common.multitenant;
 
+import org.hibernate.dialect.Dialect;
+import org.hibernate.engine.jdbc.connections.spi.DatabaseConnectionInfo;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +16,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 @Component
-public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider {
+public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider<String> {
     private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final DataSource dataSource;
@@ -76,6 +78,11 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     @Override
     public boolean supportsAggressiveRelease() {
         return false;
+    }
+
+    @Override
+    public DatabaseConnectionInfo getDatabaseConnectionInfo(Dialect dialect) {
+        return MultiTenantConnectionProvider.super.getDatabaseConnectionInfo(dialect);
     }
 
     @Override

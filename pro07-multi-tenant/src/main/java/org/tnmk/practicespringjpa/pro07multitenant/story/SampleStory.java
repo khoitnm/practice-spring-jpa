@@ -7,7 +7,6 @@ import org.tnmk.practicespringjpa.pro07multitenant.entity.SampleEntity;
 import org.tnmk.practicespringjpa.pro07multitenant.repository.SampleRepository;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 public class SampleStory {
@@ -15,8 +14,8 @@ public class SampleStory {
     @Autowired
     private SampleRepository sampleRepository;
 
-    public SampleEntity create(SampleEntity sampleEntity) {
-        SecurityContext.setOrganizationId("testTenantId_01");
+    public SampleEntity createEntity(String tenantId, SampleEntity sampleEntity) {
+        SecurityContext.setTenantId(tenantId);
         return sampleRepository.save(sampleEntity);
     }
 
@@ -27,7 +26,8 @@ public class SampleStory {
         return sampleRepository.save(sampleEntity);
     }
 
-    public Optional<SampleEntity> findById(long id){
+    public Optional<SampleEntity> findById(String tenantId, long id){
+        SecurityContext.setTenantId(tenantId);
         return sampleRepository.findById(id);
     }
 }
