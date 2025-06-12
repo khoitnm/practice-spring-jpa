@@ -10,4 +10,11 @@ create table dbo.sample_entity
     -- You can see that logic in MultiTenantConnectionProviderImpl.setUser(connection, tenantId)
     update_date_time   datetime2,
     primary key (id)
-)
+);
+GO
+
+CREATE SECURITY POLICY SampleEntitySecPolicy
+    ADD FILTER PREDICATE Security.fn_security_predicate(organization_id) ON dbo.sample_entity,
+    ADD BLOCK PREDICATE Security.fn_security_predicate(organization_id) ON dbo.sample_entity
+    WITH (STATE = ON);
+GO
