@@ -21,6 +21,6 @@ class SampleServiceTest {
 
         SampleEntity found = sampleService.findById(created.getId()).orElse(null);
         assertThat(found).isNotNull();
-        assertThat(found.getDescription()).isEqualTo("Test description");
+        assertThat(found.getName()).isEqualTo("Test description");
     }
 }

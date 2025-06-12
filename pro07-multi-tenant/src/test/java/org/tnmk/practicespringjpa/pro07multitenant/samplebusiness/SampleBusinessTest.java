@@ -3,8 +3,6 @@ package org.tnmk.practicespringjpa.pro07multitenant.samplebusiness;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.tnmk.practicespringjpa.pro07multitenant.common.security.SecurityContext;
-import org.tnmk.practicespringjpa.pro07multitenant.datafactory.SampleEntityFactory;
 import org.tnmk.practicespringjpa.pro07multitenant.entity.SampleEntity;
 import org.tnmk.practicespringjpa.pro07multitenant.story.SampleStory;
 import org.tnmk.practicespringjpa.pro07multitenant.testinfra.BaseSpringTest;
@@ -20,7 +18,9 @@ public class SampleBusinessTest extends BaseSpringTest {
         // GIVEN
         String tenantId = "1";
 
-        SampleEntity sampleEntity = SampleEntityFactory.constructSampleEntity();
+        SampleEntity sampleEntity = new SampleEntity();
+        sampleEntity.setName("Sample description");
+
         SampleEntity savedSampleEntity = sampleStory.createEntity(tenantId, sampleEntity);
 
         // WHEN 01

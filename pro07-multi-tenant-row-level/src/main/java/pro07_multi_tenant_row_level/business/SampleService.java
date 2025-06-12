@@ -13,7 +13,7 @@ public class SampleService {
 
     public SampleEntity createEntity(String description) {
         SampleEntity entity = new SampleEntity();
-        entity.setDescription(description);
+        entity.setName(description);
         return sampleRepository.save(entity);
     }
 
