@@ -73,10 +73,11 @@ class MultiTenantConnectionProviderStressTest {
         // THEN
         latch.await(); // Wait for all threads to finish
         log.info("All threads have completed execution.");
-        Assertions.assertThat(errorsCount.get()).as("There should be no error when getting connection for tenant.").isEqualTo(0);
         log.info("Slow tenants: " + slowTenants.size() + " \n"
             + String.join(",\n", slowTenants)
         );
+
+        Assertions.assertThat(errorsCount.get()).as("There should be no error when getting connection for tenant.").isEqualTo(0);
     }
 
 }
