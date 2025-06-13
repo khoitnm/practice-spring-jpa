@@ -50,7 +50,7 @@ public class TenantService {
             createTenantQuery.set(4, tenantId);
             String dbUsername = connection.getMetaData().getUserName();
             createTenantQuery.set(5, dbUsername);
-            log.debug("dbUsername: {}", dbUsername);
+//            log.debug("dbUsername: {}", dbUsername);
             statement.execute(createTenantQuery.toString());
             log.info("Create Tenant successfully: {}", tenantId);
         } catch (Exception e) {

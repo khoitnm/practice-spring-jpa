@@ -5,6 +5,9 @@ spring:
                         # I tried to set it up in docker-compose, but it doesn't work, and I don't want to wast too much time on it, so just create it manually.
     password: Password1
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    hikari:
+      connection-timeout: 2000 # 3 seconds
+      validation-timeout: 2000 # 1 second
   jpa:
     hibernate:
       ddl-auto: none
