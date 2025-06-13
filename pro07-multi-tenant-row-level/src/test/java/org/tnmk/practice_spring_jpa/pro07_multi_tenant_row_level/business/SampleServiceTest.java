@@ -1,16 +1,16 @@
-package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level;
+package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.business;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.business.SampleEntity;
-import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.business.SampleService;
 import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.security.SecurityContext;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@Slf4j
 @SpringBootTest
 class SampleServiceTest {
 
