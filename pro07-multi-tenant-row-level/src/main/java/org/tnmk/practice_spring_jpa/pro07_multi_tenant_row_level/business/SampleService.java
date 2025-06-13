@@ -19,8 +19,8 @@ public class SampleService {
     }
 
     @Transactional
-    public void errorRollbackTrans() {
-        SampleEntity entity = createEntity("errorEntityThatShouldBeRolledBack");
+    public void errorRollbackTrans(String rollbackEntityName) {
+        SampleEntity entity = createEntity(rollbackEntityName);
         throw new RuntimeException("Fake error to test rollback, also check statements in multi-tenant to see whether it's in the same transaction or not: " + entity.getName());
     }
 

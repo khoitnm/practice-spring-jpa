@@ -19,7 +19,7 @@ import java.util.Optional;
  */
 @Component
 @AllArgsConstructor
-public class SimpleJdbcRepositoryHelper
+public class SimpleJdbcHelper
 {
   private final DataSource dataSource;
 
