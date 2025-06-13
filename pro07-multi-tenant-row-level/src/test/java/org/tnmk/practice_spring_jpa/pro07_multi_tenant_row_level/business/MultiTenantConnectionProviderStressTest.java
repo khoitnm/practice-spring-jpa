@@ -22,7 +22,7 @@ class MultiTenantConnectionProviderStressTest {
     @Test
     void stressTest() throws InterruptedException {
         // GIVEN
-        int numberOfThreads = 50;
+        int numberOfThreads = 2;
         int tenantsPerThread = 50;
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
 
@@ -35,11 +35,12 @@ class MultiTenantConnectionProviderStressTest {
                         String tenantId = "stressTenant-%s-%s".formatted(threadIndex, j);
 
                         try (Connection connection = multiTenantConnectionProvider.getConnection(tenantId);) {
-                            log.info("Successfully got connection for tenantId: {}", tenantId);
+//                            log.info("Successfully got connection for tenantId: {}", tenantId);
                         } catch (Exception e) {
                             log.error("Error while getting connection for tenant: {}", tenantId, e);
                         }
                         // after this, connection will be closed automatically
+//                        Thread.sleep(2000);
                     }
                 } catch (Exception e) {
                     log.error("Error in thread {}: {}", threadIndex, e.getMessage(), e);

@@ -53,7 +53,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
             statement.setString(1, tenantId);
             statement.execute();
         } finally {
-            logger.trace("Successfully set tenantId {} to the connection `{}`", tenantId, ConnectionLogHelper.toString(connection));
+            logger.trace("Set tenantId {} to the connection successfully", tenantId);
         }
     }
 

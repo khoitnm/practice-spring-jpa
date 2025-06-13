@@ -6,8 +6,8 @@ spring:
     password: Password1
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     hikari:
-      connection-timeout: 2000 # 3 seconds
-      validation-timeout: 2000 # 1 second
+      connection-timeout: 2000
+      validation-timeout: 1000
   jpa:
     hibernate:
       ddl-auto: none

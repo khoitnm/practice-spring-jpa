@@ -31,7 +31,7 @@ public class TenantService {
             log.error("Cannot check tenantExists: {}", tenantId, e);
             throw e;
         }
-        log.info("Check Tenant {} exist: {}", tenantId, result);
+//        log.trace("Check Tenant {} exist: {}", tenantId, result);
         return result;
     }
 
@@ -52,7 +52,7 @@ public class TenantService {
             createTenantQuery.set(5, dbUsername);
 //            log.debug("dbUsername: {}", dbUsername);
             statement.execute(createTenantQuery.toString());
-            log.info("Create Tenant successfully: {}", tenantId);
+            log.debug("Created Tenant successfully: {}", tenantId);
         } catch (Exception e) {
             log.error("Create Tenant Failed: {}", tenantId, e);
             throw e;
