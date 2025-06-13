@@ -40,3 +40,4 @@ springboot-batch-partition-fileinput/gradlew\.bat
 
 
 
+/docker/mssql/db-server-log.txt

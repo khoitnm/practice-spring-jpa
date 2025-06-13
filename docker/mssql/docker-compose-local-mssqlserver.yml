@@ -9,3 +9,10 @@ services:
       - "1433"
     ports:
       - "1433:1433"
+    # volumes: # Somehow doesn't work.
+    #   - ./init-sql:/docker-entrypoint-initdb.d
+    logging:
+      driver: "local"
+      options:
+        max-size: "10m"
+        max-file: "3"

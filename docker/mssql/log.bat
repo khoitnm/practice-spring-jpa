@@ -1,0 +1,1 @@
+docker logs mssql-demo-sqlserverdb-1 > db-server-log.txt
