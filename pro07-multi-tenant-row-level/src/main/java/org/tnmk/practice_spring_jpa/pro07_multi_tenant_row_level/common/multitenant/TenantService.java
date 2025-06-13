@@ -27,10 +27,11 @@ public class TenantService {
                     result = resultSet.getString(1) != null;
                 }
             }
-        } catch (SQLException | RuntimeException e) {
+        } catch (Exception e) {
             log.error("Cannot check tenantExists: {}", tenantId, e);
             throw e;
         }
+        log.info("Check Tenant {} exist: {}", tenantId, result);
         return result;
     }
 
@@ -47,9 +48,12 @@ public class TenantService {
             createTenantQuery.set(2, tenantId);
             createTenantQuery.set(3, tenantId);
             createTenantQuery.set(4, tenantId);
-            createTenantQuery.set(5, connection.getMetaData().getUserName());
+            String dbUsername = connection.getMetaData().getUserName();
+            createTenantQuery.set(5, dbUsername);
+            log.debug("dbUsername: {}", dbUsername);
             statement.execute(createTenantQuery.toString());
-        } catch (RuntimeException e) {
+            log.info("Create Tenant successfully: {}", tenantId);
+        } catch (Exception e) {
             log.error("Create Tenant Failed: {}", tenantId, e);
             throw e;
         }
