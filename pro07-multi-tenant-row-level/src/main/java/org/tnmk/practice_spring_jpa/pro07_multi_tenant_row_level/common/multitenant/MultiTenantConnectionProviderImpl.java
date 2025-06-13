@@ -59,6 +59,9 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
 
     @Override
     public void releaseAnyConnection(Connection connection) throws SQLException {
+        // If we just close connection without REVERT the user context, that thread will be put back into DB Connection Pool while keeping user context.
+        // So when the next thread, that thread can borrow this connection, and try to run `CREATE USER [?] WITHOUT LOGIN;`, which will get error because it's being in the previous user context.:
+        //  com.microsoft.sqlserver.jdbc.SQLServerException: User does not have permission to perform this action.
         removeUser(connection);
         connection.close();
     }

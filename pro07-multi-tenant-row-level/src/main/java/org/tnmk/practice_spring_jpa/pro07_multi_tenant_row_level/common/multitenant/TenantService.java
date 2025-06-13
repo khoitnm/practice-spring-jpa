@@ -31,7 +31,7 @@ public class TenantService {
             log.error("Cannot check tenantExists: {}", tenantId, e);
             throw e;
         }
-//        log.trace("Check Tenant {} exist: {}", tenantId, result);
+        log.trace("Check Tenant {} exist: {}", tenantId, result);
         return result;
     }
 

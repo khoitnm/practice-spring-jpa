@@ -1,6 +1,7 @@
 package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.business;
 
 import lombok.extern.slf4j.Slf4j;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.multiten
 
 import java.sql.Connection;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @SpringBootTest
@@ -22,8 +24,9 @@ class MultiTenantConnectionProviderStressTest {
     @Test
     void stressTest() throws InterruptedException {
         // GIVEN
-        int numberOfThreads = 2;
-        int tenantsPerThread = 50;
+        final AtomicInteger errorsCount = new AtomicInteger(0);
+        int numberOfThreads = 30;
+        int tenantsPerThread = 10;
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
 
         // WHEN
@@ -35,15 +38,20 @@ class MultiTenantConnectionProviderStressTest {
                         String tenantId = "stressTenant-%s-%s".formatted(threadIndex, j);
 
                         try (Connection connection = multiTenantConnectionProvider.getConnection(tenantId);) {
-//                            log.info("Successfully got connection for tenantId: {}", tenantId);
+                            /**
+                             * Just closing connection alone is not enough, we need to call `releaseConnection` to REVERT the user context (set by `EXECUTED AS...`) from the connection.
+                             * If we don't do that, it will get error for the next thread (please view more in {@link MultiTenantConnectionProviderImpl#releaseAnyConnection(Connection)}.
+                             * Question: what if business level get some error, can it REVERT the connection?
+                             */
+                            multiTenantConnectionProvider.releaseConnection(tenantId, connection);
                         } catch (Exception e) {
+                            errorsCount.incrementAndGet();
                             log.error("Error while getting connection for tenant: {}", tenantId, e);
                         }
-                        // after this, connection will be closed automatically
-//                        Thread.sleep(2000);
                     }
                 } catch (Exception e) {
                     log.error("Error in thread {}: {}", threadIndex, e.getMessage(), e);
+                    errorsCount.incrementAndGet();
                 } finally {
                     latch.countDown();
                 }
@@ -51,10 +59,9 @@ class MultiTenantConnectionProviderStressTest {
         }
 
         // THEN
-        // This test is to ensure that the MultiTenantConnectionProviderImpl can handle a high load of requests.
-        // You can add assertions or logging to verify the behavior under stress.
         latch.await(); // Wait for all threads to finish
         log.info("All threads have completed execution.");
+        Assertions.assertThat(errorsCount.get()).as("There should be no error when getting connection for tenant.").isEqualTo(0);
     }
 
 }
