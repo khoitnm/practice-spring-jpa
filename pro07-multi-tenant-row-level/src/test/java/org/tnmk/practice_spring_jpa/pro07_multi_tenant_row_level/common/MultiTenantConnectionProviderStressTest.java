@@ -1,4 +1,4 @@
-package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.business;
+package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.api.Assertions;
