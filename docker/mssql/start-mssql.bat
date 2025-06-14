@@ -8,8 +8,8 @@ if %ERRORLEVEL% neq 0 (
     exit /b 1
 )
 
-:: Wait for 15 seconds
-echo waiting for the SQL Server to start in 10 seconds before running ./init-sql ...
+:: Need to wait for SQL Server to finish starting, otherwise, the init-sql script will fail.
+echo waiting for the SQL Server to finish starting in 10 seconds before running ./init-sql ...
 timeout /t 10 /nobreak >nul
 
 :: Run the manual-init.bat script

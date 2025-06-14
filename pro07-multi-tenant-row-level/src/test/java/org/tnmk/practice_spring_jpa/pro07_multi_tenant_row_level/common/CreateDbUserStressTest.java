@@ -34,8 +34,8 @@ class CreateDbUserStressTest {
         // GIVEN
         final AtomicInteger errorsCount = new AtomicInteger(0);
         // When increase the number of threads to 50, tenantsPerThread to 100, some connection will get request timeout.
-        int numberOfThreads = 50;
-        int loopsPerThread = 100;
+        int numberOfThreads = 100;
+        int loopsPerThread = 1000;
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
         List<String> slowDbUsers = new ArrayList<>();
         // WHEN

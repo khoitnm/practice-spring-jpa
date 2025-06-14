@@ -11,8 +11,8 @@ import java.sql.SQLException;
 @Service
 public class DbUserService {
     public void createDbUser(Connection connection, String tenantId) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement("CREATE USER [?] WITHOUT LOGIN;")) {
-            statement.setString(1, tenantId);
+        String sql = String.format("CREATE USER [%s] WITHOUT LOGIN;", tenantId);
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.execute();
             log.debug("Created Db User successfully: {}", tenantId);
         } catch (Exception e) {
