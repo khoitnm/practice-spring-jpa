@@ -39,3 +39,6 @@ In your main business logic, when you query data, it will use this class to dete
 
 ### 3.2 Schema Binding
 - The `WITH SCHEMABINDING` clause ensures that the function is tightly coupled with the database schema, improving performance and security.
+
+## 4. **Performance Considerations**
+Please view [MULTI_TENANT_PERFORMANCE.md](MULTI_TENANT_PERFORMANCE.md) for performance considerations and stress tests.

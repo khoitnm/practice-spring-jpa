@@ -1,0 +1,43 @@
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\trank\.m2\repository\net\bytebuddy\byte-buddy-agent\1.17.5\byte-buddy-agent-1.17.5.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2025-06-16T10:28:30.100-04:00 DEBUG 21008 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-3-0
+2025-06-16T10:28:30.102-04:00 DEBUG 21008 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-0-0
+2025-06-16T10:28:30.104-04:00 DEBUG 21008 --- [     virtual-57] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-4-0
+2025-06-16T10:28:30.108-04:00 DEBUG 21008 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-1-0
+2025-06-16T10:28:30.109-04:00 DEBUG 21008 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-3-1
+2025-06-16T10:28:30.111-04:00 DEBUG 21008 --- [     virtual-55] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-2-0
+2025-06-16T10:28:30.112-04:00 DEBUG 21008 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-1-1
+2025-06-16T10:28:30.114-04:00 DEBUG 21008 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-0-1
+2025-06-16T10:28:30.118-04:00 DEBUG 21008 --- [     virtual-57] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-4-1
+2025-06-16T10:28:30.119-04:00 DEBUG 21008 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-3-2
+2025-06-16T10:28:30.121-04:00 DEBUG 21008 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-0-2
+2025-06-16T10:28:30.123-04:00 DEBUG 21008 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-1-2
+2025-06-16T10:28:30.124-04:00 DEBUG 21008 --- [     virtual-57] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-4-2
+2025-06-16T10:28:30.128-04:00 DEBUG 21008 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-0-3
+2025-06-16T10:28:30.130-04:00 DEBUG 21008 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-3-3
+2025-06-16T10:28:30.131-04:00 DEBUG 21008 --- [     virtual-55] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-2-1
+2025-06-16T10:28:30.133-04:00 DEBUG 21008 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-1-3
+2025-06-16T10:28:30.134-04:00 DEBUG 21008 --- [     virtual-55] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-2-2
+2025-06-16T10:28:30.138-04:00 DEBUG 21008 --- [     virtual-57] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-4-3
+2025-06-16T10:28:30.140-04:00 DEBUG 21008 --- [     virtual-55] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUser-2-3
+2025-06-16T10:28:30.142-04:00  INFO 21008 --- [           main] o.t.p.p.s.stresstest.StressTestHelper    : System Resources:
+    OS Name: Windows 11
+    OS Version: 10.0
+    Available Processors: 12
+    Total Memory (GB): 0.11
+    Free Memory (GB): 0.07
+    JVM Uptime (ms): 5762
+2025-06-16T10:28:30.142-04:00  INFO 21008 --- [           main] o.t.p.p.s.stresstest.StressTestHelper    : Report:
+    Total runs: 20 (threads: 5, loops per thread: 4)
+    Success: 20
+    Errors: 0
+    Average runtime: 10.9 ms
+    80th percentile runtime: 14 ms
+    90th percentile runtime: 19 ms
+    Slowest runtimes: [10, 12, 12, 13, 13, 14, 15, 19, 20, 22]
+    Fastest runtimes: [3, 5, 5, 6, 6, 7, 7, 9, 10, 10]
+

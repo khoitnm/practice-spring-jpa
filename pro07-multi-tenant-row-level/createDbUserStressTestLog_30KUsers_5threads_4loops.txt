@@ -1,0 +1,312 @@
+2025-06-16T10:11:58.258-04:00 DEBUG 11064 --- [     virtual-62] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-4-0
+2025-06-16T10:11:58.262-04:00 DEBUG 11064 --- [     virtual-59] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-3-0
+2025-06-16T10:11:58.775-04:00 DEBUG 11064 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-2-0
+2025-06-16T10:11:59.299-04:00 DEBUG 11064 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-0-0
+2025-06-16T10:11:59.303-04:00 DEBUG 11064 --- [     virtual-62] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-4-1
+2025-06-16T10:11:59.824-04:00 DEBUG 11064 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-1-0
+2025-06-16T10:12:00.266-04:00  WARN 11064 --- [     virtual-59] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection ConnectionID:3 ClientConnectionId: c8be4c4f-55e0-4b7d-93bb-656bf5cd3c89 marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:00.269-04:00 ERROR 11064 --- [     virtual-59] o.t.p.p.c.test_target.DbUserService      : Create Db User failed: stressDbUserL-3-1
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:00.372-04:00 DEBUG 11064 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-2-1
+2025-06-16T10:12:00.908-04:00 DEBUG 11064 --- [     virtual-62] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-4-2
+2025-06-16T10:12:01.301-04:00  WARN 11064 --- [     virtual-51] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection ConnectionID:1 ClientConnectionId: bec4815e-0a9c-4996-a90b-a32068e866ec marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:01.301-04:00 ERROR 11064 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Create Db User failed: stressDbUserL-0-1
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:01.436-04:00 DEBUG 11064 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-1-1
+2025-06-16T10:12:01.955-04:00 DEBUG 11064 --- [     virtual-59] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-3-2
+2025-06-16T10:12:02.373-04:00  WARN 11064 --- [     virtual-56] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection ConnectionID:5 ClientConnectionId: 3d7e6f4c-d14d-4392-8087-eb3062f7cfa7 marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:02.374-04:00 ERROR 11064 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Create Db User failed: stressDbUserL-2-2
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:02.476-04:00 DEBUG 11064 --- [     virtual-62] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-4-3
+2025-06-16T10:12:02.989-04:00 DEBUG 11064 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-0-2
+2025-06-16T10:12:03.438-04:00  WARN 11064 --- [     virtual-53] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection ConnectionID:2 ClientConnectionId: 49a585f2-e859-4ce2-974f-877eca7992e9 marked as broken because of SQLSTATE(08S01), ErrorCode(0)
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:03.439-04:00 ERROR 11064 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Create Db User failed: stressDbUserL-1-2
+
+com.microsoft.sqlserver.jdbc.SQLServerException: Read timed out
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.terminate(SQLServerConnection.java:4580)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2175)
+	at com.microsoft.sqlserver.jdbc.TDSReader.readPacket(IOBuffer.java:6895)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.startResponse(IOBuffer.java:8145)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:686)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:607)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:7745)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:4700)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:321)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:253)
+	at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.execute(SQLServerPreparedStatement.java:584)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.test_target.DbUserService.createDbUser(DbUserService.java:16)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.CreateDbUserStressTest.lambda$stressTest$0(CreateDbUserStressTest.java:31)
+	at org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper.lambda$run$0(StressTestHelper.java:39)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)
+	at java.base/java.util.concurrent.FutureTask.run$$$capture(FutureTask.java:328)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java)
+	at java.base/java.lang.VirtualThread.run(VirtualThread.java:466)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.base/sun.nio.ch.NioSocketImpl.timedRead(NioSocketImpl.java:277)
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:303)
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:345)
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:790)
+	at java.base/java.net.Socket$SocketInputStream.implRead(Socket.java:983)
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:970)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.readInternal(IOBuffer.java:1206)
+	at com.microsoft.sqlserver.jdbc.TDSChannel$ProxyInputStream.read(IOBuffer.java:1192)
+	at com.microsoft.sqlserver.jdbc.TDSChannel.read(IOBuffer.java:2166)
+	... 18 common frames omitted
+
+2025-06-16T10:12:03.520-04:00 DEBUG 11064 --- [     virtual-53] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-1-3
+2025-06-16T10:12:03.523-04:00 DEBUG 11064 --- [     virtual-59] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-3-3
+2025-06-16T10:12:03.525-04:00 DEBUG 11064 --- [     virtual-51] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-0-3
+2025-06-16T10:12:03.527-04:00 DEBUG 11064 --- [     virtual-56] o.t.p.p.c.test_target.DbUserService      : Created Db User successfully: stressDbUserL-2-3
+2025-06-16T10:12:03.530-04:00  INFO 11064 --- [           main] o.t.p.p.s.stresstest.StressTestHelper    : System Resources:
+    OS Name: Windows 11
+    OS Version: 10.0
+    Available Processors: 12
+    Total Memory (GB): 0.11
+    Free Memory (GB): 0.07
+    JVM Uptime (ms): 11224
+2025-06-16T10:12:03.530-04:00  INFO 11064 --- [           main] o.t.p.p.s.stresstest.StressTestHelper    : Report:
+    Total runs: 20 (threads: 5, loops per thread: 4)
+    Success: 16
+    Errors: 4
+    Average runtime: 1270.5 ms
+    80th percentile runtime: 1686 ms
+    90th percentile runtime: 2002 ms
+    Slowest runtimes: [1593, 1595, 1605, 1611, 1685, 1686, 2001, 2002, 2002, 2007]
+    Fastest runtimes: [28, 31, 81, 536, 545, 1043, 1070, 1153, 1568, 1568]

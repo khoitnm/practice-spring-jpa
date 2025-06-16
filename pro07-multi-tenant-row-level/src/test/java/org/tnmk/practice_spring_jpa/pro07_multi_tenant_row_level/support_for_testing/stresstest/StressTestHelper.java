@@ -1,7 +1,10 @@
-package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing;
+package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.OperatingSystemMXBean;
+import java.lang.management.RuntimeMXBean;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -57,18 +60,29 @@ public class StressTestHelper {
             long runtime90Percentile = runtimes.get((int) (totalRuns * 0.9) - 1);
             long runtime80Percentile = runtimes.get((int) (totalRuns * 0.8) - 1);
 
+            logSystemResources();
+
             // Report
-            log.info("Report:");
-            log.info("Total runs: {}", totalRuns);
-            log.info("Success: {}", successCount.get());
-            log.info("Errors: {}", errorCount.get());
-            log.info("Average runtime: {} ms", averageRuntime);
-            log.info("80th percentile runtime: {} ms", runtime80Percentile);
-            log.info("90th percentile runtime: {} ms", runtime90Percentile);
-            // Log top 3 slowest runtimes
-            int topCount = Math.min(3, runtimes.size());
-            List<Long> topSlowestRuntimes = runtimes.subList(runtimes.size() - topCount, runtimes.size());
-            log.info("Top {} slowest runtimes: {}", topCount, topSlowestRuntimes);
+            log.info("""
+                    Report:
+                        Total runs: {} (threads: {}, loops per thread: {})
+                        Success: {}
+                        Errors: {}
+                        Average runtime: {} ms
+                        80th percentile runtime: {} ms
+                        90th percentile runtime: {} ms
+                        Slowest runtimes: {}
+                        Fastest runtimes: {}
+                    """,
+                totalRuns, threads, loopPerThread,
+                successCount.get(),
+                errorCount.get(),
+                averageRuntime,
+                runtime80Percentile,
+                runtime90Percentile,
+                getBottom(runtimes, 10),
+                getTop(runtimes, 10)
+            );
 
             // Create and return the report
             return new StressTestResult(
@@ -85,5 +99,40 @@ public class StressTestHelper {
     @FunctionalInterface
     public interface ThrowingBiConsumer<T, U> {
         void accept(T t, U u) throws Exception;
+    }
+
+    public static <E> List<E> getBottom(List<E> list, int n) {
+        int topCount = Math.min(n, list.size());
+        return list.subList(list.size() - topCount, list.size());
+    }
+
+    public static <E> List<E> getTop(List<E> list, int n) {
+        int topCount = Math.min(n, list.size());
+        return list.subList(0, topCount);
+    }
+
+    private static void logSystemResources() {
+        OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
+        RuntimeMXBean runtimeBean = ManagementFactory.getRuntimeMXBean();
+        long totalMemory = Runtime.getRuntime().totalMemory();
+        long freeMemory = Runtime.getRuntime().freeMemory();
+        int availableProcessors = osBean.getAvailableProcessors();
+
+        log.info("""
+                System Resources:
+                    OS Name: %s
+                    OS Version: %s
+                    Available Processors: %s
+                    Total Memory (GB): %.2f
+                    Free Memory (GB): %.2f
+                    JVM Uptime (ms): %s""".formatted(
+                osBean.getName(),
+                osBean.getVersion(),
+                availableProcessors,
+                totalMemory * 1.0 / (1024 * 1024 * 1024),
+                freeMemory * 1.0 / (1024 * 1024 * 1024),
+                runtimeBean.getUptime()
+            )
+        );
     }
 }

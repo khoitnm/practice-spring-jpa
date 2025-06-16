@@ -1,4 +1,4 @@
-package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing;
+package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest;
 
 import lombok.Getter;
 import lombok.ToString;

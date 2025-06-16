@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.multitenant.MultiTenantConnectionProviderImpl;
-import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.StressTestHelper;
-import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.StressTestResult;
+import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestHelper;
+import org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.support_for_testing.stresstest.StressTestResult;
 
 import java.sql.Connection;
 
