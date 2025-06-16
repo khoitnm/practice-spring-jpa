@@ -1,3 +1,11 @@
+# Summary
+
+> The `CREATE USER` DDL query in MS SQL Server performs poorly under high workloads and with many DB users.
+> Stress tests show significant performance degradation as the number of DB users increases,
+> with execution times rising from ~10 ms (10 users) to ~1200 ms (30K users) and many errors read timeout.
+
+# Details
+
 As you see in [MULTI_TENANT_GUIDELINE.md](MULTI_TENANT_GUIDELINE.md), the process need to `CREATE USER` for each
 tenantId, and then `EXECUTE AS USER = :tenantId;` to set the tenantId context for the current thread.
 That `CREATE USER` statement is a DDL query, and MS SQL Server is not designed to execute DDL queries in parallel
