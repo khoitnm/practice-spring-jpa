@@ -22,7 +22,7 @@ class MultiTenantConnectionProviderStressTest {
     private MultiTenantConnectionProviderImpl multiTenantConnectionProvider;
 
     @DisplayName("This test will show how MultiTenantConnectionProviderImpl can handle many parallel requests at the same time." +
-        "Right now, it's getting dead lock because MS SQL Server cannot handle too many DDL in parallel (it may get dead lock, and lead to connection timeout), will need to improve.")
+        "Right now, it's getting connection problem because MS SQL Server cannot handle too many DDL in parallel.")
     @Test
     void stressTest() {
         StressTestResult result = StressTestHelper.run(30, 1000, (threadIndex, loopIndex) -> {
