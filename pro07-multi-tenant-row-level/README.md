@@ -12,7 +12,7 @@ at row level.
 
 ## Prerequisites
 
-- Java 11 or higher.
+- Java 21 or higher (I use virtual thread in the test).
 - Maven.
 - DB MS SQL Server.
 
@@ -27,7 +27,7 @@ at row level.
 - Configure your database connection in `application.yml` if necessary.
 - Run the application using: `mvn spring-boot:run`
 
-## 
+##  
 
 # Reference doc
 
