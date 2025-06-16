@@ -1,3 +1,9 @@
+:: =================================================================
+:: SUMMARY:
+:: 1. Check if the Python library `pyodbc` is installed; if not, install it.
+:: 2. Run the Python script `manual-init.py` to perform the initialization tasks.
+:: =================================================================
+
 :: Setting up ./init-sql in docker-compose file doesn't work, so I have to use bat file to trigger it.
 @echo off
 setlocal

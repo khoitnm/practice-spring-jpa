@@ -1,5 +1,10 @@
 import pyodbc
 
+# ==========================================================
+# SUMMARY:
+# Main purpose of this script: connects to a Microsoft SQL Server database and executes a SQL script.
+# ==========================================================
+
 # Database connection details
 db_server = 'localhost'
 db_name = 'master'

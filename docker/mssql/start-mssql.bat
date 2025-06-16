@@ -1,3 +1,9 @@
+:: =================================================================
+:: SUMMARY:
+:: This script starts a Docker container for MS SQL Server using a specified Docker Compose file.
+:: It waits for the SQL Server to initialize before running a manual initialization script (`manual-init.bat`).
+:: =================================================================
+
 @echo off
 setlocal
 

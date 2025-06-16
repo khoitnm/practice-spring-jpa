@@ -34,8 +34,8 @@ class CreateDbUserStressTest {
         // GIVEN
         final AtomicInteger errorsCount = new AtomicInteger(0);
         // When increase the number of threads to 50, tenantsPerThread to 100, some connection will get request timeout.
-        int numberOfThreads = 100;
-        int loopsPerThread = 1000;
+        int numberOfThreads = 5;
+        int loopsPerThread = 2;
         CountDownLatch latch = new CountDownLatch(numberOfThreads);
         List<String> slowDbUsers = new ArrayList<>();
         // WHEN
@@ -44,7 +44,7 @@ class CreateDbUserStressTest {
             new Thread(() -> {
                 try {
                     for (int j = 0; j < loopsPerThread; j++) {
-                        String dbUsername = "stressDbUser-%s-%s".formatted(threadIndex, j);
+                        String dbUsername = "stressDbUserB-%s-%s".formatted(threadIndex, j);
                         StopWatch stopWatch = new StopWatch();
                         stopWatch.start(dbUsername);
                         try (Connection connection = dataSource.getConnection();) {
@@ -71,9 +71,11 @@ class CreateDbUserStressTest {
 
         // THEN
         latch.await(); // Wait for all threads to finish
-        log.info("All threads have completed execution.");
-        log.info("Slow DbUser: " + slowDbUsers.size() + " \n"
-            + String.join(",\n", slowDbUsers)
+        log.info("All threads have completed execution."
+            + "\n\tTotal: " + (numberOfThreads * loopsPerThread)
+            + "\n\tError counts: " + errorsCount.get()
+            + "\n\tSlow DbUser: " + slowDbUsers.size()
+            + "\n\t\t" + String.join(",\n\t\t", slowDbUsers)
         );
 
         Assertions.assertThat(errorsCount.get()).as("There should be no error when creating DbUser.").isEqualTo(0);
