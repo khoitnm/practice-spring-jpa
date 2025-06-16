@@ -16,7 +16,6 @@ import java.sql.Connection;
 @SpringBootTest
 class CreateDbUserStressTest {
 
-    public static final int SLOW_TENANT_THRESHOLD_MILLS = 200;
     @Autowired
     DataSource dataSource;
 
