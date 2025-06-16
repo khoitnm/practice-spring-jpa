@@ -17,8 +17,8 @@ the results are:
 
 - When DB has 30K DB
   Users: [createDbUserStressTestLog_30KUsers_5threads_4loops.txt](createDbUserStressTestLog_30KUsers_5threads_4loops.txt) (summary result is at the end of the log file)
-    - Just running with just threads: 5, loops per thread: 4, each `CREATE USER` takes about 1.2 seconds (way too slow)
+    - With just 5 theads, 4 loops per thread, each `CREATE USER` takes about 1.2 seconds (way too slow)
       because this statement normally only need less than 20 milliseconds.
 - When DB has only 10 DB
   Users: [createDbUserStressTestLog_10Users_5threads_4loops.txt](createDbUserStressTestLog_10Users_5threads_4loops.txt) (summary result is at the end of the log file)
-    - Just running with just threads: 5, loops per thread: 4, each `CREATE USER` takes about 10 ms (normal speed).
+    - With just 5 theads, 4 loops per thread, each `CREATE USER` takes about 10 ms (normal speed).
