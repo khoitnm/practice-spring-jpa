@@ -13,7 +13,8 @@ import javax.sql.DataSource;
 import java.sql.Connection;
 
 @Slf4j
-@SpringBootTest
+// This test doesn't care about other tables in the DB, hence no need to care about Flyway script.
+@SpringBootTest(properties = {"spring.flyway.enabled=false"})
 class CreateDbUserStressTest {
 
     @Autowired

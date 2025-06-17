@@ -3,17 +3,17 @@ package org.tnmk.practice_spring_jpa.pro07_multi_tenant_row_level.common.multite
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.jdbc.connections.spi.DatabaseConnectionInfo;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
-import org.owasp.esapi.PreparedString;
-import org.owasp.esapi.codecs.MySQLCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.lang.invoke.MethodHandles;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 @Component
 public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider<String> {
@@ -37,13 +37,11 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     public Connection getConnection(String tenantId) throws SQLException {
         Connection conn = dataSource.getConnection();
         if (StringUtils.hasText(tenantId)) {
-            if (!tenantService.tenantExists(conn, tenantId)) {
-                tenantService.createTenant(conn, tenantId);
-            }
+            tenantService.createTenantIfNotExist(conn, tenantId);
             setUser(conn, tenantId);
             return conn;
         } else {
-            logger.trace("There's no tenantIdentifier ({}), hence just return a null connection.", tenantId);
+            logger.trace("There's no tenantIdentifier ({}), hence just return a null connection.", tenantId, new Exception("Stacktrace for debugging purpose"));
             return null;
         }
     }
@@ -74,7 +72,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
 
     @Override
     public void releaseConnection(String tenantIdentifier, Connection connection)
-            throws SQLException {
+        throws SQLException {
         releaseAnyConnection(connection);
     }
 
