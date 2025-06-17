@@ -7,6 +7,7 @@ import pyodbc
 
 # Database connection details
 db_server = 'localhost'
+db_port = 1434
 db_name = 'master'
 db_user = 'sa'
 db_password = 'Password1'
@@ -17,7 +18,7 @@ with open(sql_file, 'r') as file:
     sql_script = file.read()
 
 # Connect to the database
-connection_string = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={db_server};DATABASE={db_name};UID={db_user};PWD={db_password}"
+connection_string = f"DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={db_server},{db_port};DATABASE={db_name};UID={db_user};PWD={db_password}"
 try:
     with pyodbc.connect(connection_string) as connection:
         with connection.cursor() as cursor:

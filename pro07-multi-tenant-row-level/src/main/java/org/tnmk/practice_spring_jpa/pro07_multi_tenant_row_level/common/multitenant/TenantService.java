@@ -16,7 +16,7 @@ public class TenantService {
     public void createTenantIfNotExist(Connection connection, String tenantId) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             PreparedString createTenantQuery = new PreparedString("""
-                IF NOT EXISTS (SELECT DATABASE_PRINCIPAL_ID('?')) BEGIN
+                IF DATABASE_PRINCIPAL_ID('?') IS NULL BEGIN
                     CREATE USER [?] WITHOUT LOGIN;
                     ALTER ROLE db_datareader ADD MEMBER [?];
                     ALTER ROLE db_datawriter ADD MEMBER [?];
@@ -33,9 +33,9 @@ public class TenantService {
             createTenantQuery.set(6, dbUsername);
 //            log.debug("dbUsername: {}", dbUsername);
             statement.execute(createTenantQuery.toString());
-            log.debug("Created Tenant successfully: {}", tenantId);
+            log.debug("Created tenant successfully (if it didn't exist): {}", tenantId);
         } catch (Exception e) {
-            log.error("Create Tenant Failed: {}", tenantId, e);
+            log.error("Create tenant failed: {}", tenantId, e);
             throw e;
         }
     }

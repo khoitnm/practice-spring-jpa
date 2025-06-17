@@ -50,7 +50,6 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
         try (PreparedStatement statement = connection.prepareStatement("EXECUTE AS USER = ?;")) {
             statement.setString(1, tenantId);
             statement.execute();
-        } finally {
             logger.trace("Set tenantId {} to the connection successfully", tenantId);
         }
     }

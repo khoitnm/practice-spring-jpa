@@ -40,6 +40,7 @@ public class StressTestHelper {
                                 successCount.incrementAndGet();
                             } catch (Exception e) {
                                 errorCount.incrementAndGet();
+                                log.error("Error in thread {} at loop {}: {}", threadIndex, loopIndex, e.getMessage(), e);
                             }
                             Instant end = Instant.now();
                             runtimes.add(Duration.between(start, end).toMillis());
