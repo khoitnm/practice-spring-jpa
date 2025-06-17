@@ -19,7 +19,7 @@ class SampleServiceTest {
 
     @Test
     void testCreateAndFindEntity() {
-        SecurityContext.setTenantId("01");
+        SecurityContext.setTenantId("SampleService-01");
         SampleEntity created = sampleService.createEntity("Test description");
         assertThat(created.getId()).isNotNull();
 
@@ -28,7 +28,7 @@ class SampleServiceTest {
         assertThat(found).isPresent();
         assertThat(found.get().getName()).isEqualTo("Test description");
 
-        SecurityContext.setTenantId("02");
+        SecurityContext.setTenantId("SampleService-02");
         Optional<SampleEntity> found2 = sampleService.findById(created.getId());
         assertThat(found2).isEmpty();
     }

@@ -23,7 +23,7 @@ public class DropDbUsersApplication {
 
     @Test
     public void dropUsersInManyBatches() throws ExecutionException, InterruptedException {
-        List<String> usersToDrop = simpleJdbcHelper.findMany(new SingleColumnRowMapper<>(String.class), "SELECT name FROM sys.database_principals WHERE type = 'S' AND name LIKE 'stressTenant%'");
+        List<String> usersToDrop = simpleJdbcHelper.findMany(new SingleColumnRowMapper<>(String.class), "SELECT name FROM sys.database_principals WHERE type = 'S' AND (name LIKE 'stressTenant%' OR name LIKE 'SampleService%' OR name LIKE 'rollbackTenant%')");
         dropDbUsersInManyBatchesService.dropUsersInManyBatches(usersToDrop);
     }
 }
