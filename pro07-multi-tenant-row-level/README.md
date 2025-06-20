@@ -4,6 +4,14 @@ This is a practice project for learning
 about [Hibernate Multitenancy](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#multitenacy)
 at row level.
 
+Note:
+
+- This project is currently use [DB User Impersonate](./MULTI_TENANT__USER_DB_USER_IMPERSONATE__GUIDELINE.md) approach.
+- However, I think using [DB Session Context](./MULTI_TENANT__SESSION_CONTEXT__GUIDELINE.md) is better, because it
+  doesn't need to create a DB User for each tenantId, and has better performance.
+  Please read that document to have a better comparison.
+  When having time, I will refactor this project to use the DB Session Context approach.
+
 ## Features
 
 - Row-level multitenancy with Hibernate.
@@ -39,3 +47,4 @@ Guideline:
 
 - https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#multitenacy
 - https://docs.jboss.org/hibernate/orm/4.3/devguide/en-US/html/ch16.html#d5e4817
+
