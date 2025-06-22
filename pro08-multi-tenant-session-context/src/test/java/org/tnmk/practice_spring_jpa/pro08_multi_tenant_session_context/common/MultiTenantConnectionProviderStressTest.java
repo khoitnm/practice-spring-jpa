@@ -24,7 +24,7 @@ class MultiTenantConnectionProviderStressTest {
         "Right now, it's getting connection problem because MS SQL Server cannot handle too many DDL in parallel.")
     @Test
     void stressTest() {
-        StressTestResult result = StressTestHelper.run(50, 100, (threadIndex, loopIndex) -> {
+        StressTestResult result = StressTestHelper.run(10, 100, (threadIndex, loopIndex) -> {
             String tenantId = "stressTenant-%s-%s".formatted(threadIndex, loopIndex);
             try (Connection connection = multiTenantConnectionProvider.getConnection(tenantId);) {
                 /**
