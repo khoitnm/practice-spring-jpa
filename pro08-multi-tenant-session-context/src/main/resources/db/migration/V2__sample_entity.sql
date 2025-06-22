@@ -5,8 +5,7 @@ create table dbo.sample_entity (
     name               varchar(255),
     organization_id    SYSNAME NOT NULL,
     -- Cannot use SESSION_CONTEXT(N'tenant_id') in a column default constraint in SQL Server. Default constraints only allow constant expressions or functions that do not depend on session or context.
-    -- That's why we use a trigger to set the organization_id.
-    -- CONSTRAINT df_sample_entity_tenant_id DEFAULT SESSION_CONTEXT(N'tenant_id'),
+    -- That's why you can consider using a trigger to set the organization_id (however, I got a bit problem when using this, and haven't spend time to investigate more about it yet, so I just manually set that value when inserting data)
     update_date_time   datetime2,
     primary key (id)
 );
