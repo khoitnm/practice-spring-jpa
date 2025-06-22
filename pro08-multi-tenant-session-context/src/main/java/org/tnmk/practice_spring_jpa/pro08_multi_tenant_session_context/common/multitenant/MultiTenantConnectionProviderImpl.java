@@ -21,6 +21,7 @@ import java.sql.SQLException;
 @RequiredArgsConstructor
 public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionProvider<String> {
     private final static Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+    public static final String SQL_RESET_TENANT_CONTEXT = "EXEC sp_set_session_context @key=N'tenant_id', @value=NULL";
 
     private final DataSource dataSource;
 
@@ -65,7 +66,17 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
                 // Then, another thread can borrow this connection and try to run `CREATE USER [?] WITHOUT LOGIN;`,
                 // which will get error because it's being in the previous user context.
                 // To solve that problem, we need to get the real physical connection (by unwrap logical connection) and close it directly, don't return it to the pool.
-                connection.unwrap(Connection.class).close();
+                Connection physicalConnection = connection.unwrap(Connection.class);
+                if (physicalConnection != null && !physicalConnection.isClosed()) {
+                    physicalConnection.close();
+
+                    // We should also close the logical connection to avoid mismatch state between logical and physical connections.
+                    // That mismatch could cause error "SQLServerException: The connection is closed." in some logic, especially when using try (Closable) resource.
+                    connection.close();
+                    logger.debug("Closed the real (unwrapped) connection successfully.");
+                } else {
+                    logger.warn("The real (unwrapped) connection is already closed or null.");
+                }
             } catch (Exception closeException) {
                 logger.error("Failed to close the real (unwrapped) connection. It will at least try to close the wrapped connection.", closeException);
                 if (!connection.isClosed()) {
@@ -80,7 +91,7 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     }
 
     private void resetTenantContext(Connection connection) throws SQLException {
-        try (PreparedStatement ps = connection.prepareStatement("EXEC sp_set_session_context @key=N'tenant_id', @value=NULL")) {
+        try (PreparedStatement ps = connection.prepareStatement(SQL_RESET_TENANT_CONTEXT)) {
             ps.execute();
         }
     }
