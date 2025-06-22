@@ -14,9 +14,9 @@ import org.tnmk.practice_spring_jpa.pro08_multi_tenant_session_context.common.se
 public class TenantEntityListener {
     @PrePersist
     public void setTenantIdToEntity(Object entity) {
-        if (entity instanceof EntitySupportTenant orgAware) {
-            if (orgAware.getOrganizationId() == null) {
-                orgAware.setOrganizationId(SecurityContext.getTenantId());
+        if (entity instanceof EntitySupportTenant supportTenantEntity) {
+            if (supportTenantEntity.getOrganizationId() == null) {
+                supportTenantEntity.setOrganizationId(SecurityContext.getTenantId());
             }
         }
     }
