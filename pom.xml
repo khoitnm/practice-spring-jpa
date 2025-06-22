@@ -28,6 +28,7 @@
         <module>pro05-embedded-entity</module>
         <module>pro06-partial-update</module>
         <module>pro07-multi-tenant-row-level</module>
+        <module>pro08-multi-tenant-session-context</module>
         <module>pro09-hiraki-connection-pool</module>
         <module>pro10-transaction</module>
     </modules>
