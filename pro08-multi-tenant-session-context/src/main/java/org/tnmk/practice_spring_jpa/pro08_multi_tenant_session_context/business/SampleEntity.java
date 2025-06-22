@@ -13,4 +13,7 @@ public class SampleEntity {
     private Long id;
 
     private String name;
+
+    @Column(name = "organization_id", updatable = false)
+    private String organizationId;
 }
