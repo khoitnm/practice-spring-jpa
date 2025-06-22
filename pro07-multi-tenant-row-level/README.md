@@ -27,18 +27,17 @@ Note:
 ## Run project
 
 - Start MS SQL Server by one of the following approaches:
-    - Using docker: [.\docker\mssql\start-mssql.bat](.\docker\mssql\start-mssql.bat).
+    - Using docker: [./docker/mssql/start-mssql.bat](./docker/mssql/start-mssql.bat).
     - Using a local installation of MS SQL Server. Then run initial
       scripts [.\docker\mssql\manual-init.bat](.\docker\mssql\manual-init.bat) to create prerequisite users for this
       practice
       (please also update information about DB connection accordingly).
-- Configure your database connection in `application.yml` if necessary.
-- Run the application using: `mvn spring-boot:run`
-
-## Run test cases
-
-- Please follow the above steps to start MS SQL Server first, the test cases will connect to our local MS SQL Server.
-- We don't use in-memory DB because it may not work exactly the same way as MS SQL Server,
+- Configure your database connection in [`application.yml`](./src/main/resources/application.yml) if necessary.
+- Run one of its test cases (e.g. [
+  `SampleServiceTest.java`](./src/test/java/org/tnmk/practice_spring_jpa/pro08_multi_tenant_session_context/business/SampleServiceTest.java))
+  to test it functions.
+  The test cases will connect to our local MS SQL Server.
+  We don't use in-memory DB because it may not work exactly the same way as MS SQL Server,
   and also don't use Docker container because it's too slow to start.
 
 # Reference doc
