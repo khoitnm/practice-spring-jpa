@@ -6,9 +6,9 @@ at row level.
 
 Note:
 
-- This project is using [DB Session Context](./MULTI_TENANT__SESSION_CONTEXT__GUIDELINE.md) which has better performance
-  than
-  DB User Impersonate (`EXECUTE AS USER = :tenantId;`), because it doesn't need to create a DB User for each tenantId,
+- This project is using [DB Session Context](./MULTI_TENANT__SESSION_CONTEXT__GUIDELINE.md) 
+  which has better performance than DB User Impersonate (`EXECUTE AS USER = :tenantId;`), because it doesn't need to create a DB User for each tenantId,
+
 
 ## Prerequisites
 
@@ -23,9 +23,7 @@ Note:
     - Using docker: [./docker/mssql/start-mssql.bat](./docker/mssql/start-mssql.bat).
     - Using a local installation of MS SQL Server.
 - Configure your database connection in [`application.yml`](./src/main/resources/application.yml) if necessary.
-- Run one of its test cases (e.g. [
-  `SampleServiceTest.java`](./src/test/java/org/tnmk/practice_spring_jpa/pro08_multi_tenant_session_context/business/SampleServiceTest.java))
-  to test it functions.
+- Run one of its test cases (e.g. [`SampleServiceTest.java`](./src/test/java/org/tnmk/practice_spring_jpa/pro08_multi_tenant_session_context/business/SampleServiceTest.java)) to test it functions.
   The test cases will connect to our local MS SQL Server.
   We don't use in-memory DB because it may not work exactly the same way as MS SQL Server,
   and also don't use Docker container because it's too slow to start.

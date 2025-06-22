@@ -1,8 +1,6 @@
 # Hibernate Multitenancy Practice
 
-This is a practice project for learning
-about [Hibernate Multitenancy](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#multitenacy)
-at row level.
+This is a practice project for learning about [Hibernate Multitenancy](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#multitenacy) at row level.
 
 Note:
 
@@ -33,9 +31,7 @@ Note:
       practice
       (please also update information about DB connection accordingly).
 - Configure your database connection in [`application.yml`](./src/main/resources/application.yml) if necessary.
-- Run one of its test cases (e.g. [
-  `SampleServiceTest.java`](./src/test/java/org/tnmk/practice_spring_jpa/pro08_multi_tenant_session_context/business/SampleServiceTest.java))
-  to test it functions.
+- Run one of its test cases (e.g. [`SampleServiceTest.java`](./src/test/java/org/tnmk/practice_spring_jpa/pro08_multi_tenant_session_context/business/SampleServiceTest.java)) to test it functions.
   The test cases will connect to our local MS SQL Server.
   We don't use in-memory DB because it may not work exactly the same way as MS SQL Server,
   and also don't use Docker container because it's too slow to start.
