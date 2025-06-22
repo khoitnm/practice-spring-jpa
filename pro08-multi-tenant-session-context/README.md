@@ -24,11 +24,8 @@ Note:
 ## Run project
 
 - Start MS SQL Server by one of the following approaches:
-    - Using docker: [..\docker\mssql\start-mssql.bat](..\docker\mssql\start-mssql.bat).
-    - Using a local installation of MS SQL Server. Then run initial
-      scripts [..\docker\mssql\manual-init.bat](..\docker\mssql\manual-init.bat) to create prerequisite users for this
-      practice
-      (please also update information about DB connection accordingly).
+    - Using docker: [.\docker\mssql\start-mssql.bat](.\docker\mssql\start-mssql.bat).
+    - Using a local installation of MS SQL Server.
 - Configure your database connection in `application.yml` if necessary.
 - Run the application using: `mvn spring-boot:run`
 
