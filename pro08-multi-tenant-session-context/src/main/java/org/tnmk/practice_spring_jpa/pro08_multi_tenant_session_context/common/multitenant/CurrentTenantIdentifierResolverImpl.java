@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.tnmk.practice_spring_jpa.pro08_multi_tenant_session_context.common.security.SecurityContext;
 
 @Component
-public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver {
+public class CurrentTenantIdentifierResolverImpl implements CurrentTenantIdentifierResolver<String> {
 
     @Override
     public String resolveCurrentTenantIdentifier() {

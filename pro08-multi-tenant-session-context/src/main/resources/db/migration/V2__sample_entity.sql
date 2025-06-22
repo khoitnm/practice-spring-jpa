@@ -14,7 +14,7 @@ create table dbo.sample_entity
 GO
 
 CREATE SECURITY POLICY SampleEntitySecPolicy
-    ADD FILTER PREDICATE Security.fn_security_predicate(organization_id) ON dbo.sample_entity,
-    ADD BLOCK PREDICATE Security.fn_security_predicate(organization_id) ON dbo.sample_entity
+    ADD FILTER PREDICATE security.fn_tenant_filter(organization_id)  ON dbo.sample_entity,
+    ADD BLOCK PREDICATE security.fn_tenant_filter(organization_id) ON dbo.sample_entity
     WITH (STATE = ON);
 GO

@@ -1,0 +1,17 @@
+services:
+  sqlserverdb-session-context:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: always
+    environment:
+      - MSSQL_PID=Developer # Unlimited dev/testing use, Microsoft recommends using: Developer Edition (free, full-featured, not for production)
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password1
+    expose:
+      - "1433"
+    ports:
+      - "1435:1433"
+    logging:
+      driver: "local"
+      options:
+        max-size: "10m"
+        max-file: "3"

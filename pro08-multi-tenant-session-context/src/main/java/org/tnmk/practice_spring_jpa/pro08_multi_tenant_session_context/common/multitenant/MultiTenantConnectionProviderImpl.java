@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.dialect.Dialect;
 import org.hibernate.engine.jdbc.connections.spi.DatabaseConnectionInfo;
 import org.hibernate.engine.jdbc.connections.spi.MultiTenantConnectionProvider;
-import org.owasp.esapi.PreparedString;
-import org.owasp.esapi.codecs.MySQLCodec;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,6 @@ import java.lang.invoke.MethodHandles;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 @Slf4j
 @Component
@@ -36,7 +33,6 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     public Connection getConnection(String tenantId) throws SQLException {
         Connection conn = dataSource.getConnection();
         if (StringUtils.hasText(tenantId)) {
-            createTenantIfNotExist(conn, tenantId);
             setTenantToConnection(conn, tenantId);
             return conn;
         } else {
@@ -46,10 +42,13 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     }
 
     private void setTenantToConnection(Connection connection, String tenantId) throws SQLException {
-        try (PreparedStatement statement = connection.prepareStatement("EXECUTE AS USER = ?;")) {
-            statement.setString(1, tenantId);
-            statement.execute();
-            logger.trace("Set tenantId {} to the connection successfully", tenantId);
+        try (PreparedStatement ps = connection.prepareStatement("EXEC sp_set_session_context @key=N'tenant_id', @value=?")) {
+            ps.setString(1, tenantId);
+            ps.execute();
+            log.debug("Set tenant context successfully to connection: {}", tenantId);
+        } catch (Exception e) {
+            log.error("Create tenant failed: {}", tenantId, e);
+            throw e;
         }
     }
 
@@ -83,10 +82,8 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     }
 
     private void resetTenantContext(Connection connection) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            statement.execute("REVERT;");
-            statement.executeLargeBatch();
-
+        try (PreparedStatement ps = connection.prepareStatement("EXEC sp_set_session_context @key=N'tenant_id', @value=NULL")) {
+            ps.execute();
         }
     }
 
@@ -114,34 +111,5 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
     @Override
     public <T> T unwrap(Class<T> baseClass) {
         return null;
-    }
-
-    public void createTenantIfNotExist(Connection connection, String tenantId) throws SQLException {
-        try (Statement statement = connection.createStatement()) {
-            PreparedString createTenantQuery = new PreparedString("""
-                IF DATABASE_PRINCIPAL_ID('?') IS NULL BEGIN
-                    CREATE USER [?] WITHOUT LOGIN;
-                    ALTER ROLE db_datareader ADD MEMBER [?];
-                    ALTER ROLE db_datawriter ADD MEMBER [?];
-                    GRANT IMPERSONATE ON USER::[?] TO [?];
-                END
-                """, new MySQLCodec(MySQLCodec.Mode.ANSI)
-                // TODO If you work with Always Encrypted features in SQL Server (query encrypted columns, e.g.), please add the following line to the query:
-                // GRANT VIEW ANY COLUMN MASTER KEY DEFINITION, VIEW ANY COLUMN ENCRYPTION KEY DEFINITION to [?];
-            );
-            createTenantQuery.set(1, tenantId);
-            createTenantQuery.set(2, tenantId);
-            createTenantQuery.set(3, tenantId);
-            createTenantQuery.set(4, tenantId);
-            createTenantQuery.set(5, tenantId);
-
-            String dbUsername = connection.getMetaData().getUserName();
-            createTenantQuery.set(6, dbUsername);
-            statement.execute(createTenantQuery.toString());
-            log.debug("Created tenant successfully (if it didn't exist): {}", tenantId);
-        } catch (Exception e) {
-            log.error("Create tenant failed: {}", tenantId, e);
-            throw e;
-        }
     }
 }

@@ -1,10 +1,10 @@
 spring:
   datasource:
-    url: jdbc:sqlserver://localhost:1434;databaseName=master;encrypt=false;sendStringParametersAsUnicode=false;socketTimeout=2000;queryTimeout=1500
+    url: jdbc:sqlserver://localhost:1435;databaseName=master;encrypt=false;sendStringParametersAsUnicode=false;socketTimeout=2000;queryTimeout=1500
 
     # If your DB doesn't have this user, please manually create it by running the SQL script in ./db/manual-init.sql
     # I tried to set it up in docker-compose, but it doesn't work, and I don't want to wast too much time on it, so just create it manually.
-    username: demo_user
+    username: sa
     password: Password1
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     hikari:
