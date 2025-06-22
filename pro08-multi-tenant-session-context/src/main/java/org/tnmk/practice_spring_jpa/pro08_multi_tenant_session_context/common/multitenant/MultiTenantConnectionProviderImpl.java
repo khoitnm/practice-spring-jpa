@@ -31,14 +31,12 @@ public class MultiTenantConnectionProviderImpl implements MultiTenantConnectionP
 
     @Override
     public Connection getConnection(String tenantId) throws SQLException {
-        Connection conn = dataSource.getConnection();
-        if (StringUtils.hasText(tenantId)) {
-            setTenantToConnection(conn, tenantId);
-            return conn;
-        } else {
-            logger.trace("There's no tenantIdentifier ({}), hence just return a null connection.", tenantId, new Exception("Stacktrace for debugging purpose"));
-            return null;
+        if (!StringUtils.hasText(tenantId)) {
+            throw new IllegalStateException("There's no tenantIdentifier (%s), hence just return a null connection.".formatted(tenantId));
         }
+        Connection conn = dataSource.getConnection();
+        setTenantToConnection(conn, tenantId);
+        return conn;
     }
 
     private void setTenantToConnection(Connection connection, String tenantId) throws SQLException {
