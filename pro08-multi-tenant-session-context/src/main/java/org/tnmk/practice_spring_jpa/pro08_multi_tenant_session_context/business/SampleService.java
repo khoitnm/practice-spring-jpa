@@ -3,7 +3,6 @@ package org.tnmk.practice_spring_jpa.pro08_multi_tenant_session_context.business
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.tnmk.practice_spring_jpa.pro08_multi_tenant_session_context.common.security.SecurityContext;
 
 import java.util.Optional;
 
@@ -16,9 +15,13 @@ public class SampleService {
     public SampleEntity createEntity(String description) {
         SampleEntity entity = new SampleEntity();
         entity.setName(description);
+
         // Different from pro07-multi-tenant-row-level, this approach requires the organizationId to be set manually here.
         // because SQL doesn't support getting value from session context to set default value for a column.
-        entity.setOrganizationId(SecurityContext.getTenantId());
+        // However, we can use EntityListener to automatically set the organizationId when the entity is persisted.
+        // So I commented out the line below.
+        // entity.setOrganizationId(SecurityContext.getTenantId());
+        
         return sampleRepository.save(entity);
     }
 
