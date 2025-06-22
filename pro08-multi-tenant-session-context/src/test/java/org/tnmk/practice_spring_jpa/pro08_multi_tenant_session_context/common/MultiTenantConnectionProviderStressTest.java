@@ -17,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class MultiTenantConnectionProviderStressTest {
 
-    public static final int SLOW_TENANT_THRESHOLD_MILLS = 200;
     @Autowired
     private MultiTenantConnectionProviderImpl multiTenantConnectionProvider;
 
@@ -25,7 +24,7 @@ class MultiTenantConnectionProviderStressTest {
         "Right now, it's getting connection problem because MS SQL Server cannot handle too many DDL in parallel.")
     @Test
     void stressTest() {
-        StressTestResult result = StressTestHelper.run(5, 5, (threadIndex, loopIndex) -> {
+        StressTestResult result = StressTestHelper.run(50, 100, (threadIndex, loopIndex) -> {
             String tenantId = "stressTenant-%s-%s".formatted(threadIndex, loopIndex);
             try (Connection connection = multiTenantConnectionProvider.getConnection(tenantId);) {
                 /**
