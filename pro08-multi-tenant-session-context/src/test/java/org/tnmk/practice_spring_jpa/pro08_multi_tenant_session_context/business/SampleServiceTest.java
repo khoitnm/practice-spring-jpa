@@ -35,6 +35,12 @@ class SampleServiceTest {
         SecurityContext.setTenantId("SampleService-02");
         Optional<SampleEntity> found2 = sampleService.findById(created.getId());
         assertThat(found2).isEmpty();
+
+        // If we don't set tenant, won't be able to find the entity created by Tenant 1.
+        SecurityContext.setTenantId(null);
+        org.assertj.core.api.Assertions.assertThatThrownBy(() ->
+            sampleService.findById(created.getId())
+        ).isInstanceOf(CannotCreateTransactionException.class);// The exception type here could be changed based on the Spring versions.
     }
 
     @Test
