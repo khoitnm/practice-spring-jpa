@@ -102,6 +102,10 @@
                         <annotationProcessor>lombok.launch.AnnotationProcessorHider$AnnotationProcessor
                         </annotationProcessor>
                     </annotationProcessors>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <!-- I'm trying ScopedValue in my code, that's why I need enabled preview mode-->
+                    <compilerArgs>--enable-preview</compilerArgs>
                 </configuration>
             </plugin>
 
