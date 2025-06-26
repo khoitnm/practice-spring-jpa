@@ -82,11 +82,15 @@
 
     <build>
         <plugins>
-            <!--            <plugin>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--                <version>${spring-boot.version}</version>-->
-            <!--            </plugin>-->
+            <plugin>
+                <!-- Just using this plugin can help use build it with Spring Boot AOT by using:
+                     mvn spring-boot:process-aot
+                     It can help to improve the application performance slightly. but the real benefits come when combined with GraalVM native image.
+                 -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
