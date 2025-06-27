@@ -16,6 +16,7 @@
         <maven.compiler.target>21</maven.compiler.target>
 
         <spring-boot.version>3.5.0</spring-boot.version>
+        <opentelemetry.version>1.50.0</opentelemetry.version>
         <lombok.version>1.18.38</lombok.version>
         <esapi.version>2.6.2.0</esapi.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
@@ -65,6 +66,25 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- OpenTelemetry SDK -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-sdk</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Instrumentation -->
+        <dependency>
+            <groupId>io.opentelemetry.instrumentation</groupId>
+            <artifactId>opentelemetry-spring-boot-starter</artifactId>
+            <version>2.16.0</version>
+        </dependency>
+
+        <!-- Exporter (example: OTLP exporter to send data to collector or backend) -->
+        <dependency>
+            <groupId>io.opentelemetry</groupId>
+            <artifactId>opentelemetry-exporter-otlp</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
@@ -74,6 +94,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-bom</artifactId>
+                <version>${opentelemetry.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
