@@ -1,0 +1,39 @@
+services:
+  scylla-node1:
+    image: scylladb/scylla:5.4
+    container_name: scylla-node1
+    command: --smp 1 --memory 750M --overprovisioned 1
+    networks:
+      scylla-net:
+        ipv4_address: 172.20.0.2
+
+  scylla-node2:
+    image: scylladb/scylla:5.4
+    container_name: scylla-node2
+    command: --smp 1 --memory 750M --overprovisioned 1 --seeds=172.20.0.2
+    environment:
+      SCYLLA_SEEDS: "scylla-node1"
+    depends_on:
+      - scylla-node1
+    networks:
+      scylla-net:
+        ipv4_address: 172.20.0.3
+
+  scylla-node3:
+    image: scylladb/scylla:5.4
+    container_name: scylla-node3
+    command: --smp 1 --memory 750M --overprovisioned 1 --seeds=172.20.0.2
+    environment:
+      SCYLLA_SEEDS: "scylla-node1"
+    depends_on:
+      - scylla-node1
+    networks:
+      scylla-net:
+        ipv4_address: 172.20.0.4
+
+networks:
+  scylla-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
